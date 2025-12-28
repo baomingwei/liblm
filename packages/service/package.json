@@ -23,8 +23,8 @@
     "author": "",
     "license": "MIT",
     "dependencies": {
-        "@lm_fe/env": "workspace:*",
-        "@lm_fe/utils": "workspace:*",
+        "@lm_fe/env": "0.2.3",
+        "@lm_fe/utils": "0.2.3",
         "@noah-libjs/components": "*",
         "dayjs": "^1.11.13",
         "lodash": "*"
@@ -35,5 +35,5 @@
     "peerDependencies": {
         "axios": "0.x"
     },
-    "gitHead": "607e3267c47fa08e9a13c7794ef66d1f1fb0c93f"
+    "gitHead": "9e8eab8af4aa2675ed973be51fe85cf2e3c2ed27"
 }

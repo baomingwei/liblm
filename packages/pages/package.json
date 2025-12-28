@@ -51,14 +51,14 @@
         "reconnecting-websocket": "4.x"
     },
     "dependencies": {
-        "@lm_fe/components": "workspace:*",
-        "@lm_fe/components_m": "workspace:*",
-        "@lm_fe/env": "workspace:*",
-        "@lm_fe/provoke": "workspace:*",
+        "@lm_fe/components": "0.2.3",
+        "@lm_fe/components_m": "0.2.3",
+        "@lm_fe/env": "0.2.3",
+        "@lm_fe/provoke": "0.2.3",
         "@lm_fe/scripts": "*",
-        "@lm_fe/service": "workspace:*",
-        "@lm_fe/utils": "workspace:*",
+        "@lm_fe/service": "0.2.3",
+        "@lm_fe/utils": "0.2.3",
         "react-perfect-scrollbar": "^1.5.8"
     },
-    "gitHead": "607e3267c47fa08e9a13c7794ef66d1f1fb0c93f"
+    "gitHead": "9e8eab8af4aa2675ed973be51fe85cf2e3c2ed27"
 }

@@ -52,16 +52,16 @@
         "rollup-plugin-postcss": "^4.0.2"
     },
     "dependencies": {
-        "@lm_fe/env": "workspace:*",
-        "@lm_fe/provoke": "workspace:*",
+        "@lm_fe/env": "0.2.3",
+        "@lm_fe/provoke": "0.2.3",
         "@lm_fe/scripts": "*",
-        "@lm_fe/service": "workspace:*",
-        "@lm_fe/utils": "workspace:*",
+        "@lm_fe/service": "0.2.3",
+        "@lm_fe/utils": "0.2.3",
         "@noah-libjs/components": "*"
     },
     "publishConfig": {
         "access": "public"
     },
     "license": "MIT",
-    "gitHead": "607e3267c47fa08e9a13c7794ef66d1f1fb0c93f"
+    "gitHead": "9e8eab8af4aa2675ed973be51fe85cf2e3c2ed27"
 }
