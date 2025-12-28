@@ -1,6 +1,6 @@
 {
     "name": "@lm_fe/service",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "description": "",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
@@ -23,8 +23,8 @@
     "author": "",
     "license": "MIT",
     "dependencies": {
-        "@lm_fe/env": "0.2.3",
-        "@lm_fe/utils": "0.2.3",
+        "@lm_fe/env": "^0.2.4",
+        "@lm_fe/utils": "^0.2.4",
         "@noah-libjs/components": "*",
         "dayjs": "^1.11.13",
         "lodash": "*"

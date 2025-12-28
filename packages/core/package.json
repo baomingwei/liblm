@@ -1,6 +1,6 @@
 {
     "name": "@lm_fe/core",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "description": "",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
@@ -39,16 +39,16 @@
         "react-router-dom": "^5.2.0"
     },
     "dependencies": {
-        "@lm_fe/components": "0.2.3",
-        "@lm_fe/components_m": "0.2.3",
-        "@lm_fe/env": "0.2.3",
-        "@lm_fe/pages": "0.2.3",
-        "@lm_fe/pages-fubao": "0.2.3",
-        "@lm_fe/pages-mchc": "0.2.3",
-        "@lm_fe/provoke": "0.2.3",
+        "@lm_fe/components": "^0.2.4",
+        "@lm_fe/components_m": "^0.2.4",
+        "@lm_fe/env": "^0.2.4",
+        "@lm_fe/pages": "^0.2.4",
+        "@lm_fe/pages-fubao": "^0.2.4",
+        "@lm_fe/pages-mchc": "^0.2.4",
+        "@lm_fe/provoke": "^0.2.4",
         "@lm_fe/scripts": "*",
-        "@lm_fe/service": "0.2.3",
-        "@lm_fe/utils": "0.2.3"
+        "@lm_fe/service": "^0.2.4",
+        "@lm_fe/utils": "^0.2.4"
     },
     "gitHead": "9e8eab8af4aa2675ed973be51fe85cf2e3c2ed27"
 }
