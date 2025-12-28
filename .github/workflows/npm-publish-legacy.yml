@@ -74,7 +74,7 @@ jobs:
           commit_options: '--no-verify'
         # Push options
           push_options: '--force'
-      - run: echo "release legacy 成功！"
+      - run: echo "release legacy 成功!"
 
 
 
