@@ -1,0 +1,83 @@
+# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
+# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
+
+name: npm-publish-copy
+
+on:
+  workflow_dispatch:
+  # release:
+  #   types: [created, edited, published]  # 记得这里放开
+
+
+jobs:
+
+
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      checks: write
+      contents: write
+    steps:
+
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}  # 使用 Personal Access Token
+          fetch-depth: 0  # 获取完整历史记录
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org/
+      - uses: pnpm/action-setup@v4.2.0
+        with:
+          version: latest
+      - run: pnpm install --no-frozen-lockfile
+      - run: pnpm run build
+
+      - run: git config --global user.email "you@example.com"
+      - run: git config --global user.name "Your Name"
+
+
+      - name: Build Auto Commit
+        uses: stefanzweifel/git-auto-commit-action@v7.1.0
+        with:
+        # Commit message
+          commit_message: "after build !!"
+        # Git branch name, where changes should be pushed too
+          branch: ${{ github.ref_name }}  # 修复：使用当前分支而不是head_ref
+        # Commit options
+          commit_options: '--no-verify'
+        # Push options
+          push_options: '--force'
+
+
+
+
+
+
+      - run: pnpm lerna:publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          # NPM_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+      - run: git status
+
+      - name: Git Auto Commit
+        uses: stefanzweifel/git-auto-commit-action@v7.1.0
+        with:
+        # Commit message
+          commit_message: "release !!"
+        # Git branch name, where changes should be pushed too
+          branch: ${{ github.ref_name }}  # 修复：使用当前分支而不是head_ref
+        # Commit options
+          commit_options: '--no-verify'
+        # Name used for the commit user
+          commit_user_name: 'releaase bot'
+        # Email address used for the commit user
+          commit_user_email: '41898282+github-actions[bot]@users.noreply.github.com'
+        # Push options
+          push_options: '--force'
+      - run: echo "这个工作流是因为创建了Release而触发的！"
+
+
+
+
