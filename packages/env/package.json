@@ -1,6 +1,6 @@
 {
     "name": "@lm_fe/env",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "description": "",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
@@ -23,7 +23,7 @@
     "author": "",
     "license": "MIT",
     "dependencies": {
-        "@lm_fe/utils": "0.2.3",
+        "@lm_fe/utils": "^0.2.4",
         "dayjs": "^1.11.13"
     },
     "devDependencies": {
