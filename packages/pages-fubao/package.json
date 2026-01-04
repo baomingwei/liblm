@@ -1,6 +1,6 @@
 {
     "name": "@lm_fe/pages-fubao",
-    "version": "0.2.5",
+    "version": "0.2.6",
     "description": "",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
@@ -35,15 +35,15 @@
         "react-router-dom": "^5.2.0"
     },
     "dependencies": {
-        "@lm_fe/components": "^0.2.5",
-        "@lm_fe/components_m": "^0.2.5",
-        "@lm_fe/env": "^0.2.5",
-        "@lm_fe/pages": "^0.2.5",
-        "@lm_fe/pages-mchc": "^0.2.5",
-        "@lm_fe/provoke": "^0.2.5",
+        "@lm_fe/components": "^0.2.6",
+        "@lm_fe/components_m": "^0.2.6",
+        "@lm_fe/env": "^0.2.6",
+        "@lm_fe/pages": "^0.2.6",
+        "@lm_fe/pages-mchc": "^0.2.6",
+        "@lm_fe/provoke": "^0.2.6",
         "@lm_fe/scripts": "*",
-        "@lm_fe/service": "^0.2.5",
-        "@lm_fe/utils": "^0.2.5"
+        "@lm_fe/service": "^0.2.6",
+        "@lm_fe/utils": "^0.2.6"
     },
     "devDependencies": {
         "rollup": "^2.70.2"
