@@ -19,6 +19,7 @@ export interface IMacro {
     API_PREFIX: "/",
     PACKAGE_VERSION: "1.3.55",
     check_version: string,
+    LM_BUILD_AT: string,
     BUILDINFO: {
         commit: "4e6470a58b669cc3902ece41b35068ab422f856c",
         commitUserName: "brainfuck",

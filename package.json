@@ -84,8 +84,8 @@
   "license": "MIT",
   "dependencies": {
     "@babel/runtime": "^7.20.0",
-    "@lm_fe/scripts": "link:../liblm-ample/packages/scripts",
-    "@lm_fe/static": "link:../liblm-ample/packages/static",
+    "@lm_fe/scripts": "latest",
+    "@lm_fe/static": "latest",
     "@pansy/react-fullscreen": "^1.3.0",
     "axios": "^0.26.1",
     "braft-editor": "^2.3.9",

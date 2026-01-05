@@ -70,7 +70,7 @@ export default function MenuSearch_Inner(props: IProps) {
 
     return (
         <div style={{}} >
-            <Input suffix={suffix} placeholder={mchcMacro.BUILDINFO?.buildDate} onClick={open} />
+            <Input suffix={suffix} placeholder={mchcMacro.LM_BUILD_AT} onClick={open} />
         </div>
 
     );
