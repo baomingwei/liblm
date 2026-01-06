@@ -18,7 +18,7 @@ export const NewListPage: FC = (props) => {
                 width: '20vw',
                 styles: { body: { height: '20vh', } },
                 modal_data: {
-                    targetLabelCol: 6,
+                    targetLabelCol: 8,
                     async onSubmit({ key_name, parentid, ...others }: any, old_data: any) {
                         const key = `/happy/config-table/list2/${key_name}`
                         const res = await request.get<AnyObject[]>('/api/permissions', { params: { 'key.equals': key } })
