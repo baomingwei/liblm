@@ -389,7 +389,8 @@ export class ModelService<T extends { id?: TIdTypeCompatible } = any> extends Ev
   }
 
   async _export<T>(path: string, data?: any, config?: AxiosRequestConfig) {
-    const r = await request.ins({ method: 'POST', url: this.getUrl(path, '/export'), params: data, data, responseType: 'blob', ...config });
+    // const r = await request.ins({ method: 'POST', url: this.getUrl(path, '/export'), params: data, data, responseType: 'blob', ...config });
+    const r = await request.ins({ method: 'GET', url: this.getUrl(path, '/export'), params: data, data, responseType: 'blob', ...config });
     return r
   }
   async _print<T>(path: string, data?: any, config?: AxiosRequestConfig) {
