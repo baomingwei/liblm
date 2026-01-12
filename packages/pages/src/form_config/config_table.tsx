@@ -193,6 +193,39 @@ export const config_table_fd = (props: any): IMchc_FormDescriptions_Field_Nullab
                 layout: '1/4',
             },
             {
+                title: '显示行导出按钮',
+                inputType: 'MyCheckbox',
+                inputProps: {
+                    uniqueKey: '否是',
+                    marshal: 0,
+                },
+                dataIndex: 'showRowExportBtn',
+                hidden: true,
+                layout: '1/4',
+            },
+            {
+                title: '显示行删除按钮',
+                inputType: 'MyCheckbox',
+                inputProps: {
+                    uniqueKey: '否是',
+                    marshal: 0,
+                },
+                dataIndex: 'showRowDelBtn',
+                hidden: true,
+                layout: '1/4',
+            },
+            {
+                title: '显示行编辑按钮',
+                inputType: 'MyCheckbox',
+                inputProps: {
+                    uniqueKey: '否是',
+                    marshal: 0,
+                },
+                dataIndex: 'showRowEditBtn',
+                hidden: true,
+                layout: '1/4',
+            },
+            {
                 title: '显示导出按钮',
                 inputType: 'MyCheckbox',
                 inputProps: {

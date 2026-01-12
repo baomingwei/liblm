@@ -126,6 +126,7 @@ export interface MyBaseListProps<T extends { id?: any } = any> extends TableProp
   searchConfig?: IMchc_FormDescriptions_Field_Nullable[]
   showRowDelBtn?: boolean
   showRowPrintBtn?: boolean
+  showRowExportBtn?: boolean
   showRowEditBtn?: boolean
   // rowPrintUrlSuffix?: string
   onAdd?: () => void

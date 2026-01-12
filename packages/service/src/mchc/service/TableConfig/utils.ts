@@ -20,6 +20,7 @@ export interface IMchc_TableConfig {
     "category": null,
     "needSync": number,
     "needPrint": null,
+    "showPrint": null,
     "showAdd": null,
     "showExport": number,
     "deleteFlag": false

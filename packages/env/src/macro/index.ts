@@ -31,7 +31,7 @@ export interface IMacro {
         branch: "gysy-from-p9"
     }
     HOST_URL: string
-    __HOST_URL: string
+    LM_HOST_URL: string
 }
 
 
@@ -56,7 +56,7 @@ function getMacro() {
     if (!hasOwn(macroCache, 'HOST_URL')) {
         Object.defineProperty(macroCache, 'HOST_URL', {
             get() {
-                let raw = macroCache?.__HOST_URL!
+                let raw = macroCache?.LM_HOST_URL!
 
                 return simple_decrypt_str(raw)
             },

@@ -25,6 +25,11 @@ export interface IMchc_TableConfig {
     "category": any,
     "needSync": any,
     "needPrint": any,
+    "showPrint": any,
+    "showRowPrintBtn": any,
+    "showRowExportBtn": any,
+    "showRowDelBtn": any,
+    "showRowEditBtn": any,
     "showAdd": any,
     "showExport": any,
     "deleteFlag": false

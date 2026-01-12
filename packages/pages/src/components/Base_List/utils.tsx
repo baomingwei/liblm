@@ -8,16 +8,23 @@ import { useEffect, useState } from "react";
 export { TableProps }
 export function formatProps(props: any) {
   const _props: MyBaseListProps = { ...props }
-  _props.handleBeforePopup = _props.handleBeforePopup ?? _props.bf_conf?.handleBeforePopup ?? (values => values)
-  _props.beforeSubmit = _props.beforeSubmit ?? _props.bf_conf?.beforeSubmit ?? (values => values)
-  _props.name = _props.name ?? _props.bf_conf?.name
-  _props.searchParams = safeGetFromFuncOrData(_props.searchParams ?? _props.bf_conf?.searchParams)
-  _props.initialSearchValue = safeGetFromFuncOrData(_props.initialSearchValue ?? _props.bf_conf?.initialSearchValue)
-  _props.searchConfig = safeGetFromFuncOrData(_props.searchConfig ?? _props.bf_conf?.searchConfig)
-  _props.tableColumns = _props.tableColumns ?? _props.bf_conf?.tableColumns
-  _props.showAction = _props.showAction ?? _props.bf_conf?.showAction ?? true
-  _props.showAdd = _props.showAdd ?? _props.bf_conf?.showAdd ?? true
-  _props.genColumns = _props.genColumns ?? _props.bf_conf?.genColumns ?? undefined
+  const bf_conf = _props.bf_conf
+  _props.handleBeforePopup = _props.handleBeforePopup ?? bf_conf?.handleBeforePopup ?? (values => values)
+  _props.beforeSubmit = _props.beforeSubmit ?? bf_conf?.beforeSubmit ?? (values => values)
+  _props.name = _props.name ?? bf_conf?.name
+  _props.searchParams = safeGetFromFuncOrData(_props.searchParams ?? bf_conf?.searchParams)
+  _props.initialSearchValue = safeGetFromFuncOrData(_props.initialSearchValue ?? bf_conf?.initialSearchValue)
+  _props.searchConfig = safeGetFromFuncOrData(_props.searchConfig ?? bf_conf?.searchConfig)
+  _props.tableColumns = _props.tableColumns ?? bf_conf?.tableColumns
+  _props.showAction = _props.showAction ?? bf_conf?.showAction ?? true
+  _props.showAdd = _props.showAdd ?? bf_conf?.showAdd ?? true
+  _props.genColumns = _props.genColumns ?? bf_conf?.genColumns ?? undefined
+  _props.showExport = _props.showExport ?? bf_conf?.showExport ?? false
+  _props.showPrint = _props.showPrint ?? bf_conf?.showPrint ?? false
+  _props.showRowPrintBtn = _props.showRowPrintBtn ?? bf_conf?.showRowPrintBtn ?? false
+  _props.showRowDelBtn = _props.showRowDelBtn ?? bf_conf?.showRowDelBtn ?? true
+  _props.showRowExportBtn = _props.showRowExportBtn ?? bf_conf?.showRowExportBtn ?? false
+  _props.showRowEditBtn = _props.showRowEditBtn ?? bf_conf?.showRowEditBtn ?? true
 
 
   return _props

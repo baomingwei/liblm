@@ -3,7 +3,7 @@ import { config_table_fd, mchcModal__, MyBaseListProps } from "@lm_fe/pages";
 import { IMchc_TableConfig, ModelService, SMchc_TableConfig, TIdType } from "@lm_fe/service";
 import { get_global_happy_arg, getHappyConfig, request, safeGetFromFuncOrData } from "@lm_fe/utils";
 import { useEffect, useRef, useState } from "react";
-export type TConfig = Partial<MyBaseListProps> & { watchScript?: string, needSync?: boolean, needPrint?: boolean }
+export type TConfig = Partial<MyBaseListProps> & { watchScript?: string, needSync?: boolean, showPrint?: boolean, needPrint?: boolean }
 export interface ICommonProps {
     configId?: TIdType
     id?: any

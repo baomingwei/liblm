@@ -56,9 +56,10 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
         searchConfig = [],
         searchParams = {},
         initialSearchValue = {},
-        showRowDelBtn = true,
-        showRowEditBtn = true,
-        showRowPrintBtn = false,
+        showRowDelBtn,
+        showRowEditBtn,
+        showRowPrintBtn,
+        showRowExportBtn,
         // rowPrintUrlSuffix = 'rowprint',
         customModelService,
         genColumns,
@@ -103,7 +104,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
 
 
     const { table_columns } = use_my_baselist<T>(props)
-    let actCellWidth = (+showRowDelBtn + +showRowEditBtn + +showRowPrintBtn) * 60
+    let actCellWidth = (+showRowDelBtn + +showRowEditBtn + +showRowPrintBtn + +showRowExportBtn) * 60
     if (ActionAddonBefore) {
         actCellWidth += 70
     }
@@ -349,8 +350,12 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
                         showRowPrintBtn ? <OkButton title='打印' icon={<MyIcon value='PrinterOutlined' />} size="small" onClick={e => handleRowPrint(rowData)} /> : null
                     }
                     {
+                        showRowExportBtn ? <OkButton title='导出' icon={<MyIcon value='ExportOutlined' />} size="small" onClick={e => handleRowExport(rowData)} /> : null
+                    }
+                    {
                         showRowDelBtn ? <OkButton title='删除' icon={<MyIcon value='DeleteOutlined' />} danger type="primary" size="small" onClick={e => handleDelete(rowData)} /> : null
                     }
+
 
                 </Space>
             );
@@ -382,6 +387,11 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
                     ...getSearchParams()
                 }
             }
+        })
+    };
+    async function handleRowExport(rowData: T) {
+        myBaseListService.current?.row_export({ id: rowData?.id }).then(r => {
+            downloadFile(r, `${baseTitle}${formatDateTime()}.xlsx`, 'application/vnd.ms-excel')
         })
     };
 

@@ -182,6 +182,11 @@ export class ModelService<T extends { id?: TIdTypeCompatible } = any> extends Ev
     const result = await this._export<T>(`${this.name}export`, data);
     return result.data
   }
+  async row_export(data: AnyObject) {
+    const r = await request
+      .ins({ method: 'GET', url: this.getUrl(`${this.name}rowexport`, '/rowexport'), params: data, data, responseType: 'blob', });
+    return r.data
+  }
   async print(data: Partial<T>) {
     const result = await this._print<T>(`${this.name}export`, data);
     return result.data
