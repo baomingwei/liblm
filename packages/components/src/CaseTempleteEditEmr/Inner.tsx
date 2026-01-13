@@ -58,11 +58,10 @@ export default function CaseTempleteEditEmr(props: ICaseEditProps) {
       return;
     }
 
-
     let option = {
       license:
         'xxxxx', //授权字符串
-      baseUrl: '/lib/X-EMR/', //基本URL
+      baseUrl: mchcEnv.gs(_ => _.lm_libs["X-EMR"]["/"]), //基本URL
       saveUrl: '/doc/', //保存URL
       pdfUrl: 'https://www.x-emr.cn/pdf/post', //pdf生成服务
       mode: emr_mode, //form:表单模式，design:设计模式

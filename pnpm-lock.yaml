@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@lm_fe/lm_x': link:../liblm-ample/packages/lm_x
+  '@lm_fe/scripts': link:../liblm-ample/packages/scripts
+  '@lm_fe/static': link:../liblm-ample/packages/static
+
 importers:
 
   .:
@@ -12,11 +17,11 @@ importers:
         specifier: ^7.20.0
         version: 7.26.10
       '@lm_fe/scripts':
-        specifier: latest
-        version: 0.1.214
+        specifier: link:../liblm-ample/packages/scripts
+        version: link:../liblm-ample/packages/scripts
       '@lm_fe/static':
-        specifier: latest
-        version: 0.1.214
+        specifier: link:../liblm-ample/packages/static
+        version: link:../liblm-ample/packages/static
       '@pansy/react-fullscreen':
         specifier: ^1.3.0
         version: 1.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -104,7 +109,7 @@ importers:
         version: 2.0.5
       acorn-jsx:
         specifier: ^5.3.2
-        version: 5.3.2(acorn@6.4.2)
+        version: 5.3.2(acorn@8.14.1)
       antd:
         specifier: 5.26.4
         version: 5.26.4(date-fns@2.30.0)(moment@2.29.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -202,8 +207,8 @@ importers:
         specifier: ^0.2.6
         version: link:../provoke
       '@lm_fe/scripts':
-        specifier: '*'
-        version: 0.1.201
+        specifier: link:../../../liblm-ample/packages/scripts
+        version: link:../../../liblm-ample/packages/scripts
       '@lm_fe/service':
         specifier: ^0.2.6
         version: link:../service
@@ -308,8 +313,8 @@ importers:
         specifier: ^0.2.6
         version: link:../provoke
       '@lm_fe/scripts':
-        specifier: '*'
-        version: 0.1.201
+        specifier: link:../../../liblm-ample/packages/scripts
+        version: link:../../../liblm-ample/packages/scripts
       '@lm_fe/service':
         specifier: ^0.2.6
         version: link:../service
@@ -420,8 +425,8 @@ importers:
         specifier: ^0.2.6
         version: link:../provoke
       '@lm_fe/scripts':
-        specifier: '*'
-        version: 0.1.201
+        specifier: link:../../../liblm-ample/packages/scripts
+        version: link:../../../liblm-ample/packages/scripts
       '@lm_fe/service':
         specifier: ^0.2.6
         version: link:../service
@@ -522,8 +527,8 @@ importers:
         specifier: ^0.2.6
         version: link:../provoke
       '@lm_fe/scripts':
-        specifier: '*'
-        version: 0.1.201
+        specifier: link:../../../liblm-ample/packages/scripts
+        version: link:../../../liblm-ample/packages/scripts
       '@lm_fe/service':
         specifier: ^0.2.6
         version: link:../service
@@ -622,8 +627,8 @@ importers:
         specifier: ^0.2.6
         version: link:../provoke
       '@lm_fe/scripts':
-        specifier: '*'
-        version: 0.1.201
+        specifier: link:../../../liblm-ample/packages/scripts
+        version: link:../../../liblm-ample/packages/scripts
       '@lm_fe/service':
         specifier: ^0.2.6
         version: link:../service
@@ -677,8 +682,8 @@ importers:
         specifier: ^0.2.6
         version: link:../provoke
       '@lm_fe/scripts':
-        specifier: '*'
-        version: 0.1.201
+        specifier: link:../../../liblm-ample/packages/scripts
+        version: link:../../../liblm-ample/packages/scripts
       '@lm_fe/service':
         specifier: ^0.2.6
         version: link:../service
@@ -794,8 +799,8 @@ importers:
   packages/utils:
     dependencies:
       '@lm_fe/static':
-        specifier: '*'
-        version: 0.1.201
+        specifier: link:../../../liblm-ample/packages/static
+        version: link:../../../liblm-ample/packages/static
       '@noah-libjs/request':
         specifier: '*'
         version: 0.0.48(dayjs@1.11.13)
@@ -1755,20 +1760,6 @@ packages:
     resolution: {integrity: sha512-hUTEWrR8zH+/Z3bp/R1aLm6DW8vB/BB7KH7Yeg4fMfrvSwxegiLVW9uJFAzWkK4mzEagmj/Dti85Yg9MN13t0g==}
     engines: {node: ^20.19.0 || ^22.12.0 || >=24.0.0}
 
-  '@lm_fe/scripts@0.1.201':
-    resolution: {integrity: sha512-f5yR4uln/uWbdQljVQWAzk1LqY77y34Tria7AtLnqIkibzCB8i91TKUq3qRyhtPigymrqC5TWbTR4c/SwHNrqA==}
-    hasBin: true
-
-  '@lm_fe/scripts@0.1.214':
-    resolution: {integrity: sha512-IC7LWKji0hmcpI2gaOblRhh2ob9H9IQSJ02Ce4H2BCljSDdvTCWc/vvOANaDbuOv4rU5pK/Wuto1Y4s/o10Cjg==}
-    hasBin: true
-
-  '@lm_fe/static@0.1.201':
-    resolution: {integrity: sha512-7MVK4nHfvlqSqcdQyxy3jBCOpOmepkD8LhqVfPmDCoEKSq559o8+kgGAOyhgO87orFlBM6lXhAbjB54Irltw3g==}
-
-  '@lm_fe/static@0.1.214':
-    resolution: {integrity: sha512-kPoWiZHlNAwOjzAwLb8Fb/rc4xOEIgYGiWBOULl6JX/zgrh04wo8Xbk7OdE7phjxRBru8hcSTu1f9LWMv1ySjQ==}
-
   '@mapbox/node-pre-gyp@1.0.11':
     resolution: {integrity: sha512-Yhlar6v9WQgUp/He7BdgzOz8lqMQ8sU+jkCq7Wx8Myc5YFJLbEe7lgui/V7G1qB1DJykHSGwreceSaD60Y0PUQ==}
     hasBin: true
@@ -1819,11 +1810,6 @@ packages:
 
   '@noah-libjs/utils@0.0.48':
     resolution: {integrity: sha512-L+JDARf/52XcuUGlWhPuREpieGmhUY/uGX2QDGUE2ecpvT6NSHF36I8cxF8IzFvA3H2zsQ7s21JtbRdCW8ji7Q==}
-    peerDependencies:
-      dayjs: ^1.11.13
-
-  '@noah-libjs/utils@0.0.9':
-    resolution: {integrity: sha512-m1Gi9uJL0gpP8zbbMuOkDf/UcEAv4mhAbnCag2Af13htjIBS3UgHA5xLpDuTWPj9Q8f3GXFQWEImTntJ6sd9XQ==}
     peerDependencies:
       dayjs: ^1.11.13
 
@@ -4929,9 +4915,6 @@ packages:
     resolution: {integrity: sha512-EdDDZu4A2OyIK7Lr/2zG+w5jmbuk1DVBnEwREQvBzspBJkCEbRa8GxU1lghYcaGJCnRWibjDXlq779X1/y5xwg==}
     engines: {node: '>=8'}
 
-  indento@1.1.14:
-    resolution: {integrity: sha512-K4cK97v4M/ucCAbe3LUpg994folYL0WnEiCFxHXAIowKLbBb/Ahiazkz3Ao5gRar4i9pDr3imcpq4suOu0FbNw==}
-
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
     deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
@@ -5381,9 +5364,6 @@ packages:
 
   json-stringify-safe@5.0.1:
     resolution: {integrity: sha512-ZClg6AaYvamvYEE82d3Iyd3vSSIjQ+odgjaTzRuO3s7toCdFKczob2i0zCh7JE8kWn17yvAWhUVxvqGwUalsRA==}
-
-  json2md@2.0.3:
-    resolution: {integrity: sha512-ZPzh6Djvqz8grJMxKllfCHo0p+p7BsbZ1J95KcCJgvvfdoy7myuKrrkUp80Kpy+wGauykC0dYljLqLY0kENaOw==}
 
   json2mq@0.2.0:
     resolution: {integrity: sha512-SzoRg7ux5DWTII9J2qkrZrqV1gt+rTaoufMxEzXbS26Uid0NwaJd123HcoB80TgubEppxxIGdNxCx50fEoEWQA==}
@@ -9961,28 +9941,6 @@ snapshots:
       - supports-color
       - typescript
 
-  '@lm_fe/scripts@0.1.201':
-    dependencies:
-      '@lm_fe/static': 0.1.201
-      '@noah-libjs/utils': 0.0.9(dayjs@1.11.13)
-      chalk: 4.1.2
-      dayjs: 1.11.13
-      json2md: 2.0.3
-      yargs-parser: 21.1.1
-
-  '@lm_fe/scripts@0.1.214':
-    dependencies:
-      '@lm_fe/static': 0.1.214
-      '@noah-libjs/utils': 0.0.48(dayjs@1.11.13)
-      chalk: 4.1.2
-      dayjs: 1.11.13
-      json2md: 2.0.3
-      yargs-parser: 21.1.1
-
-  '@lm_fe/static@0.1.201': {}
-
-  '@lm_fe/static@0.1.214': {}
-
   '@mapbox/node-pre-gyp@1.0.11(encoding@0.1.13)':
     dependencies:
       detect-libc: 2.0.3
@@ -10101,11 +10059,6 @@ snapshots:
       - debug
 
   '@noah-libjs/utils@0.0.48(dayjs@1.11.13)':
-    dependencies:
-      dayjs: 1.11.13
-      radash: 12.1.1
-
-  '@noah-libjs/utils@0.0.9(dayjs@1.11.13)':
     dependencies:
       dayjs: 1.11.13
       radash: 12.1.1
@@ -13741,8 +13694,6 @@ snapshots:
 
   indent-string@4.0.0: {}
 
-  indento@1.1.14: {}
-
   inflight@1.0.6:
     dependencies:
       once: 1.4.0
@@ -14165,10 +14116,6 @@ snapshots:
   json-stringify-nice@1.1.4: {}
 
   json-stringify-safe@5.0.1: {}
-
-  json2md@2.0.3:
-    dependencies:
-      indento: 1.1.14
 
   json2mq@0.2.0:
     dependencies:
