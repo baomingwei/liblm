@@ -264,6 +264,8 @@ function DoctorEnd_Further(props: IDoctorEnd_FurtherProps) {
 
       <div className="further-content">
         <FurtherTable
+          diagnosesList={diagnosesList}
+
           fuck={fuck}
           toggle_fuck={toggle_fuck}
           visitsData={visitsData}

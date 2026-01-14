@@ -3,13 +3,15 @@ import { OkButton } from '@lm_fe/components_m';
 import { mchcUtils } from '@lm_fe/env';
 import { BF_Wrap2, mchcModal__ } from '@lm_fe/pages';
 import { use_provoke } from '@lm_fe/provoke';
-import { IMchc_Doctor_Diagnoses, IMchc_Doctor_OutpatientHeaderInfo, IMchc_Doctor_RvisitInfoOfOutpatient, IMchc_Doctor_RvisitInfoOfOutpatient_Rvisit } from '@lm_fe/service';
+import { IMchc_Doctor_Diagnoses, IMchc_Doctor_OutpatientHeaderInfo, IMchc_Doctor_RvisitInfoOfOutpatient, IMchc_Doctor_RvisitInfoOfOutpatient_Rvisit, IMchc_FormDescriptions_Field } from '@lm_fe/service';
 import { expect_array, identity } from '@lm_fe/utils';
 import { Space } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';
 import { filter_diagnoses } from '../../../.utils';
 import styles from './index.module.less';
+import { filter_fds } from '../../utils';
 interface IProps {
+    diagnosesList: IMchc_Doctor_Diagnoses[]
     visitsData?: IMchc_Doctor_RvisitInfoOfOutpatient,
     headerInfo: IMchc_Doctor_OutpatientHeaderInfo,
     setDiagnosesList?(list: IMchc_Doctor_Diagnoses[]): void
@@ -22,7 +24,7 @@ interface IProps {
 
 export default function FurtherTable(props: IProps) {
     const sys_theme = use_provoke(s => s.sys_theme)
-    const { setFormData, setDiagnosesList, visitsData, furtherRefresh, formData, toggle_fuck, fuck } = props;
+    const { setFormData, setDiagnosesList, visitsData, furtherRefresh, formData, toggle_fuck, fuck, diagnosesList } = props;
 
     const preg_id = mchcUtils.single_id(visitsData);
 
@@ -41,8 +43,9 @@ export default function FurtherTable(props: IProps) {
     }, [])
 
     const filtered_rvisits = (visitsData?.rvisits ?? []).filter(_ => _.id)
+    const tableColumns = expect_array<IMchc_FormDescriptions_Field>(config?.tableColumns)
 
-
+    const form_config = filter_fds(diagnosesList, config?.tableColumns)
 
 
 
@@ -133,10 +136,7 @@ export default function FurtherTable(props: IProps) {
                 rowHoverable={false}
                 rowKey={'id'}
                 dataSource={isAll ? filtered_rvisits : filtered_rvisits.slice(0, 5)}
-                columns={[
-                    ...expect_array<any>(config?.tableColumns),
-
-                ].filter(identity)}
+                columns={form_config}
             />
         </Wrap>
 
