@@ -1,6 +1,2 @@
 packages:
   - "packages/*"
-overrides:
-    "@lm_fe/lm_x": "link:../liblm-ample/packages/lm_x"
-    "@lm_fe/scripts": "link:../liblm-ample/packages/scripts"
-    "@lm_fe/static": "link:../liblm-ample/packages/static"
