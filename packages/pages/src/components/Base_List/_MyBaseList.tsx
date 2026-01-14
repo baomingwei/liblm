@@ -1,4 +1,4 @@
-import { mchcConfig, mchcEnv, mchcEvent, mchcLogger } from '@lm_fe/env';
+import { mchcConfig, mchcEnv, mchcEvent, mchcLogger, mchcStorage } from '@lm_fe/env';
 import { ModelService, TIdTypeCompatible } from '@lm_fe/service';
 import { Browser, cloneDeep, downloadFile, formatDateTime, safe_async_call, safeGetFromFuncOrData, sleep } from '@lm_fe/utils';
 import { Button, Divider, Form, message, Space, TablePaginationConfig } from 'antd';
@@ -161,8 +161,12 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
         setEditKey(id)
         editKeyRef.current = id
     }
+    const cache_key = `${location.pathname}@${name}`
     useEffect(() => {
-
+        let a = mchcStorage.get(cache_key)
+        if (!isNil(a)) {
+            searchForm.setFieldsValue(a)
+        }
         setTimeout(() => {
 
             const h = document.body.clientHeight
@@ -216,14 +220,14 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
         useMyEffectSafe(effect_ctx)(() => {
             if (inited.current) {
                 message.info('刷新成功！')
-                handleSearch()
+                do_search()
 
             }
         }, [])
     }
 
     const actionCtx: IMyBaseList_ActionCtx<T> = {
-        handleSearch,
+        handleSearch: do_search,
         getSearchParams,
         getCheckRows() {
             return checkRows
@@ -249,13 +253,13 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
 
         safe_set_edit_key(0)
         set___Id(undefined)
-        handleSearch();
+        do_search();
         return res
     }
     function _onModalOpen(rowData?: T,) {
         const id = rowData?.id
         if (onModalOpen)
-            return onModalOpen({ rowData, handleSearch, create_or_update, table_columns })
+            return onModalOpen({ rowData, handleSearch: do_search, create_or_update, table_columns })
         mchcModal__.open('modal_form', {
 
             ...modalFormConfig,
@@ -297,7 +301,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
         handleView: handleView,
         handleDelete: handleDelete,
         handleEdit: handleEdit,
-        handleSearch: handleSearch,
+        handleSearch: do_search,
         setExtraModalData: setExtraModalData,
         setEditable: setEditable,
         setVisible: setVisible,
@@ -364,7 +368,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
     };
 
     const _columns = (!table_columns.some(_ => _.title === '操作') && showAction) ? [...table_columns, actionCol] : table_columns
-    const cal_columns = genColumns?.({ handleEdit, handleDelete, handleSearch, handleItemCancel, handleItemSave, editKey, tableColumns: table_columns, actionCol, getSearchParams }) ?? _columns
+    const cal_columns = genColumns?.({ handleEdit, handleDelete, handleSearch: do_search, handleItemCancel, handleItemSave, editKey, tableColumns: table_columns, actionCol, getSearchParams }) ?? _columns
 
 
 
@@ -375,7 +379,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
         if (!isOk) return
         await myBaseListService.current?.del(rowData.id);
         mchcEnv.success(`删除${baseTitle}成功`);
-        handleSearch();
+        do_search();
     };
     async function handleRowPrint(rowData: T) {
         mchcModal__.open('print_modal', {
@@ -519,6 +523,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
         const data = tranformQueryData(values, searchConfig, isFuck)
         const v = beforeSearch?.(data as any) ?? data
 
+        mchcStorage.set(cache_key, values)
 
 
         // defaultQuery.current = { ...defaultQuery.current, ...v }
@@ -532,7 +537,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
 
 
 
-    async function handleSearch(params: any = defaultQuery.current) {
+    async function do_search(params: any = defaultQuery.current) {
 
 
         if (!myBaseListService.current) return
@@ -557,6 +562,8 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
 
         setDataSource(data)
         setTotal(pagination.total)
+        console.log('pagination', { pagination, defaultQuery })
+
         mchcEvent.emit('BaseList_hook', {
             type: 'search',
             data,
@@ -570,7 +577,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
         setPageSize(size)
         setCurrent(current)
         // setDataSource([])
-        handleSearch()
+        do_search()
 
     };
 
@@ -656,7 +663,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
 
         const q = getSearchParams()
         defaultQuery.current = q
-        handleSearch(q)
+        do_search(q)
 
     }
 
@@ -729,9 +736,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
                         <div ref={formWrapper} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: 4 }}>
                             {
                                 showSearch ? (
-                                    <Form initialValues={initialSearchValue} form={searchForm} layout="inline" onFinish={() => {
-                                        search()
-                                    }}>
+                                    <Form initialValues={initialSearchValue} form={searchForm} layout="inline" >
                                         {searchConfig ? <MyBaseListRenderFormSection config={searchConfig} disabled={loading} /> : null}
 
 
@@ -793,12 +798,14 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
                                                 {RenderSearchBtns?.call(window, actionCtx)}
 
                                                 <OkButton htmlType="reset" icon={<MyIcon value='ReloadOutlined' />} disabled={loading} onClick={() => {
+                                                    mchcStorage.remove(cache_key)
+
                                                     searchForm.resetFields()
                                                     defaultQuery.current = defaultQueryValue
                                                     setDataSource([])
                                                     setCurrent(1)
                                                     setPageSize(defaultQueryValue.size)
-                                                    handleSearch()
+                                                    do_search()
 
                                                 }} >
                                                     重置
@@ -875,9 +882,9 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
                         editable={editable}
                         id={___id}
                         extraModalData={extraModalData}
-                        onCancel={() => { handleCancel(); handleSearch(); }}
-                        onSearch={handleSearch}
-                        onOk={() => { handleCancel(); handleSearch(); }}
+                        onCancel={() => { handleCancel(); do_search(); }}
+                        onSearch={do_search}
+                        onOk={() => { handleCancel(); do_search(); }}
                     />
                 )}
             </>

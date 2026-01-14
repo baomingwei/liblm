@@ -23,8 +23,11 @@ function NurseMain(props: any) {
   const pregnancy_id = get(props, `id`) ?? getSearchParamsValue('id');
 
   useEffect(() => {
-    getHeaderInfo();
-    set_activeKey(mm[0]?.title)
+    if (pregnancy_id) {
+      getHeaderInfo();
+      set_activeKey(mm[0]?.title)
+    }
+
     return () => {
 
     };

@@ -29,7 +29,7 @@ interface IBaseRequse<T> {
     pagination: {
       total: number;
       current: any;
-      pageSize: any;
+      size: any;
     };
   }>
   getList(options?: AxiosRequestConfig): Promise<T[]>
@@ -77,7 +77,7 @@ export class ModelService<T extends { id?: TIdTypeCompatible } = any> extends Ev
 
   async page(options: TPageOption = {}) {
     const params = options.params || { page: 1, size: 20 };
-    const { current = 1, pageSize = 20, ...otherParams } = params;
+    const { current = 1, size = 20, ...otherParams } = params;
 
     if (this.fuckPage || this.get_fuck_page) {
       const fn = this.get_fuck_page || this.getFuckPage.bind(this)
@@ -89,7 +89,7 @@ export class ModelService<T extends { id?: TIdTypeCompatible } = any> extends Ev
         pagination: {
           total: result.totalElements ?? data.length,
           current,
-          pageSize,
+          size,
         },
       };
     }
@@ -103,7 +103,7 @@ export class ModelService<T extends { id?: TIdTypeCompatible } = any> extends Ev
         pagination: {
           total: result._XTotalCount ?? list_data.length ?? 0,
           current,
-          pageSize,
+          size,
         },
       };
     }
@@ -114,7 +114,7 @@ export class ModelService<T extends { id?: TIdTypeCompatible } = any> extends Ev
       //   pagination: {
       //     total: arr[1],
       //     current,
-      //     pageSize,
+      //     size,
       //   },
       // };
       const a1: any = await this.getList(options)
@@ -124,7 +124,7 @@ export class ModelService<T extends { id?: TIdTypeCompatible } = any> extends Ev
           pagination: {
             total: a1._XTotalCount,
             current,
-            pageSize,
+            size,
           },
         };
       const a2 = await this.getCount(options);
@@ -134,7 +134,7 @@ export class ModelService<T extends { id?: TIdTypeCompatible } = any> extends Ev
         pagination: {
           total: a2,
           current,
-          pageSize,
+          size,
         },
       };
     }
@@ -143,7 +143,7 @@ export class ModelService<T extends { id?: TIdTypeCompatible } = any> extends Ev
     const result = await this._get<{
       pageData: T[],
       pageNumber: number,
-      pageSize: number,
+      size: number,
       totalElements: number,
       totalPages: number,
     }>(`${this.name}/page`, this.tranferGetOption(options));
@@ -408,7 +408,7 @@ export class ModelService<T extends { id?: TIdTypeCompatible } = any> extends Ev
 export type T_GET_FUCK_PAGE<T = any> = (options?: IRequest_AxiosRequestConfig) => Promise<{
   pageData: T[];
   pageNumber: number;
-  pageSize: number;
+  size: number;
   totalElements: number;
   totalPages: number;
 }>
