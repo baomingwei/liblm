@@ -5,7 +5,7 @@ import { FormInstance } from "antd";
 import React from "react";
 
 import { IMchc_Doctor_Diagnoses } from "@lm_fe/service";
-import { checkAssociatedForm } from "../config";
+import { filter_fds } from "../../../../.further/utils";
 interface IProps {
     form?: FormInstance
     disableAll?: boolean
@@ -29,11 +29,8 @@ export default (props: IProps) => {
 
     const { config, Wrap } = BF_Wrap2({ default_conf: { tableColumns: () => import('./default'), title: '产后复诊记录-产检信息' }, })
 
-    const form_config = (config?.tableColumns ?? [])
-        .map(f => {
-            if (!f?.usr1) return f
-            return { ...f, isActive: !checkAssociatedForm(diagnosesList, f?.usr1) }
-        })
+    const form_config = filter_fds(diagnosesList, config?.tableColumns)
+
     //@ts-ignore
     // return <MyFormSectionForm<IDataShape> formDescriptions={load_form_config} {...props} onValuesChange={(changedValues, values) => { }} />
     return <Wrap>

@@ -1,7 +1,7 @@
 import { mchcEnv, otherOptions, rt_ctx } from "@lm_fe/env";
 import { defineFormConfig } from "@lm_fe/service";
 import { 门诊_胎儿_form } from "src/pages/prenatal-visit/pregnancy/utils";
-import { diag_filter_map } from '../config'
+import { diag_filter_map } from '../../../utils'
 import { pressure_fd } from "@lm_fe/pages";
 const ctx = rt_ctx
 export default defineFormConfig(
@@ -186,10 +186,10 @@ export default defineFormConfig(
                 targetLabelCol: 2,
                 tip: '胎儿超声',
                 formDescriptions: [
-                    { layout: '1/4', inputType: 'input', label: 'BPD', name: 'bpd', inputProps: { type: 'number', unit: 'mm' }, },
-                    { layout: '1/4', inputType: 'input', label: '胎儿体重', name: 'fetalweight', inputProps: { type: 'number', unit: 'g' }, },
-                    { layout: '1/4', inputType: 'input', label: 'AFV', name: 'afv', inputProps: { type: 'number', unit: 'mm' }, },
-                    { layout: '1/4', inputType: 'input', label: '脐血流', name: 'ubf', inputProps: { type: 'number', unit: 'mm' }, },
+                    { layout: '1/4', inputType: 'input', label: 'BPD', name: 'bpd', unit: 'mm', inputProps: { type: 'number', }, },
+                    { layout: '1/4', inputType: 'input', label: '胎儿体重', name: 'fetalweight', unit: 'g', inputProps: { type: 'number', }, },
+                    { layout: '1/4', inputType: 'input', label: 'AFV', name: 'afv', unit: 'mm', inputProps: { type: 'number', }, },
+                    { layout: '1/4', inputType: 'input', label: '脐血流', name: 'ubf', unit: 'mm', inputProps: { type: 'number', }, },
 
                     { layout: '1/5', name: 'id', form_hidden: true },
                 ]
