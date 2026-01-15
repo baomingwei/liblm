@@ -2,8 +2,7 @@ import { mchcEnv, mchcLogger } from '@lm_fe/env';
 import { IMchc_Group, IMchc_Permission, IMchc_User, SMchc_Common } from '@lm_fe/service';
 import { simple_decrypt, simple_encrypt } from '@lm_fe/utils';
 import { StateCreator } from 'zustand';
-import {  MixState } from '../types';
-import { message } from 'antd';
+import { MixState } from '../types';
 
 
 export interface UserInfoState {
@@ -54,64 +53,65 @@ function arrayToTree<ID extends string, PID extends string, CHILDREN extends str
 mchcLogger.log({ simple_decrypt, simple_encrypt })
 
 
-export const createUserInfoSlice: StateCreator<MixState, [], [], UserInfoState> = (
-  set,
-) => ({
-  user_info: null,
-  updateUserInfo: (user_info: IMchc_User) => set({ user_info }),
-  permissions: {
-    '/': {
-      id: 1001,
-      type: 'menu',
-      key: '/',
-      name: '首页',
-      parentid: 0,
-      active: true,
-      icon: 'GithubOutlined',
-      sort: -1,
+export const createUserInfoSlice: StateCreator<MixState, [], [], UserInfoState> =
+  (set, get) => ({
+    user_info: null,
+    updateUserInfo: (user_info: IMchc_User) => set({ user_info }),
+    permissions: {
+      '/': {
+        id: 1001,
+        type: 'menu',
+        key: '/',
+        name: '首页',
+        parentid: 0,
+        active: true,
+        icon: 'GithubOutlined',
+        sort: -1,
+      },
+      // '/welcome': {
+      //   id: 1002,
+      //   type: 'route',
+      //   key: '/welcome',
+      //   name: '首页',
+      //   parentid: 0,
+      //   active: true,
+      //   icon: 'GithubOutlined',
+      //   sort: -1,
+      // },
     },
-    // '/welcome': {
-    //   id: 1002,
-    //   type: 'route',
-    //   key: '/welcome',
-    //   name: '首页',
-    //   parentid: 0,
-    //   active: true,
-    //   icon: 'GithubOutlined',
-    //   sort: -1,
-    // },
-  },
-  async auth(req: { username: string, password: string }) {
-    const req_data = mchcEnv.in(['南医附属']) ? { data: simple_encrypt(req) } : req
-    const token = await SMchc_Common.fk_login(req_data)
+    async auth(req: { username: string, password: string }) {
+      const enc = get().config.加密登录
+      // const req_data = mchcEnv.in(['南医附属']) ? { data: simple_encrypt(req) } : req
+      const req_data = enc ? { data: simple_encrypt(req) } : req
+      const token = await SMchc_Common.fk_login(req_data)
 
-    set(s => {
-      return { login_name: req.username }
-    })
-    return token
-  },
-  async fetch_user() {
-    const { user_info, perm_arr } = await SMchc_Common.fk_user()
-    const perm_map = Object.fromEntries(perm_arr.map(p => [p.key, p]))
-    mchcEnv.user_data = user_info
-    set(s => {
-      const permissions = { ...s.permissions, ...perm_map }
+      set(s => {
+        return { login_name: req.username }
+      })
+      return token
+    },
+    async fetch_user() {
+      const { user_info, perm_arr } = await SMchc_Common.fk_user()
+      const perm_map = Object.fromEntries(perm_arr.map(p => [p.key, p]))
+      mchcEnv.user_data = user_info
+      set(s => {
+        const permissions = { ...s.permissions, ...perm_map }
 
-      // const tree = arrayToTree(Object.values(mix_permissions), 'id', 'parentid', 'children').sort((a, b) => (a.sort - b.sort))
+        // const tree = arrayToTree(Object.values(mix_permissions), 'id', 'parentid', 'children').sort((a, b) => (a.sort - b.sort))
 
-      return { permissions, user_info }
-    })
-    return user_info
-  },
+        return { permissions, user_info }
+      })
+      return user_info
+    },
 
-  peek_groups() {
-    return this.user_info?.groups ?? []
-  },
-  peek_groups_name() {
-    return this.peek_groups().map(g => g.name.toLowerCase())
-  },
-  peek_admin() {
-    return this.peek_groups_name().includes('admin')
-  },
+    peek_groups() {
+      return this.user_info?.groups ?? []
+    },
+    peek_groups_name() {
+      return this.peek_groups().map(g => g.name.toLowerCase())
+    },
+    peek_admin() {
+      return this.peek_groups_name().includes('admin')
+    },
 
-});
+  });

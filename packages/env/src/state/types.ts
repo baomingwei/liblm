@@ -10,6 +10,7 @@ export type ISystemConfig = Partial<{
     websocketAddress: 'ws://127.0.0.1:8087/Laputa'
     auditRestriction: boolean
     openIntro: boolean
+    加密登录: boolean
     fetalMonitor: string
     openHighriskSign: boolean
     highriskVersion: number

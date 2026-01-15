@@ -91,6 +91,14 @@ export default defineFormConfig(
                     },
                     layout: '1/3',
                 },
+                {
+                    label: '加密登录',
+                    name: '加密登录',
+                    inputType: 'MSW',
+                    inputProps: {
+                    },
+                    layout: '1/3',
+                },
 
                 {
                     label: 'PDF预览组件版本',
