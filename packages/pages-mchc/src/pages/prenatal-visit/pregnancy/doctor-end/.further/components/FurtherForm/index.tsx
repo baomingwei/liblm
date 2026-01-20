@@ -4,11 +4,10 @@ import {
     IMchc_Doctor_OutpatientHeaderInfo,
     IMchc_Doctor_RvisitInfoOfOutpatient,
     IMchc_Doctor_RvisitInfoOfOutpatient_Rvisit,
-    IMchc_FormDescriptions_Field,
     SLocal_Calculator,
     TIdTypeCompatible,
     process_OutpatientDocument_physicalExam_local,
-    process_OutpatientDocument_physicalExam_remote,
+    process_OutpatientDocument_physicalExam_remote
 } from '@lm_fe/service'
 import { copyText, getFutureDate, request } from '@lm_fe/utils'
 import { Button, Card, Form, FormInstance, Space, message } from 'antd'
@@ -18,11 +17,11 @@ import DiabetesAppointment from '../../../.components/DiabetesAppointment'
 
 import { mchcConfig, mchcEnv, mchcEvent, mchcUtils } from '@lm_fe/env'
 import { HighRiskTableEntry, mchcModal__ } from '@lm_fe/pages'
+import { use_provoke } from '@lm_fe/provoke'
 import { expect_array } from '@lm_fe/utils'
 import classNames from 'classnames'
 import FormBlock from './form_config/Form'
 import styles from './index.module.less'
-import { use_provoke } from '@lm_fe/provoke'
 // 弹窗枚举
 interface IProps {
     addon_btns?: (data?: Partial<IMchc_Doctor_RvisitInfoOfOutpatient_Rvisit>) => React.ReactNode
@@ -43,7 +42,8 @@ interface IProps {
     getVisitsData(): Promise<void>
 
     formChange(b: boolean): void
-    handleSubmit(values: any): Promise<void>
+    handleSubmit(values: Partial<IMchc_Doctor_RvisitInfoOfOutpatient_Rvisit>): Promise<void>
+    handleSign(values: Partial<IMchc_Doctor_RvisitInfoOfOutpatient_Rvisit>): Promise<void>
 }
 function FurtherForm(props: IProps) {
     const [disabled_save, set_disabled_save] = useState(false)
@@ -53,6 +53,7 @@ function FurtherForm(props: IProps) {
     const {
         addon_btns,
         before_submit,
+        handleSign,
         diagnosesList,
         formData,
         visitsData,
@@ -224,7 +225,7 @@ function FurtherForm(props: IProps) {
     }
     async function sign() {
         const data = await get_form_data()
-        const res = await request.post('/api/ca/sign', { type: 'prenatalVisit', data })
+        data && handleSign(data)
     }
     function copy() {
         if (mchcEnv.in(['南医附属'])) {

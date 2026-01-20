@@ -1,7 +1,7 @@
 import { formatTimeToDate, getFormData, use_fuck } from '@lm_fe/components_m';
 import { mchcConfig, mchcEnv, mchcEvent, mchcUtils } from '@lm_fe/env';
 import { IMchc_Doctor_Diagnoses, IMchc_Doctor_OutpatientHeaderInfo, IMchc_Doctor_RvisitInfoOfOutpatient, IMchc_Doctor_RvisitInfoOfOutpatient_Rvisit, SMchc_Doctor, TIdTypeCompatible } from '@lm_fe/service';
-import { AnyObject, assign, cloneDeep, expect_array, formatDate, formatDateTime, get, getSearchParamsValue, omit, set } from '@lm_fe/utils';
+import { AnyObject, assign, cloneDeep, expect_array, formatDate, formatDateTime, get, getSearchParamsValue, isString, omit, request, set } from '@lm_fe/utils';
 import { Form, FormInstance, message } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';
 import FurtherForm from './components/FurtherForm';
@@ -9,7 +9,7 @@ import FurtherSidebar from './components/FurtherSidebar';
 import FurtherTable from './components/FurtherTable';
 import './index.less';
 import { filter_diagnoses } from '../.utils'
-import { HighRiskTableEntry } from '@lm_fe/pages';
+import { HighRiskTableEntry, mchcModal__ } from '@lm_fe/pages';
 const single_id = mchcUtils.single_id
 export interface IDoctorEnd_FurtherProps {
   addon_btns?: (data?: Partial<IMchc_Doctor_RvisitInfoOfOutpatient_Rvisit>) => React.ReactNode
@@ -178,17 +178,43 @@ function DoctorEnd_Further(props: IDoctorEnd_FurtherProps) {
 
     var set_data = assign(newData, { outEmrId, serialNo })
     const redata = await SMchc_Doctor.updateRvisitInfoOfOutpatient(set_data);
-    const v = await fetchVisitData();
-    initVisitData(v)
-    setFormData(redata)
+    after_save(redata);
+
     // changeVisitsData(redata);
 
     HighRiskTableEntry.highRiskTablePopup(redata, headerInfo)
 
     mchcEvent.emit('outpatient', { type: '刷新头部', pregnancyId: outEmrId })
-    mchcEnv.success('信息保存成功');
+    mchcEnv.success('操作成功');
 
   };
+  async function after_save(data: IMchc_Doctor_RvisitInfoOfOutpatient_Rvisit) {
+
+    const v = await fetchVisitData();
+    initVisitData(v)
+    setFormData(data)
+  }
+  async function handleSign(newData: Partial<IMchc_Doctor_RvisitInfoOfOutpatient_Rvisit>) {
+
+    const res = await request.post('/api/ca/sign', { type: 'prenatalVisit', data: newData }, { unboxing: true })
+    const res_data = res.data
+    const base64_img = res_data.qrCodeBase64
+    if (isString(base64_img)) {
+      mchcModal__.open('box', {
+        title: '请扫码授权',
+        okText: '已扫码授权',
+        onClose(status) {
+          if (status)
+            handleSign(newData)
+        },
+        modal_data: { content: <img src={`data:image/png;base64,${base64_img}`} /> }
+      })
+    } else {
+      mchcEnv.success('操作成功')
+      after_save(res_data);
+
+    }
+  }
 
 
   function onAddBtnClick() {
@@ -275,6 +301,7 @@ function DoctorEnd_Further(props: IDoctorEnd_FurtherProps) {
           furtherRefresh={furtherRefresh}
         />
         <FurtherForm
+          handleSign={handleSign}
           addon_btns={props.addon_btns}
           before_submit={props.before_submit}
           handleSubmit={handleSubmit}
