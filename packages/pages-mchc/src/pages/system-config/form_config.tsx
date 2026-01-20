@@ -340,16 +340,18 @@ export default defineFormConfig(
                             inputProps: {},
                             layout: '1/3',
                         },
-                        // {
-                        //     label: '签名方式',
-                        //     name: '医生端_签名方式',
-                        //     inputType: 'MS',
-                        //     inputProps: {
-                        //         options: '禁用,签名并保存(仅成功),签名并保存(成功或失败),保存后签名',
-                        //         popupMatchSelectWidth: 300
-                        //     },
-                        //     layout: '1/3',
-                        // },
+                        {
+                            label: '签名方式',
+                            name: '签名方式',
+                            inputType: 'MS',
+                            inputProps: {
+                                marshal: 0,
+                                options: getSameOptions('CA签名并保存,CA签名'),
+                                popupMatchSelectWidth: 300,
+                                allowClear: true
+                            },
+                            layout: '1/3',
+                        },
                     ],
                 },
 

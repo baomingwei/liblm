@@ -24,7 +24,7 @@ function _HighRiskTableEntry(props: IHighRiskTableEntryProps) {
     const show_瘢痕子宫 = isShowPopupRemind('瘢痕子宫', headerInfo, data)
     const show_子痫 = isShowPopupRemind('子痫', headerInfo, data)
     const show_VTE = isShowPopupRemind('VTE', headerInfo, data)
-    return <div>
+    return <div style={props.style}>
         <Space style={{ flexWrap: 'wrap' }}>
             {
                 <OkButton

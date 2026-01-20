@@ -22,6 +22,7 @@ import { expect_array } from '@lm_fe/utils'
 import classNames from 'classnames'
 import FormBlock from './form_config/Form'
 import styles from './index.module.less'
+import { use_provoke } from '@lm_fe/provoke'
 // 弹窗枚举
 interface IProps {
     addon_btns?: (data?: Partial<IMchc_Doctor_RvisitInfoOfOutpatient_Rvisit>) => React.ReactNode
@@ -62,7 +63,7 @@ function FurtherForm(props: IProps) {
         handleSubmit,
     } = props
     const [isShowMenzhen, set_isShowMenzhen] = useState(false)
-
+    const { 签名方式 } = use_provoke(c => c.config)
     const [form] = Form.useForm()
 
     const form_id = formData?.id
@@ -155,21 +156,29 @@ function FurtherForm(props: IProps) {
 
     function setItemValue(val: string, key: string) { }
 
-    function on_submit() {
-        if (before_submit) {
-            return before_submit(handleSubmit, formData, form)
-        }
+    function get_form_data() {
+
 
         return form
             .validateFields()
             .then((values) => {
                 values.physicalExam = process_OutpatientDocument_physicalExam_local(values.physicalExam)
-                return handleSubmit(values)
+                return values as Partial<IMchc_Doctor_RvisitInfoOfOutpatient_Rvisit>
             })
             .catch((error) => {
                 const first = handle_form_error(error)
                 if (first?.text) mchcEnv.warning(first.text)
+                return null
             })
+    }
+    async function on_submit() {
+        const data = await get_form_data()
+        if (!data) return
+        if (before_submit) {
+            return before_submit(handleSubmit, formData, form)
+        }
+
+        return handleSubmit(data)
     }
 
     function closeModal(type: 'isShowMenzhen' | '', items?: any, key?: any) {
@@ -208,10 +217,14 @@ function FurtherForm(props: IProps) {
         })
     }
 
-    function sign() {
+    function nfyy_sign() {
         request
             .get('/api/doctor/updateRvisitRecordOfDoctorSign', { params: { id: form_id }, successText: '签名成功' })
             .then(getVisitsData)
+    }
+    async function sign() {
+        const data = await get_form_data()
+        const res = await request.post('/api/ca/sign', { type: 'prenatalVisit', data })
     }
     function copy() {
         if (mchcEnv.in(['南医附属'])) {
@@ -234,7 +247,7 @@ function FurtherForm(props: IProps) {
         }
     }
 
-    const saveBtnTxt = disabled_save ? '无权限保存' : `保存${mchcEnv.is('华医') ? '并关闭' : ''}`
+    const saveBtnTxt = disabled_save ? '无权限保存' : '保存'
     return (
         <Card
             title={form_id ? '编辑产检记录' : '本次产检信息'}
@@ -279,7 +292,7 @@ function FurtherForm(props: IProps) {
                     headerInfo={headerInfo}
                 />
 
-                <HighRiskTableEntry headerInfo={headerInfo} data={visitsData} />
+                <HighRiskTableEntry headerInfo={headerInfo} data={visitsData} style={{ marginRight: 96 }} />
                 {!isAllPregnancies && (
                     <Space.Compact
                         className={classNames(
@@ -297,13 +310,16 @@ function FurtherForm(props: IProps) {
                         <OkButton hidden={!form_id} onClick={showpdf}>
                             打印
                         </OkButton>
-                        <OkButton hidden={!mchcEnv.is('南医附属') || !form_id} onClick={sign}>
+                        <OkButton hidden={(!form_id && 签名方式 === 'CA签名') || !签名方式} primary disabled={disabled_save} onClick={sign}>
+                            {签名方式}
+                        </OkButton>
+                        <OkButton hidden={!mchcEnv.is('南医附属') || !form_id} onClick={nfyy_sign}>
                             签名
                         </OkButton>
                         <OkButton hidden={!mchcEnv.is('南医附属') || !form_id} onClick={copy}>
                             复制
                         </OkButton>
-                        <OkButton primary disabled={disabled_save} onClick={on_submit}>
+                        <OkButton hidden={签名方式 === 'CA签名并保存'} primary disabled={disabled_save} onClick={on_submit}>
                             {saveBtnTxt}
                         </OkButton>
                     </Space.Compact>

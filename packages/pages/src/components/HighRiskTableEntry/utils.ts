@@ -2,10 +2,12 @@ import { ICommonOption, mchcEvent } from "@lm_fe/env";
 import { peek_provoke } from "@lm_fe/provoke";
 import { IMchc_Doctor_OutpatientHeaderInfo, mchcEnums } from "@lm_fe/service";
 import { isObject } from "@lm_fe/utils";
+import { CSSProperties } from "react";
 import { mchcModal__ } from "src/modals";
 export interface IHighRiskTableEntryProps {
   headerInfo?: IMchc_Doctor_OutpatientHeaderInfo
   data?: IData
+  style?: CSSProperties
 }
 export type IData = {
   isOpenVTETable: number;
