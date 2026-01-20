@@ -293,7 +293,7 @@ function FurtherForm(props: IProps) {
                     headerInfo={headerInfo}
                 />
 
-                <HighRiskTableEntry headerInfo={headerInfo} data={visitsData} style={{ marginRight: 96 }} />
+                <HighRiskTableEntry headerInfo={headerInfo} data={visitsData} style={{ margin:'0 128px 64px 0' }} />
                 {!isAllPregnancies && (
                     <Space.Compact
                         className={classNames(
