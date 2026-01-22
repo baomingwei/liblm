@@ -196,10 +196,10 @@ function DoctorEnd_Further(props: IDoctorEnd_FurtherProps) {
   }
   async function handleSign(newData: Partial<IMchc_Doctor_RvisitInfoOfOutpatient_Rvisit>) {
 
-    const res = await request.post('/api/ca/sign', { type: 'prenatalVisit', data: newData }, { unboxing: true })
+    const res = await request.post('/api/ca/sign', { type: 'prenatalVisit', data: newData })
     const res_data = res.data
-    const base64_img = res_data.qrCodeBase64
-    if (isString(base64_img)) {
+    const maybe_base64 = res_data.data
+    if (isString(maybe_base64)) {
       mchcModal__.open('box', {
         title: '请扫码授权',
         okText: '已扫码授权',
@@ -207,7 +207,7 @@ function DoctorEnd_Further(props: IDoctorEnd_FurtherProps) {
           if (status)
             handleSign(newData)
         },
-        modal_data: { content: <img src={`data:image/png;base64,${base64_img}`} /> }
+        modal_data: { content: <img src={`data:image/png;base64,${maybe_base64}`} /> }
       })
     } else {
       mchcEnv.success('操作成功')
