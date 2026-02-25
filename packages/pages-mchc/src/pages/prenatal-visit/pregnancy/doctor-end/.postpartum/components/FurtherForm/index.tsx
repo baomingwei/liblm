@@ -7,10 +7,10 @@ import React, { useEffect, useState } from 'react';
 import { mchcEnv, mchcEvent, mchcUtils } from '@lm_fe/env';
 import { mchcModal__ } from '@lm_fe/pages';
 import FormBlock from './form_config/Form';
+import { use_doctor_sign } from '../../../.utils/use_doctor_sign';
 // 弹窗枚举
 interface IProps {
   headerInfo: IMchc_Doctor_OutpatientHeaderInfo,
-  visitsData?: IMchc_Doctor_RvisitAfterDeliveryInfoOfOutpatient
   formData?: Partial<IMchc_Doctor_RvisitAfterDeliveryInfoOfOutpatient_Record>,
   diagnosesList: IMchc_Doctor_Diagnoses[]
 
@@ -18,32 +18,29 @@ interface IProps {
   onAddBtnClick(): void,
 
   getLastRecord(): void,
-  getVisitsData(): Promise<void>,
 
 
 
   formChange(b: boolean): void
-  loading: boolean
   handleSubmit(values: any): Promise<void>
+  after_save(values: any): Promise<void>
 
 
 }
 function FurtherForm(props: IProps) {
   const [disabled_save, set_disabled_save] = useState(false)
+  const { handleSign, 签名方式 } = use_doctor_sign({ type: 'prenatalVisitCH' })
 
   const { getLastRecord } = props;
   const { formChange } = props;
   const {
     diagnosesList,
     formData,
-    visitsData,
-    getVisitsData,
+    after_save,
     headerInfo,
     onAddBtnClick,
     handleSubmit,
-    loading,
   } = props;
-  const [isShowMenzhen, set_isShowMenzhen] = useState(false)
 
   const [form] = Form.useForm()
 
@@ -51,18 +48,11 @@ function FurtherForm(props: IProps) {
   const preg_id = mchcUtils.single_id(headerInfo);
 
 
-  // useEffect(() => {
-  //   const rm = mchcEvent.on_rm('my_form', e => {
-  //     console.log('load', { formData, e })
-  //     if (e.type === 'onLoad' && formData) {
-  //       formData.physicalExam = process_OutpatientDocument_physicalExam_remote(formData.physicalExam)
-  //       form.setFieldsValue(formData)
-  //     }
-  //   })
-  //   return rm
-  // }, [formData])
+
   useEffect(() => {
     if (formData) {
+      form.resetFields()
+
       formData.physicalExam = process_OutpatientDocument_physicalExam_remote(formData.physicalExam)
 
 
@@ -121,25 +111,29 @@ function FurtherForm(props: IProps) {
 
 
 
-  function setItemValue(val: string, key: string) {
+  async function sign() {
+    const data = await get_form_data()
+    data && handleSign(data).then(after_save)
+  }
 
-  };
-
-
-
-  function on_submit() {
+  function get_form_data() {
 
 
     return form
       .validateFields()
-      .then((values) => {
-        return handleSubmit(values)
-      })
       .catch((error) => {
         const first = handle_form_error(error)
-        if (first?.text)
-          mchcEnv.warning(first.text)
-      });
+        if (first?.text) mchcEnv.warning(first.text)
+        return null
+      })
+  }
+
+  async function on_submit() {
+
+    const data = await get_form_data()
+    if (!data) return
+    return handleSubmit(data)
+
   }
 
 
@@ -206,7 +200,15 @@ function FurtherForm(props: IProps) {
 
           <Space.Compact style={{ position: 'fixed', bottom: 24, right: 24 }}>
             <OkButton hidden={!form_id} onClick={showpdf}>打印</OkButton>
-            <OkButton primary disabled={disabled_save} onClick={on_submit}>{saveBtnTxt}</OkButton>
+
+            <OkButton hidden={(!form_id && 签名方式 === 'CA签名') || !签名方式} primary disabled={disabled_save} onClick={sign}>
+              {签名方式}
+            </OkButton>
+
+            <OkButton hidden={签名方式 === 'CA签名并保存'} primary disabled={disabled_save} onClick={on_submit}>
+              {saveBtnTxt}
+            </OkButton>
+
           </Space.Compact>
         )}
 

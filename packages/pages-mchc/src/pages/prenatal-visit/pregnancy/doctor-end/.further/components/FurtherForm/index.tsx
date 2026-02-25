@@ -21,6 +21,7 @@ import { use_provoke } from '@lm_fe/provoke'
 import { expect_array } from '@lm_fe/utils'
 import classNames from 'classnames'
 import FormBlock from './form_config/Form'
+import { use_doctor_sign } from '../../../.utils/use_doctor_sign'
 import styles from './index.module.less'
 // 弹窗枚举
 interface IProps {
@@ -43,17 +44,18 @@ interface IProps {
 
     formChange(b: boolean): void
     handleSubmit(values: Partial<IMchc_Doctor_RvisitInfoOfOutpatient_Rvisit>): Promise<void>
-    handleSign(values: Partial<IMchc_Doctor_RvisitInfoOfOutpatient_Rvisit>): Promise<void>
+    after_save(values: Partial<IMchc_Doctor_RvisitInfoOfOutpatient_Rvisit>): Promise<void>
 }
 function FurtherForm(props: IProps) {
     const [disabled_save, set_disabled_save] = useState(false)
 
     const { getLastRecord } = props
     const { formChange } = props
+    const { handleSign, 签名方式 } = use_doctor_sign({ type: 'prenatalVisit' })
     const {
         addon_btns,
         before_submit,
-        handleSign,
+        after_save,
         diagnosesList,
         formData,
         visitsData,
@@ -64,7 +66,6 @@ function FurtherForm(props: IProps) {
         handleSubmit,
     } = props
     const [isShowMenzhen, set_isShowMenzhen] = useState(false)
-    const { 签名方式 } = use_provoke(c => c.config)
     const [form] = Form.useForm()
 
     const form_id = formData?.id
@@ -225,7 +226,7 @@ function FurtherForm(props: IProps) {
     }
     async function sign() {
         const data = await get_form_data()
-        data && handleSign(data)
+        data && handleSign(data).then(after_save)
     }
     function copy() {
         if (mchcEnv.in(['南医附属'])) {
@@ -293,7 +294,7 @@ function FurtherForm(props: IProps) {
                     headerInfo={headerInfo}
                 />
 
-                <HighRiskTableEntry headerInfo={headerInfo} data={visitsData} style={{ margin:'0 128px 64px 0' }} />
+                <HighRiskTableEntry headerInfo={headerInfo} data={visitsData} style={{ margin: '0 128px 64px 0' }} />
                 {!isAllPregnancies && (
                     <Space.Compact
                         className={classNames(
@@ -311,14 +312,14 @@ function FurtherForm(props: IProps) {
                         <OkButton hidden={!form_id} onClick={showpdf}>
                             打印
                         </OkButton>
+                        <OkButton hidden={!mchcEnv.is('南医附属') || !form_id} onClick={copy}>
+                            复制
+                        </OkButton>
                         <OkButton hidden={(!form_id && 签名方式 === 'CA签名') || !签名方式} primary disabled={disabled_save} onClick={sign}>
                             {签名方式}
                         </OkButton>
                         <OkButton hidden={!mchcEnv.is('南医附属') || !form_id} onClick={nfyy_sign}>
                             签名
-                        </OkButton>
-                        <OkButton hidden={!mchcEnv.is('南医附属') || !form_id} onClick={copy}>
-                            复制
                         </OkButton>
                         <OkButton hidden={签名方式 === 'CA签名并保存'} primary disabled={disabled_save} onClick={on_submit}>
                             {saveBtnTxt}

@@ -182,10 +182,6 @@ function DoctorEnd_Further(props: IDoctorEnd_FurtherProps) {
 
     // changeVisitsData(redata);
 
-    HighRiskTableEntry.highRiskTablePopup(redata, headerInfo)
-
-    mchcEvent.emit('outpatient', { type: '刷新头部', pregnancyId: outEmrId })
-    mchcEnv.success('操作成功');
 
   };
   async function after_save(data: IMchc_Doctor_RvisitInfoOfOutpatient_Rvisit) {
@@ -193,28 +189,14 @@ function DoctorEnd_Further(props: IDoctorEnd_FurtherProps) {
     const v = await fetchVisitData();
     initVisitData(v)
     setFormData(data)
-  }
-  async function handleSign(newData: Partial<IMchc_Doctor_RvisitInfoOfOutpatient_Rvisit>) {
 
-    const res = await request.post('/api/ca/sign', { type: 'prenatalVisit', data: newData })
-    const res_data = res.data
-    const maybe_base64 = res_data.data
-    if (isString(maybe_base64)) {
-      mchcModal__.open('box', {
-        title: '请扫码授权',
-        okText: '已扫码授权',
-        onClose(status) {
-          if (status)
-            handleSign(newData)
-        },
-        modal_data: { content: <img src={`data:image/png;base64,${maybe_base64}`} /> }
-      })
-    } else {
-      mchcEnv.success('操作成功')
-      after_save(res_data);
+    HighRiskTableEntry.highRiskTablePopup(data, headerInfo)
 
-    }
+    mchcEvent.emit('outpatient', { type: '刷新头部', pregnancyId: outEmrId })
+    mchcEnv.success('操作成功');
+
   }
+
 
 
   function onAddBtnClick() {
@@ -301,7 +283,7 @@ function DoctorEnd_Further(props: IDoctorEnd_FurtherProps) {
           furtherRefresh={furtherRefresh}
         />
         <FurtherForm
-          handleSign={handleSign}
+          after_save={after_save}
           addon_btns={props.addon_btns}
           before_submit={props.before_submit}
           handleSubmit={handleSubmit}

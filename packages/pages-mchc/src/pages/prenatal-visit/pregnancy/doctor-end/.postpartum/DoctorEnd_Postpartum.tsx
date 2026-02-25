@@ -31,12 +31,11 @@ function DoctorEnd_Postpartum(props: IDoctorEnd_PostpartumProps) {
     diagnosesList,
     formChange,
   } = props;
-  console.log('DoctorEnd_Postpartum', props)
 
   const [visitsData, _setVisitsData] = useState<IMchc_Doctor_RvisitAfterDeliveryInfoOfOutpatient>()
 
   const [formData, setFormData] = useState<Partial<IMchc_Doctor_RvisitAfterDeliveryInfoOfOutpatient>>()
-  const [loading, setLoading] = useState(false)
+  const outEmrId = headerInfo?.id as any;
 
   const visitsData_cache = useRef(visitsData)
   function setVisitsData(v: IMchc_Doctor_RvisitAfterDeliveryInfoOfOutpatient) {
@@ -64,7 +63,7 @@ function DoctorEnd_Postpartum(props: IDoctorEnd_PostpartumProps) {
 
   async function fetchVisitData() {
 
-    const visitInfo = await SMchc_Doctor.getRvisitAfterDeliveryInfoOfOutpatient(single_id(props));
+    const visitInfo = await SMchc_Doctor.getRvisitAfterDeliveryInfoOfOutpatient(single_id(props) as any);
 
     return visitInfo
 
@@ -142,24 +141,23 @@ function DoctorEnd_Postpartum(props: IDoctorEnd_PostpartumProps) {
 
 
   }
-  async function handleSubmit(newData) {
 
+  async function after_save(data: any) {
 
-    const outEmrId = headerInfo?.id as any;
-
-
-
-    setLoading(true)
-
-    const redata = await SMchc_Doctor.updateRvisitAfterDeliveryInfoOfOutpatient(newData);
     const v = await fetchVisitData();
     initVisitData(v)
-    setFormData(redata)
+    setFormData(data)
 
 
     mchcEvent.emit('outpatient', { type: '刷新头部', pregnancyId: outEmrId })
-    setLoading(false)
-    mchcEnv.success('信息保存成功');
+    mchcEnv.success('操作成功');
+
+  }
+
+  async function handleSubmit(newData: any) {
+
+    const redata = await SMchc_Doctor.updateRvisitAfterDeliveryInfoOfOutpatient(newData);
+    after_save(redata)
 
   };
 
@@ -215,12 +213,10 @@ function DoctorEnd_Postpartum(props: IDoctorEnd_PostpartumProps) {
             furtherRefresh={furtherRefresh}
           />
           <FurtherForm
-            loading={loading}
+            after_save={after_save}
             handleSubmit={handleSubmit}
             onAddBtnClick={onAddBtnClick}
-            visitsData={visitsData}
             formData={formData}
-            getVisitsData={getVisitsData}
             getLastRecord={getLastRecord}
             headerInfo={headerInfo}
             diagnosesList={diagnosesList}

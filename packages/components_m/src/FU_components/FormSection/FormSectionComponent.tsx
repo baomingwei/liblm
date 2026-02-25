@@ -55,8 +55,8 @@ const InducedFetus = lazy(() => import('../../BusinessComponents/InducedFetus'))
 const KnowledgeBase = lazy(() => import('../../BusinessComponents/KnowledgeBase'))
 const LaborProcess = lazy(() => import('../../BusinessComponents/LaborProcess'))
 // const LaborProcess2 = lazy(() => import('../../BusinessComponents/LaborProcess2'))
-const MiddleUltsounds = lazy(() => import('../../BusinessComponents/MiddleUltsounds'))
-const MiddleUltsoundsSingle = lazy(() => import('../../BusinessComponents/MiddleUltsoundsSingle'))
+// const MiddleUltsounds = lazy(() => import('../../BusinessComponents/MiddleUltsounds'))
+// const MiddleUltsoundsSingle = lazy(() => import('../../BusinessComponents/MiddleUltsoundsSingle'))
 const NoenateRecord = lazy(() => import('../../BusinessComponents/NoenateRecord'))
 const NurseChildren = lazy(() => import('../../BusinessComponents/NurseChildren'))
 const NurseChildren2 = lazy(() => import('../../BusinessComponents/NurseChildren2'))
@@ -201,8 +201,8 @@ export const FormSectionComponent = {
     LaborProcess,
     ToggleForm,
     // LaborProcess2,
-    MiddleUltsounds,
-    MiddleUltsoundsSingle,
+    // MiddleUltsounds,
+    // MiddleUltsoundsSingle,
     NoenateRecord,
     NurseChildren,
     NurseChildren2,

@@ -1,4 +1,4 @@
-import { LazyAntd, MyIcon, useMyEffectSafe } from '@lm_fe/components';
+import { handle_form_error, LazyAntd, MyIcon, useMyEffectSafe } from '@lm_fe/components';
 import { FormSectionForm, OkButton } from '@lm_fe/components_m';
 import { mchcEnv, mchcEvent, mchcUtils } from '@lm_fe/env';
 import { IMchc_Doctor_Diagnoses, IMchc_Doctor_FirstVisitDiagnosisOutpatient, IMchc_Doctor_OutpatientHeaderInfo, SMchc_Doctor, TIdType } from '@lm_fe/service';
@@ -15,6 +15,7 @@ import { BF_Wrap2, HighRiskTableEntry } from '@lm_fe/pages';
 import { FormInstance } from 'antd/es/form/Form';
 import { api } from '../../../.api';
 import { IInitial_Tab_props } from '../../types';
+import { use_doctor_sign } from '../../../.utils/use_doctor_sign';
 interface IProps {
   diagnosis_addon_btns?: (data?: IMchc_Doctor_FirstVisitDiagnosisOutpatient) => React.ReactNode
   diagnosis_before_submit?: (submit: (values: any) => Promise<void>, data?: IMchc_Doctor_FirstVisitDiagnosisOutpatient, form?: FormInstance) => Promise<void>
@@ -48,6 +49,7 @@ function Index(props: IProps & IInitial_Tab_props) {
     form
   } = props;
   const preg_id = mchcUtils.single_id()
+  const { handleSign, 签名方式 } = use_doctor_sign({ type: 'prenatalFVisit' })
 
   const { Wrap, config } = BF_Wrap2({ default_conf: { title: '门诊-诊断处理', tableColumns: () => import('./config') } })
 
@@ -57,6 +59,7 @@ function Index(props: IProps & IInitial_Tab_props) {
 
   const [recordData, set_recordData] = useState([])
   const [visitData, setVisitData] = useState<IMchc_Doctor_FirstVisitDiagnosisOutpatient>()
+  const v_id = get(visitData, `advice.id`);
 
 
   useEffect(() => {
@@ -96,14 +99,28 @@ function Index(props: IProps & IInitial_Tab_props) {
       form.setFieldsValue(v)
     })
   }
+  function get_form_data() {
 
+
+    return form
+      .validateFields()
+      .catch((error) => {
+        const first = handle_form_error(error)
+        if (first?.text) mchcEnv.warning(first.text)
+        return null
+      })
+  }
+  async function sign() {
+    const data = await get_form_data()
+    data && handleSign(data)
+  }
 
   function handleSubmitBefore() {
     if (diagnosis_before_submit) {
       return diagnosis_before_submit(handleSubmit, visitData, form)
     }
-    const values = form.getFieldsValue()
-    handleSubmit(values)
+    get_form_data().then(handleSubmit)
+
   }
   async function handleSubmit(values) {
     const re = await SMchc_Doctor.updateFirstVisitDiagnosisOutpatient({
@@ -132,9 +149,8 @@ function Index(props: IProps & IInitial_Tab_props) {
 
   function print(type: 'prenatalVisit1' | 'prenatalVisit') {
     if (type == 'prenatalVisit1') {
-      const id = get(visitData, `advice.id`);
-      if (id) {
-        _handlePrint?.(type, id);
+      if (v_id) {
+        _handlePrint?.(type, v_id);
       } else {
         message.warning('请先保存');
       }
@@ -260,8 +276,15 @@ function Index(props: IProps & IInitial_Tab_props) {
             打印病历
           </OkButton>
 
-          <OkButton size="large" type="primary" disabled={disabled_save} onClick={handleSubmitBefore} icon={<MyIcon value='SaveOutlined' />}>
-            保存{mchcEnv.is('华医') ? '并关闭' : ''}
+
+
+
+          <OkButton size="large" hidden={签名方式 === 'CA签名并保存'} primary disabled={disabled_save} onClick={handleSubmitBefore} icon={<MyIcon value='SaveOutlined' />}>
+            保存
+          </OkButton>
+
+          <OkButton size="large" hidden={(!v_id && 签名方式 === 'CA签名') || !签名方式} primary disabled={disabled_save} onClick={sign}>
+            {签名方式}
           </OkButton>
         </Space>
       </Col>

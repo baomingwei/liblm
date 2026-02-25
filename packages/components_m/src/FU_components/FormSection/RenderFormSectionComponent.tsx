@@ -42,8 +42,8 @@ const InducedFetus = lazy(() => import('../../BusinessComponents/InducedFetus'))
 const KnowledgeBase = lazy(() => import('../../BusinessComponents/KnowledgeBase'))
 const LaborProcess = lazy(() => import('../../BusinessComponents/LaborProcess'))
 // const LaborProcess2 = lazy(() => import('../../BusinessComponents/LaborProcess2'))
-const MiddleUltsounds = lazy(() => import('../../BusinessComponents/MiddleUltsounds'))
-const MiddleUltsoundsSingle = lazy(() => import('../../BusinessComponents/MiddleUltsoundsSingle'))
+// const MiddleUltsounds = lazy(() => import('../../BusinessComponents/MiddleUltsounds'))
+// const MiddleUltsoundsSingle = lazy(() => import('../../BusinessComponents/MiddleUltsoundsSingle'))
 const NoenateRecord = lazy(() => import('../../BusinessComponents/NoenateRecord'))
 const NurseChildren = lazy(() => import('../../BusinessComponents/NurseChildren'))
 const NurseChildren2 = lazy(() => import('../../BusinessComponents/NurseChildren2'))
@@ -992,15 +992,15 @@ function RenderFormSectionComponent(props: IProps) {
             //             styles,
             //         }
             //     );
-            case 'middle_ultsounds':
-                return renderEditItem(
-                    form_config,
-                    <MiddleUltsounds {...formItemOthers} config={config} form={form} />,
-                    {
-                        ...formItemLayout,
-                        styles,
-                    }
-                );
+            // case 'middle_ultsounds':
+            //     return renderEditItem(
+            //         form_config,
+            //         <MiddleUltsounds {...formItemOthers} config={config} form={form} />,
+            //         {
+            //             ...formItemLayout,
+            //             styles,
+            //         }
+            //     );
             case 'post_partumFetal':
                 return renderEditItem(
                     form_config,
@@ -1037,15 +1037,15 @@ function RenderFormSectionComponent(props: IProps) {
             //             styles,
             //         },
             //     );
-            case 'middle_ultsounds_single':
-                return renderEditItem(
-                    form_config,
-                    <MiddleUltsoundsSingle {...formItemOthers} config={config} form={form} />,
-                    {
-                        ...formItemLayout,
-                        styles,
-                    }
-                );
+            // case 'middle_ultsounds_single':
+            //     return renderEditItem(
+            //         form_config,
+            //         <MiddleUltsoundsSingle {...formItemOthers} config={config} form={form} />,
+            //         {
+            //             ...formItemLayout,
+            //             styles,
+            //         }
+            //     );
             // case 'calculate-score-table':
             //     return renderEditItem(
             //         form_config,
