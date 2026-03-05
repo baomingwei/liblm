@@ -239,7 +239,7 @@ function RenderFormSectionComponent(props: IProps) {
                         >
                             {
                                 straw_conf.children?.map(c => {
-                                    if (!c) return null
+                                    if (!c || [false, 0].includes(c.isActive!)) return null
                                     // c.styles = { width: c.inputProps?.width ?? '100%' } // 必须设置 100%，否则一些输入框长度有问题
                                     // c.styles = { width: c.inputProps?.width ?? 'auto' } // 必须设置 100%，否则一些输入框长度有问题
                                     return <RenderFormSectionComponent
@@ -482,7 +482,7 @@ function RenderFormSectionComponent(props: IProps) {
                     }
                 );
 
- 
+
 
 
 
