@@ -187,20 +187,26 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
         editKeyRef.current = id
     }
     const cache_key = `${location.pathname}@${name}`
+    mchcLogger.log('tablelist cache_key', cache_key)
+
     useEffect(() => {
         let obj = mchcStorage.get(cache_key)
-        if (!isNil(obj)) {
+        mchcLogger.log('tablelist cache_key', cache_key, obj)
+        if (name && !isNil(obj)) {
             searchForm.setFieldsValue(obj)
         }
+    }, [name])
+    useEffect(() => {
+
         setTimeout(() => {
 
             const h = document.body.clientHeight
             const formHeight = formWrapper.current?.clientHeight ?? 0
             const queryHeight = queryRef.current?.clientHeight ?? 0
             const tableHeaderHeight = wrapRef.current?.querySelector('.ant-table-header')?.clientHeight ?? 0
-            const result = h - queryHeight - tableHeaderHeight - 120 - 100
+            const result = h - queryHeight - tableHeaderHeight - 120 - 80
             setTableHeight(result)
-            mchcLogger.log(`tableHeight:${result} queryHeight:${queryHeight} tableHeaderHeight:${tableHeaderHeight}`)
+            mchcLogger.log(`tablelist tableHeight:${result} queryHeight:${queryHeight} tableHeaderHeight:${tableHeaderHeight}`)
             if (formHeight > 40) {
                 setLongSearchForm(true)
             }
@@ -209,7 +215,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
 
                 setDataSource(dbg_dataSource)
             } else {
-                search()
+                init_or_click_search()
             }
             inited.current = true
 
@@ -230,7 +236,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
             const formHeight = formWrapper.current?.clientHeight ?? 0
             const queryHeight = queryRef.current?.clientHeight ?? 0
             const tableHeaderHeight = wrapRef.current?.querySelector('.ant-table-header')?.clientHeight ?? 0
-            mchcLogger.log('formHeight', { queryHeight, formHeight, h, tableHeaderHeight })
+            mchcLogger.log('tablelist formHeight', { queryHeight, formHeight, h, tableHeaderHeight })
 
             // setTableHeight(browserClient.clientHeight - queryHeight - 200)
 
@@ -301,7 +307,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
                     const _data = Object.assign({}, rowData, new_data)
 
                     const submitData = await safe_async_call(beforeSubmit, _data, old_data)
-                    mchcLogger.log('submitData', submitData)
+                    mchcLogger.log('tablelist submitData', submitData)
                     if (!submitData) return
                     return create_or_update(submitData)
 
@@ -544,7 +550,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
 
         // defaultQuery.current = { ...defaultQuery.current, ...v }
 
-        mchcLogger.log('getSearchParams', defaultQuery.current, { values, v, data })
+        mchcLogger.log('tablelist getSearchParams', defaultQuery.current, { values, v, data })
 
         // return { ...defaultQuery.current }
         return { ...defaultQuery.current, ...v }
@@ -578,7 +584,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
 
         setDataSource(data)
         setTotal(pagination.total)
-        console.log('pagination', { pagination, defaultQuery })
+        console.log('tablelist pagination', { pagination, defaultQuery })
 
         mchcEvent.emit('BaseList_hook', {
             type: 'search',
@@ -589,7 +595,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
     };
 
     const handlePageChange = (current: any, size: any) => {
-        mchcLogger.log('handlePageChange', current, size)
+        mchcLogger.log('tablelist handlePageChange', current, size)
         setPageSize(size)
         setCurrent(current)
         // setDataSource([])
@@ -672,7 +678,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
     };
 
 
-    async function search() {
+    async function init_or_click_search() {
         // setDataSource([])
         setCheckRows([])
         setCurrent(1)
@@ -716,15 +722,10 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
             },
         }
         : {}
-    const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
 
 
 
-    const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
-        console.log('selectedRowKeys changed: ', newSelectedRowKeys);
-        setSelectedRowKeys(newSelectedRowKeys);
-    };
-
+ 
 
 
     const n = (
@@ -818,16 +819,18 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
 
                                                     searchForm.resetFields()
                                                     defaultQuery.current = defaultQueryValue
-                                                    setDataSource([])
-                                                    setCurrent(1)
-                                                    setPageSize(defaultQueryValue.size)
-                                                    table_fetch()
+                                                    // setDataSource([])
+                                                    // setCurrent(1)
+                                                    // setPageSize(defaultQueryValue.size)
+                                                    // table_fetch()
+
+                                                    init_or_click_search()
 
                                                 }} >
                                                     重置
                                                 </OkButton>
 
-                                                <OkButton type="primary" htmlType="submit" disabled={loading} onClick={() => search()} icon={<MyIcon value='SearchOutlined' />}
+                                                <OkButton type="primary" htmlType="submit" disabled={loading} onClick={() => init_or_click_search()} icon={<MyIcon value='SearchOutlined' />}
                                                 >
                                                     查询
                                                 </OkButton>
