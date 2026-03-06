@@ -135,7 +135,7 @@ function Render_report(props: { row: IDataItem }) {
   return (
 
     <div>
-      <div style={{ marginBottom: 12, maxHeight: '80vh', overflowY: 'auto' }}>{node}</div>
+      <div style={{ marginBottom: 12, height: '80vh', overflowY: 'auto' }}>{node}</div>
       <Pagination
         current={current}
         total={pathArr.length}
