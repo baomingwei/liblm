@@ -32,9 +32,6 @@ export const ACTION_TYPE = {
   PRENATAL_VISIT_WEBSOCKET_SHOW: 'prenatal-visit.websocket.show',
   PRENATAL_VISIT_WEBSOCKET_MULTITERM: 'prenatal-visit.websocket.multiterm',
 
-  PRENATAL_DIAGNOSIS_CHANGE_PATIENT: 'prenatal-diagnosis.changePatient',
-  PRENATAL_DIAGNOSIS_OPEN_SPIN: 'prenatal-diagnosis.openSpin',
-  PRENATAL_DIAGNOSIS_CLOSE_SPIN: 'prenatal-diagnosis.closeSpin',
   GET_SYSTEM_CONFIG: 'system.config.get',
   UPDATE_SYSTEM_CONFIG: 'system.config.updated',
   UPDATE_SOCKET_STATE: 'system.socketState.updated',

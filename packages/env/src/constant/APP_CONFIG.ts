@@ -15,10 +15,6 @@ export const APP_CONFIG = {
     SUCCESS_HTTP_STATUS: [200, 201, 204],
   };
   
-  // 产前
-  export const PRENATAL_DIAGNOSIS_CHANGE_PATIENT = 'changePatient';
-  export const PRENATAL_DIAGNOSIS_OPEN_SPIN = 'openSpin';
-  export const PRENATAL_DIAGNOSIS_CLOSE_SPIN = 'closeSpin';
   
   export const WEBSOCKET_STATUS = {
     CONNECTING: 0,
