@@ -7,7 +7,7 @@ import { get, keys } from "lodash";
 import React from "react";
 import { mchcModal__ } from "src/modals";
 type TPageType = '单页' | '非单页'
-export interface QuickDocButtonProps extends ButtonProps {
+export interface QuickDocButtonProps extends Omit<ButtonProps, 'form'> {
     page_type: TPageType
 }
 
@@ -63,6 +63,6 @@ export function QuickDocButton(props: QuickDocButtonProps) {
 
 
     return (
-        <OkButton primary icon={<MyIcon value='UserAddOutlined' />} onClick={() => quick_doc(page_type)}>快捷建档</OkButton>
+        <OkButton primary icon={<MyIcon value='UserAddOutlined' />} {...props} onClick={() => quick_doc(page_type)}>快捷建档</OkButton>
     );
 }

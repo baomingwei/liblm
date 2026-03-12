@@ -6,7 +6,7 @@ import zhCN from 'antd/lib/locale/zh_CN';
 import { forEach, get, isEmpty, isNil, join, map, omit } from 'lodash';
 import React, { lazy, useState } from 'react';
 import { MyLazyComponent } from '../../MyLazyComponent';
-import { RenderSection, RenderTab, use_form_config } from './helper';
+import { RenderSection, RenderSegs, RenderTab, use_form_config } from './helper';
 import { IFormSectionProps } from './types';
 import { RenderEditItem, formatFormConfig } from './utils';
 
@@ -59,12 +59,20 @@ function MyFormSection(props: IFormSectionProps) {
       </Row>
     )
   }
-  function renderTab_Wrap(arr: IMchc_FormDescriptions_Field[] = [], dynamicFormItemProps: FormItemProps = {}) {
+  function renderTab_Wrap(arr: IMchc_FormDescriptions_Field[] = []) {
     const rowKey = join(map(arr, 'key'), '~')
 
     return (
       <RenderTab fds={arr} key={rowKey} form={props.form} renderContent={renderContent}>
       </RenderTab>
+    )
+  }
+  function renderSeg_Wrap(arr: IMchc_FormDescriptions_Field[] = []) {
+    const rowKey = join(map(arr, 'key'), '~')
+
+    return (
+      <RenderSegs fds={arr} key={rowKey} form={props.form} renderContent={renderContent}>
+      </RenderSegs>
     )
   }
 
@@ -138,6 +146,7 @@ function MyFormSection(props: IFormSectionProps) {
     const { inline = false } = props
     let tempArr: IMchc_FormDescriptions_Field[] = []
     let tempTabItemArr: IMchc_FormDescriptions_Field[] = []
+    let tempSegItemArr: IMchc_FormDescriptions_Field[] = []
     let tempSpan = 0
     const formArray: any[] = []
     const len = fds.length
@@ -150,8 +159,15 @@ function MyFormSection(props: IFormSectionProps) {
     }
     const flushTab = () => {
       if (!isEmpty(tempTabItemArr)) {
-        formArray.push(renderTab_Wrap(tempTabItemArr, dynamicFormItemProps))
+        formArray.push(renderTab_Wrap(tempTabItemArr))
         tempTabItemArr = []
+
+      }
+    }
+    const flushSeg = () => {
+      if (!isEmpty(tempSegItemArr)) {
+        formArray.push(renderSeg_Wrap(tempSegItemArr))
+        tempSegItemArr = []
 
       }
     }
@@ -170,6 +186,13 @@ function MyFormSection(props: IFormSectionProps) {
         return
       }
       flushTab()
+
+      if (_config.containerType === 'segs') {
+        flush()
+        tempSegItemArr.push(_config)
+        return
+      }
+      flushSeg()
 
 
       if (children && !isEmpty(children)) {
@@ -212,6 +235,7 @@ function MyFormSection(props: IFormSectionProps) {
     // 修改位置！
 
     flushTab()
+    flushSeg()
     flush()
 
 

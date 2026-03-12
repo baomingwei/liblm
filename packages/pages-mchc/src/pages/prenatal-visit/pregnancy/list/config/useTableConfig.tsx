@@ -124,10 +124,10 @@ export function useTableConfig(props: any) {
             </>
         },
         RenderBtns: (({ }) => {
-            return <Space>
+            return <>
                 <IdNOButton />
-                <QuickDocButton page_type='非单页' />
-            </Space>
+                <QuickDocButton type='default' page_type='非单页' />
+            </>
         }),
         // onExport({ getSearchParams }) {
         //     handleExport(getSearchParams())

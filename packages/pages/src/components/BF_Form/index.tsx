@@ -109,7 +109,7 @@ export function BF_Form(props: IBF_Form_Props) {
                             <FormSectionForm disableAll={disabled} size='small' targetLabelCol={first ? 2 : 2} onFinish={update} form={form} formDescriptions={config?.tableColumns} />
                         </Col>
                         <Col span={10}>
-                            <FormSectionForm disableAll={disabled} size='small' targetLabelCol={first ? 2 : 2} disableAll form={_form_first} formDescriptions={config?.tableColumns} />
+                            <FormSectionForm size='small' targetLabelCol={first ? 2 : 2} disableAll form={_form_first} formDescriptions={config?.tableColumns} />
                         </Col>
                     </Row>
                     : <FormSectionForm disableAll={disabled} size='small' onFinish={update} form={form} formDescriptions={config?.tableColumns} />

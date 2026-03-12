@@ -63,7 +63,11 @@ export function MyFormSectionForm<T extends Object>(props: IFormSectionFormProps
 
             autoComplete="off"
             // {...formItemLayout}
-            style={{ padding: '12px 12px 48px 12px', ...style }}
+            style={{
+                // padding: '12px 12px 48px 12px',
+                padding: 12,
+                ...style
+            }}
             form={form}
 
         >

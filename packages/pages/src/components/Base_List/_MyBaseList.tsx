@@ -25,6 +25,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
 
 
     const { Wrap, config } = BF_Wrap2({ default_conf: bf_preset }, {
+        table_props: _props,
         table_helper: {
             createOrUpdate: create_or_update,
             handleView,
@@ -553,7 +554,8 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
         mchcLogger.log('tablelist getSearchParams', defaultQuery.current, { values, v, data })
 
         // return { ...defaultQuery.current }
-        return { ...defaultQuery.current, ...v }
+        const obj = { ...defaultQuery.current, ...v }
+        return shake(obj, v => ['', undefined].includes(v))
 
     }
 
@@ -725,7 +727,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
 
 
 
- 
+
 
 
     const n = (
@@ -767,7 +769,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
                             }
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', borderBottom: longSearchForm ? `1px dashed ${sys_theme.colorBorder}` : 0, paddingBottom: 4, paddingRight: 28 }}>
-                            <Space>
+                            <Space.Compact>
 
                                 {RenderBtns?.call(window, actionCtx)}
                                 {
@@ -811,7 +813,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
                                     showSearch ? (
                                         <>
                                             <Divider type='vertical' />
-                                            <Button.Group >
+                                            <Space.Compact >
                                                 {RenderSearchBtns?.call(window, actionCtx)}
 
                                                 <OkButton htmlType="reset" icon={<MyIcon value='ReloadOutlined' />} disabled={loading} onClick={() => {
@@ -834,11 +836,11 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
                                                 >
                                                     查询
                                                 </OkButton>
-                                            </Button.Group>
+                                            </Space.Compact>
                                         </>
                                     ) : null
                                 }
-                            </Space>
+                            </Space.Compact>
 
                         </div>
 

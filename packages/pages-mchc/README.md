@@ -10,7 +10,7 @@ mchc 页面级模块
 | /config-table/list2 | 缺省 |
 | /config-table/panel | 缺省 |
 | /config-table/panel2 | 缺省 |
-| /data-report/admission-visit | 建档上报 |
+| /data-report/admission-visit | 数据上报-建档上报 |
 | /data-report/breast-cancer | 乳腺癌上报 |
 | /data-report/cervical-cancer | 数据上报-宫颈癌上报 |
 | /data-report/first-visit | 数据上报-首诊上报 |
@@ -18,7 +18,7 @@ mchc 页面级模块
 | /data-report/labour-record-common | 分娩上报 |
 | /data-report/premarital-checkup | 婚前检查上报 |
 | /data-report/progestation-checkup | 孕前检查上报 |
-| /data-report/second-visit | 复诊上报 |
+| /data-report/second-visit | 数据上报-复诊上报 |
 | /data-report/two-cancer | 两癌手册上报 |
 | /deliver-management/bgg-record | 产科住院-卡介苗接种记录 |
 | /deliver-management/disease-screening | 产科住院-新生儿疾病筛查记录 |

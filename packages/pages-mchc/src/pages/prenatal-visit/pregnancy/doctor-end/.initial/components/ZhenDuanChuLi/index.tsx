@@ -132,6 +132,7 @@ function Index(props: IProps & IInitial_Tab_props) {
       ...values
     })
     HighRiskTableEntry.highRiskTablePopup(re, headerInfo);
+    mchcEvent.emit('outpatient', { type: '刷新头部', pregnancyId: preg_id })
 
   };
 

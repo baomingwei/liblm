@@ -48,35 +48,7 @@ export function RenderTab(props: { fds: IMchc_FormDescriptions_Field_Nullable[],
         onChange={k => {
             return changeActiveKey(k)
 
-            const items = configArr.find(_ => {
-                const title = SMchc_FormDescriptions.get_form_item_title_or_Name(_)
-                return title === activeKey
-            })
-            if (form && items) {
-                const arr = items.children ?? []
 
-                const keys = arr.map(_ => SMchc_FormDescriptions.parse_form_item_name(_))
-                form.validateFields(keys)
-                    .then(
-                        () => changeActiveKey(k)
-                    )
-                    .catch((e) => {
-
-                        const errorFields: any[] = e?.errorFields ?? []
-                        const str = errorFields
-                            .map(_ => {
-                                const errorText = _.errors[0]
-                                return errorText as string
-                            })
-                            .filter(_ => _)
-                            .join('、')
-                        message.warning(str)
-
-                    })
-
-            } else {
-                changeActiveKey(k)
-            }
         }}
 
     >
@@ -115,11 +87,19 @@ export function RenderSegs(props: { fds: IMchc_FormDescriptions_Field_Nullable[]
             form,
         })
     }
-    return <div style={{ margin: '6px 0', border: `1px solid ${sys_theme.colors?.light[0]}` }}>
+    const is全部 = activeKey === '全部'
+
+    return <div style={{
+        margin: '6px 0',
+        position: 'relative',
+        borderRadius: 4,
+        border: `1px solid ${sys_theme.colors?.light[0]}`
+    }}>
 
         <Segmented<string>
-            style={{ border: 0, padding: 0, bottom: '0 0 6px 0' }}
-            block
+            size='small'
+            style={{ position: 'absolute', left: 24, top: -12 }}
+            // block
             value={activeKey}
             options={
                 [
@@ -127,28 +107,27 @@ export function RenderSegs(props: { fds: IMchc_FormDescriptions_Field_Nullable[]
                         const title = SMchc_FormDescriptions.get_form_item_title_or_Name(_)
                         return title
                     }),
-                    '全部'
+                    // '全部'
                 ]
             }
             onChange={(k) => {
                 changeActiveKey(k)
             }}
         />
-        <div style={{ padding: 12 }}>
+        <div style={{ padding: 8 }}>
             {
                 configArr.map(_ => {
                     const title = SMchc_FormDescriptions.get_form_item_title_or_Name(_)
-                    const is全部 = activeKey === '全部'
 
-                    if (is全部)
-                        return <RenderSection key={title} renderContent={renderContent} fd={{ ..._, containerType: 'plain' }} />
+                    // if (is全部)
+                    //     return <RenderSection key={title} renderContent={renderContent} fd={{ ..._, containerType: 'section(default)' }} />
 
                     const is_show = activeKey === title
                     if (is_show)
-                        return <div key={title} hidden>{renderContent(_?.children)}</div>
+                        return <div key={title}>{renderContent(_?.children)}</div>
                     return _?.fd_lazy
                         ? null
-                        : <div key={title} hidden>{renderContent(_?.children)}</div>
+                        : <div key={title} hidden={is全部 ? false : true}>{renderContent(_?.children)}</div>
 
                 })
             }
