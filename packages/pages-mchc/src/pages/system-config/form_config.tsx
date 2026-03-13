@@ -399,6 +399,12 @@ export default defineFormConfig(
                     },
                     layout: '1/3',
                 },
+                {
+                    label: '头部专案',
+                    name: '头部专案',
+                    inputType: 'MSW',
+                    layout: '1/3',
+                },
 
                 {
                     label: '量表拓展',
