@@ -93,28 +93,24 @@ function hasKeyword(arr: string[], val?: string,) {
 
 
 
-export function use专案(headerInfo?: IMchc_Doctor_OutpatientHeaderInfo) {
-  const is_show_all = false && mchcEnv.in(['广三'])
+export function use专案(infectionNoteLabels: IRet[], headerInfo?: IMchc_Doctor_OutpatientHeaderInfo, is_show_all?: boolean,) {
   const multipletsArr = ['三胎妊娠', '四胎妊娠', '五胎妊娠', '六胎妊娠', '多胎妊娠'];
   const twinsArr = ['双胎妊娠'];
 
-  const [isShowGdm, setIsShowGdm] = useState(false)
-  const [isShowBmi, setIsShowBmi] = useState(false)
-  const [isShowSlowGrowing, setIsShowSlowGrowing] = useState(false)
   const isShowTwins = hasKeyword(twinsArr, headerInfo?.pregnancyCaseLable)
   const isShowMultiplets = hasKeyword(multipletsArr, headerInfo?.pregnancyCaseLable,)
 
-  const is_show_梅毒 = mchcEnv.in(['华医'])
-  const is_show_乙肝 = mchcEnv.in(['华医'])
+  const is_show_梅毒 = infectionNoteLabels.some((_) => _.type === '梅')
+  const is_show_乙肝 = infectionNoteLabels.some((_) => _.type === '乙')
 
   return {
-    isShowGdm: isShowGdm || is_show_all,
-    isShowBmi: isShowBmi || is_show_all,
-    isShowSlowGrowing: isShowSlowGrowing || is_show_all,
-    isShowTwins: isShowTwins || is_show_all,
-    isShowMultiplets: isShowMultiplets || is_show_all,
-    is_show_梅毒: is_show_梅毒 || is_show_all,
-    is_show_乙肝: is_show_乙肝 || is_show_all,
+    isShowGdm: is_show_all,
+    isShowBmi: is_show_all,
+    isShowSlowGrowing: is_show_all,
+    isShowTwins: is_show_all && isShowTwins,
+    isShowMultiplets: is_show_all && isShowMultiplets,
+    is_show_梅毒: is_show_all && is_show_梅毒,
+    is_show_乙肝: is_show_all && is_show_乙肝,
   }
 
 }

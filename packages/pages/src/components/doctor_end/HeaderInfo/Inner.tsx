@@ -1,4 +1,4 @@
-import { mchcConfig, mchcEnv, mchcEvent, mchcLogger, mchcUtils, TLevelType } from '@lm_fe/env'
+import { mchcEnv, mchcEvent, mchcLogger, mchcUtils, TLevelType } from '@lm_fe/env'
 import { IMchc_Doctor_OutpatientHeaderInfo, SMchc_Doctor } from '@lm_fe/service'
 import { EMPTY_PLACEHOLDER, request, setSearchParamsValue } from '@lm_fe/utils'
 import { Button, ButtonProps, Tooltip } from 'antd'
@@ -11,13 +11,13 @@ import { OkButton } from '@lm_fe/components_m'
 import { use_provoke } from '@lm_fe/provoke'
 import { mchcModal__ } from 'src/modals'
 import { safe_navigate } from 'src/utils'
+import { QuestionnaireButton } from '../../../pages/questionnaire'
 import { DoctorEnd_ExemplaryCase } from '../ExemplaryCase/index'
+import { FuckTags } from './FuckTag'
 import styles from './index.module.less'
 import { IHeaderInfoProps } from './types'
 import { use_headinfo_color } from './use_headinfo_color'
 import { handleFuckinginfectionNoteLabel, use专案 } from './utils'
-import { QuestionnaireButton } from '../../../pages/questionnaire'
-import { FuckTags } from './FuckTag'
 
 export default function HeaderInfoInner(props: IHeaderInfoProps) {
     const {
@@ -28,24 +28,25 @@ export default function HeaderInfoInner(props: IHeaderInfoProps) {
         onDobuleClick,
     } = props
 
-    const { config, user_info } = use_provoke('config', 'user_info')
+    const { 头部信息拓展, 护士端_禁止编辑高危因素_传染病, highriskType, 头部专案 } = use_provoke(s => s.config)
     const pregnancyId = mchcUtils.single_id(props)
 
     const [headerInfo, setHeaderInfo] = useState<IMchc_Doctor_OutpatientHeaderInfo>()
     const highriskLable: TLevelType = (headerInfo?.highriskLable as any) || 'Ⅰ'
     const color_conf = use_headinfo_color(highriskLable)
 
-    const info_addon = config.头部信息拓展 ?? []
+    const info_addon = 头部信息拓展 ?? []
+
+    const infectionNoteLabels = handleFuckinginfectionNoteLabel(headerInfo?.infectionNote)
 
     const { isShowBmi, isShowGdm, isShowMultiplets, isShowSlowGrowing, isShowTwins, is_show_乙肝, is_show_梅毒 } =
-        use专案(headerInfo)
+        use专案(infectionNoteLabels, headerInfo, 头部专案)
 
     const [isTwinkling, setIsTwinkling] = useState(true)
 
     const [exemplaryCaseVisible, setExemplaryCaseVisible] = useState(false)
     const [tabkey, setTabkey] = useState('1')
 
-    const infectionNoteLabels = handleFuckinginfectionNoteLabel(headerInfo?.infectionNote)
 
     const headerInfoCache = useRef(headerInfo)
     headerInfoCache.current = headerInfo
@@ -125,9 +126,9 @@ export default function HeaderInfoInner(props: IHeaderInfoProps) {
     }
 
     function open高危因素管理() {
-        const is护士端_禁止编辑高危因素_传染病 = mchcConfig.get('护士端_禁止编辑高危因素_传染病')
 
-        if (is护士端_禁止编辑高危因素_传染病 && isNurse) return
+
+        if (护士端_禁止编辑高危因素_传染病 && isNurse) return
         setIsTwinkling(false)
 
         mchcModal__.open('高危因素管理', {
@@ -176,7 +177,7 @@ export default function HeaderInfoInner(props: IHeaderInfoProps) {
         return a
     }
     function renderInfo() {
-        const is_show_note = mchcConfig.get('highriskType') == 'highriskNote'
+        const is_show_note = highriskType === 'highriskNote'
         return (
             <div
                 className={classnames(styles['header-info-wrapper'])}
@@ -323,7 +324,6 @@ export default function HeaderInfoInner(props: IHeaderInfoProps) {
                             <div className={styles['exemplary-case']}>
                                 {is_show_乙肝 && (
                                     <Button
-                                        hidden={infectionNoteLabels.some((_) => _.type === '乙')}
                                         type="text"
                                         size="small"
                                         onClick={open乙肝管理}
@@ -333,7 +333,6 @@ export default function HeaderInfoInner(props: IHeaderInfoProps) {
                                 )}
                                 {is_show_梅毒 && (
                                     <Button
-                                        hidden={infectionNoteLabels.some((_) => _.type === '梅')}
                                         type="text"
                                         size="small"
                                         onClick={open梅毒管理}
