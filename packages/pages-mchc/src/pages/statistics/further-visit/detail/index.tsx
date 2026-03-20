@@ -30,7 +30,7 @@ export default function Archive(props: any) {
     return <Wrap>
         <MyBaseList
             bf_conf={config}
-            RenderBtns={ctx => {
+            renderBtns={ctx => {
                 return <OkButton
                     onClick={async e => {
                         const res = await request.get('/api/exportPrenatalVisitDetail', {

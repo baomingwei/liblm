@@ -59,7 +59,7 @@ export default function FileManagementList(props: any) {
   return <Wrap>
     <MyBaseList
       tableColumns={__DEV__ ? conf_fn : config?.tableColumns}
-      RenderBtns={() =>
+      renderBtns={() =>
         <>
           <IdNOButton send_id='list' />
           <OkButton onClick={handleAdd}>新增</OkButton>

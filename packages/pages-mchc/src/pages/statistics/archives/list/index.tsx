@@ -19,7 +19,7 @@ export default function Archive(props: any) {
         <MyBaseList
             bf_conf={config}
 
-            RenderBtns={ctx => {
+            renderBtns={ctx => {
                 return <OkButton
                     onClick={async e => {
                         const res = await request.get('/api/pregnancies/createPregnancyExport', {

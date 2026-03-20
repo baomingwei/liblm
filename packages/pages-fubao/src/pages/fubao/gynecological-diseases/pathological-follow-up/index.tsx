@@ -109,7 +109,7 @@ export default function Pathological_follow_up(props: any) {
     baseTitle='档案管理'
     showAdd={false}
     needChecked
-    RenderBtns={({ getSearchParams, getCheckRows, handleSearch }) => {
+    renderBtns={({ getSearchParams, getCheckRows, handleSearch }) => {
 
       const ids = getCheckRows().map(_ => _.id)
       return <>

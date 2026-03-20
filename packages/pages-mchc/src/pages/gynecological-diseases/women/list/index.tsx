@@ -53,7 +53,7 @@ export default function Gynecological_diseases_women(props: any) {
           </Button>
         </Space>
       }}
-      RenderBtns={(ctx) => {
+      renderBtns={(ctx) => {
         return <IdNOButton send_id='list' />
       }}
     />

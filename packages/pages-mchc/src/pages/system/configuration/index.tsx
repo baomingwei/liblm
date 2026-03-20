@@ -18,7 +18,7 @@ export default () => {
     baseTitle='配置'
     showAdd={false}
     fuckPage
-    RenderBtns={({ getSearchParams }) => {
+    renderBtns={({ getSearchParams }) => {
 
 
       return <>

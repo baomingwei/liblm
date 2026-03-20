@@ -82,7 +82,7 @@ export default function RemindRecord(prop: { remindType: RemindType }) {
 
     showAction={false}
     showAdd={false}
-    RenderBtns={(ctx) => {
+    renderBtns={(ctx) => {
       const selectRows = ctx.getCheckRows()
       return <OkButton primary disabled={!selectRows.length} onClick={async () => {
         const q = ctx.getSearchParams()

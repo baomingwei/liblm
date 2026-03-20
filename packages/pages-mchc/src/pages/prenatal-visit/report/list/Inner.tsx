@@ -103,7 +103,7 @@ export default function Inner(props: IProps) {
           }}
         >查看</Button>
       }}
-      RenderBtns={(ctx) => {
+      renderBtns={(ctx) => {
         return <SnapButton />
       }}
       bf_conf={config}

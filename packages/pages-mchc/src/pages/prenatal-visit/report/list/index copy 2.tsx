@@ -58,7 +58,7 @@ export default function Gaopaiyi_List(props: { type?: TIdTypeCompatible, search?
         }}
       >查看</Button>
     }}
-    RenderBtns={(ctx) => {
+    renderBtns={(ctx) => {
       return <SnapButton />
     }}
     name='/api/outer-reports'

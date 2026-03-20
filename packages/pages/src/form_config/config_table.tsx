@@ -237,6 +237,17 @@ export const config_table_fd = (props: any): IMchc_FormDescriptions_Field_Nullab
                 layout: '1/4',
             },
             {
+                title: '可勾选',
+                inputType: 'MyCheckbox',
+                inputProps: {
+                    uniqueKey: '否是',
+                    marshal: 0,
+                },
+                dataIndex: 'needChecked',
+                hidden: true,
+                layout: '1/4',
+            },
+            {
                 title: '显示打印按钮',
                 inputType: 'MyCheckbox',
                 inputProps: {
@@ -324,7 +335,7 @@ export const config_table_fd = (props: any): IMchc_FormDescriptions_Field_Nullab
                     {
                         inputType: 'MyMonaco',
                         inputProps: { language: 'javascript', height: '56vh' },
-                        dataIndex: 'RenderBtns',
+                        dataIndex: 'renderBtns',
                     }
                 ]
             },

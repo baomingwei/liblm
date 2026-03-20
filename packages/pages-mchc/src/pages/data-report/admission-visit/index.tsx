@@ -11,7 +11,7 @@ export default function BreastCancerDataReport(prop: any) {
         useListSourceCount
 
 
-        RenderBtns={(ctx) => {
+        renderBtns={(ctx) => {
             const selectRows = ctx.getCheckRows()
             return <Button disabled={!selectRows.length} onClick={async () => {
                 request.post('/api/dataReport/reportPregnancy', { ids: selectRows.map(_ => _.id), });

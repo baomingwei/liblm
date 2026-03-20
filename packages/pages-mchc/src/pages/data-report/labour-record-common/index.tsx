@@ -29,7 +29,7 @@ export default function BreastCancerDataReport(prop: any) {
         ]}
         showAction={false}
         showAdd={false}
-        RenderBtns={(ctx) => {
+        renderBtns={(ctx) => {
             const selectRows = ctx.getCheckRows()
             return <Button disabled={!selectRows.length} onClick={async () => {
                 request.post('/api/dataReport/reportLabourRecord', { ids: selectRows.map(_ => _.id), });

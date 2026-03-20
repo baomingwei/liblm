@@ -123,7 +123,7 @@ export function useTableConfig(props: any) {
 
             </>
         },
-        RenderBtns: (({ }) => {
+        renderBtns: (({ }) => {
             return <>
                 <IdNOButton />
                 <QuickDocButton type='default' page_type='非单页' />

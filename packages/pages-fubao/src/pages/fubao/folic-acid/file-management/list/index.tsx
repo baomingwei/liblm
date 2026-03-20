@@ -24,7 +24,7 @@ export function List(props: {}) {
     ActionAddonBefore={({ rowData }) => {
       return <Button size='small' onClick={() => SLocal_History.historyPush(`/fubao/folic-acid/file-management/edit?id=${rowData.id}`)}>发放叶酸</Button>
     }}
-    RenderBtns={({ getSearchParams }) => {
+    renderBtns={({ getSearchParams }) => {
 
 
       return null

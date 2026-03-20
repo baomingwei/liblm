@@ -43,7 +43,7 @@ export default (props) => {
             initialSearchValue={{
                 // apiPrefix: '/api'
             }}
-            RenderBtns={() => {
+            renderBtns={() => {
                 return <div>请不要再设置接口前缀!!如果打开空白，请设置对应的菜单权限</div>
             }}
             searchConfig={[

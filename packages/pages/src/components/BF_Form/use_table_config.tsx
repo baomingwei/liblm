@@ -86,6 +86,7 @@ export function use_table_config(setting: IBF_props, props?: any) {
         ) {
             default_conf.handleBeforePopup = default_conf.handleBeforePopup ?? (values => values)
             default_conf.beforeSubmit = default_conf.beforeSubmit ?? ((new_values, old_values) => new_values)
+            default_conf.renderBtns = default_conf.renderBtns ?? ((actions) => [])
             default_conf.watchScript = default_conf.watchScript ?? ((changed, values, form) => { })
             default_conf.initialSearchValue = default_conf.initialSearchValue ?? (() => ({}))
             default_conf.searchParams = default_conf.searchParams ?? (() => ({}))

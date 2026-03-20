@@ -60,7 +60,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
         apiPrefix,
         ActionAddonBefore,
         RenderAction,
-        RenderBtns,
+        renderBtns,
         RenderSearchBtns,
         searchConfig = [],
         searchParams = {},
@@ -736,7 +736,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', borderBottom: longSearchForm ? `1px dashed ${sys_theme.colorBorder}` : 0, paddingBottom: 4, paddingRight: 28 }}>
                             <Space>
 
-                                {RenderBtns?.call(window, actionCtx)}
+                                {renderBtns?.call(window, actionCtx)}
                                 {
                                     (showExport || onExport) ? <OkButton icon={<MyIcon value='ExportOutlined' />} type="primary" onClick={() => {
                                         if (onExport) {

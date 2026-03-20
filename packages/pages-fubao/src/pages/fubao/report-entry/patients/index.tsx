@@ -42,7 +42,7 @@ export default function Patients(props: {}) {
             }}
             searchConfig={config?.searchConfig}
 
-            // RenderBtns={(ctx) => {
+            // renderBtns={(ctx) => {
             //     const selectRows = ctx.getCheckRows()
             //     return <Button.Group>
             //         <Button disabled={!selectRows.length} onClick={async () => {

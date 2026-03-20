@@ -106,7 +106,7 @@ export function useTableConfig(props: any) {
 
             </>
         },
-        RenderBtns: (({ }) => {
+        renderBtns: (({ }) => {
             return <IdNOButton />
         }),
         onExport({ getSearchParams }) {

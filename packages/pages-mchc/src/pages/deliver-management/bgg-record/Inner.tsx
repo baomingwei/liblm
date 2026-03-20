@@ -43,7 +43,7 @@ export default function BreastCancerDataReport(props: { type: TType }) {
 	}
 	return <Wrap>
 		<MyBaseList
-			RenderBtns={ctx => <OkButton onClick={() => print(ctx.getSearchParams())}>打印</OkButton>}
+			renderBtns={ctx => <OkButton onClick={() => print(ctx.getSearchParams())}>打印</OkButton>}
 			searchParams={config?.searchParams}
 			name={config?.name}
 			useListSourceCount

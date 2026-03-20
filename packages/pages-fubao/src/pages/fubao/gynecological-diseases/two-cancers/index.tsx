@@ -116,7 +116,7 @@ export default function Pathological_follow_up(props: any) {
           >筛查</OkButton>
         </Space>
       }}
-      RenderBtns={() => <IdNOButton send_id='list' />}
+      renderBtns={() => <IdNOButton send_id='list' />}
 
       beforeSearch={(v) => {
         const { filingDay, ...others } = v

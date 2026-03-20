@@ -76,7 +76,7 @@ export default function List(props: {}) {
         request.get('/api/enter/fetalMonitorRecord', { params: { id } }).then(() => ctx.handleSearch())
 
       }}
-      RenderBtns={(ctx) => {
+      renderBtns={(ctx) => {
         return <Count name={config?.name} getSearchParams={ctx.getSearchParams} />
       }}
       ActionAddonBefore={(ctx) => {

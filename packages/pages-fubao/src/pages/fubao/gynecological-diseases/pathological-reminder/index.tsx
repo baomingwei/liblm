@@ -108,7 +108,7 @@ export default function Pathological_reminder(props: any) {
     baseTitle='档案管理'
     showAdd={false}
     needChecked
-    RenderBtns={({ getSearchParams, getCheckRows, handleSearch }) => {
+    renderBtns={({ getSearchParams, getCheckRows, handleSearch }) => {
 
       const ids = getCheckRows().map(_ => _.id)
       return <>

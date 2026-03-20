@@ -19,7 +19,7 @@ export default function CervicalCancerDataReport(prop: any) {
         name="/two/cancer/screening/findAllCervicalCancerReportedData"
         showAction={false}
         showAdd={false}
-        RenderBtns={(ctx) => {
+        renderBtns={(ctx) => {
             const selectRows = ctx.getCheckRows()
             return <Button disabled={!selectRows.length} onClick={async () => {
                 mchcLogger.log('select xx', { rows: selectRows })

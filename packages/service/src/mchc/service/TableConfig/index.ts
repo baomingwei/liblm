@@ -1,5 +1,4 @@
-import { safe_get_symbol, safe_get_object_symbol } from "@lm_fe/env"
-import { safeGetFromFuncOrData } from "@lm_fe/utils"
+import { safe_get_object_symbol, safe_get_symbol } from "@lm_fe/env"
 import { ModelService } from "../../../ModelService"
 import { IMchc_FormDescriptions_Field_Nullable, IMchc_FormDescriptions_Field_Nullable_Arr, SMchc_FormDescriptions } from "../FormDescriptions"
 import { set_deps_string, set_fn_string, stringify_bf, stringify_bf_fn, stringify_bf_obj } from "./utils"
@@ -7,6 +6,8 @@ export { IMchc_FormDescriptions_Field_Nullable_Arr, stringify_bf_obj }
 export interface IMchc_TableConfig {
     "id": any,
     "initialSearchValue": any,
+    "renderBtns": any,
+    "needChecked": any,
     "initialValues": any,
     searchParams: any
     tableColumns: any
@@ -50,6 +51,7 @@ class Mchc_TableConfig_Service extends ModelService<IMchc_TableConfig> {
         _con.watchScript = safe_get_symbol(config.watchScript, props,)!
 
         _con.beforeSubmit = safe_get_symbol(config.beforeSubmit, props,)!
+        _con.renderBtns = safe_get_symbol(config.renderBtns, props,)!
 
         _con.tableColumns = safe_get_object_symbol(config.tableColumns, props, [])
 
@@ -83,7 +85,8 @@ class Mchc_TableConfig_Service extends ModelService<IMchc_TableConfig> {
         _con.watchScript = stringify_bf_fn(config.watchScript,)
 
         _con.beforeSubmit = stringify_bf_fn(config.beforeSubmit,)
-        // _con.beforeSubmit = stringify_bf_obj(config.beforeSubmit,)
+        _con.renderBtns = stringify_bf_fn(config.renderBtns,)
+ 
 
         _con.genColumns = stringify_bf_fn(config.genColumns,)
         _con.initialSearchValue = stringify_bf(config.initialSearchValue,)

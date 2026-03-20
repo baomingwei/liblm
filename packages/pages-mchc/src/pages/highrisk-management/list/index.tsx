@@ -27,7 +27,7 @@ export default function BreastCancerDataReport(prop: any) {
 
 
             bf_conf={config}
-            RenderBtns={(ctx) => {
+            renderBtns={(ctx) => {
                 return <Button.Group>
                     <Button onClick={async () => {
                         let queryData = ctx.getSearchParams()

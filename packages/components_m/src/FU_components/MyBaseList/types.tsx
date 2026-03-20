@@ -116,7 +116,7 @@ export interface MyBaseListProps<T extends { id?: any } = any> extends TableProp
   ActionAddonBefore?: RenderColFn<T>
   RenderAction?: RenderColFn<T>
   actionAddonAfter?: ReactNode
-  RenderBtns?: FC<IMyBaseList_ActionCtx<T>>
+  renderBtns?: FC<IMyBaseList_ActionCtx<T>>
   RenderSearchBtns?: FC<IMyBaseList_ActionCtx<T>>
   searchSchema?: IBaseListSearchSchemaItem[]
   searchConfig?: IMchc_FormDescriptions_Field_Nullable[]

@@ -85,7 +85,7 @@ export default function ReportEntryInner(props: IProps) {
             searchConfig={config?.searchConfig}
 
             showAdd={!injected}
-            RenderBtns={(ctx) => {
+            renderBtns={(ctx) => {
                 const selectRows: any[] = ctx.getCheckRows()
 
                 return <Space.Compact>
