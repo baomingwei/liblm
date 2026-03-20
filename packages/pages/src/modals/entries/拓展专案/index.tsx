@@ -29,7 +29,7 @@ function Index(props: IGlobalModalProps<{ headerInfo?: IMchc_Doctor_OutpatientHe
     // type: ext_value,
   }
   async function fetch_data() {
-    let res = await request.get(`/api/case/${ext_value}`, { params: base_args })
+    let res = await request.get(`/api/case/manage/${ext_value}`, { params: base_args })
     setData(res.data)
 
   }
@@ -58,7 +58,7 @@ function Index(props: IGlobalModalProps<{ headerInfo?: IMchc_Doctor_OutpatientHe
 
     const values = await validate_form(form)
     if (values) {
-      const res = await request.put(`/api/case/${ext_value}`, values, { successText: '操作成功' })
+      const res = await request.put(`/api/case/manage/${ext_value}`, values, { successText: '操作成功' })
       setData(res.data)
     }
 
@@ -83,7 +83,7 @@ function Index(props: IGlobalModalProps<{ headerInfo?: IMchc_Doctor_OutpatientHe
         </OkButton>
 
         <OkButton hidden={!data_id} onClick={() => mchcModal__.open('print_modal', {
-          modal_data: { requestData: { url: `/api/case/${ext_value}/print`, template: ext_value, relationId, id: data_id } }
+          modal_data: { requestData: { url: `/api/case/manage/${ext_value}/print`, template: ext_value, relationId, id: data_id } }
         })}>
           打印
         </OkButton>

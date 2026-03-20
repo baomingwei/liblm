@@ -16,7 +16,7 @@ export function ExtHistory({ ext, config, recordId }: IProps) {
     const [form] = Form.useForm()
 
     useEffect(() => {
-        request.get<IItem[]>(`/api/case/${ext_value}/historyList`, { params: base_args })
+        request.get<IItem[]>(`/api/case/manage/${ext_value}/historyList`, { params: base_args })
             .then(res => {
                 const arr = res.data
                 set_list(arr)
@@ -39,7 +39,7 @@ export function ExtHistory({ ext, config, recordId }: IProps) {
 
     function getDetail(item: IItem) {
         request
-            .get<AnyObject>(`/api/case/${ext_value}/historyDetail`, { params: item })
+            .get<AnyObject>(`/api/case/manage/${ext_value}/historyDetail`, { params: item })
             .then(res => form.setFieldsValue(res.data))
     }
 
