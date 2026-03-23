@@ -58,7 +58,7 @@ function DoctorEnd_Further(props: IDoctorEnd_FurtherProps) {
 
   useEffect(() => {
     if (id) {
-      getVisitsData();
+      init();
     }
 
 
@@ -89,7 +89,7 @@ function DoctorEnd_Further(props: IDoctorEnd_FurtherProps) {
     return visitInfo
 
   }
-  async function getVisitsData() {
+  async function init() {
 
     const visitInfo = await fetchVisitData()
 
@@ -201,7 +201,9 @@ function DoctorEnd_Further(props: IDoctorEnd_FurtherProps) {
 
   function onAddBtnClick() {
     setDiagnosesList((visitsData?.diagnoses as any) || [])
-    setFormData(get_default_value())
+    const idNullRvisit = get_id_null_data(visitsData)
+    const first = idNullRvisit ?? get_default_value()
+    setFormData(first)
 
   }
 
@@ -244,7 +246,7 @@ function DoctorEnd_Further(props: IDoctorEnd_FurtherProps) {
   // }
   function furtherRefresh() {
     const { refreshData } = props;
-    getVisitsData();
+    init();
     refreshData?.();
   }
 
@@ -290,7 +292,7 @@ function DoctorEnd_Further(props: IDoctorEnd_FurtherProps) {
           onAddBtnClick={onAddBtnClick}
           visitsData={visitsData}
           formData={formData}
-          getVisitsData={getVisitsData}
+          getVisitsData={init}
           getLastRecord={getLastRecord}
           headerInfo={headerInfo}
           diagnosesList={diagnosesList}
