@@ -29,7 +29,13 @@ export default function HeaderInfoInner(props: IHeaderInfoProps) {
         onDobuleClick,
     } = props
 
-    const { 头部信息拓展, 专案拓展 = [], 护士端_禁止编辑高危因素_传染病, highriskType } = use_provoke((s) => s.config)
+    const {
+        头部信息拓展,
+        专案拓展 = [],
+        护士端_禁止编辑高危因素_传染病,
+        highriskType,
+        标签管理,
+    } = use_provoke((s) => s.config)
     const pregnancyId = mchcUtils.single_id(props)
 
     const [headerInfo, setHeaderInfo] = useState<IMchc_Doctor_OutpatientHeaderInfo>()
@@ -162,7 +168,7 @@ export default function HeaderInfoInner(props: IHeaderInfoProps) {
             modal_data: {
                 content: <CustomTag id={pregnancyId} dataSource={headerInfo?.labels} />,
             },
-            onClose: () => {}
+            onClose: () => {},
         })
     }
 
@@ -453,16 +459,20 @@ export default function HeaderInfoInner(props: IHeaderInfoProps) {
                             </Tooltip>
                             <FuckTags str_data={get(headerInfo, 'tags')} />
                             {/* 标签管理 */}
-                            {customTags.map((tag, i) => {
-                                return <Tag key={tag.id}>{tag.name}</Tag>
-                            })}
-                            <Tag
-                                icon={<MyIcon value="PlusOutlined" />}
-                                style={{ cursor: 'pointer' }}
-                                onClick={open标签管理}
-                            >
-                                标签
-                            </Tag>
+                            {标签管理 && (
+                                <>
+                                    {customTags.map((tag, i) => {
+                                        return <Tag key={tag.id}>{tag.name}</Tag>
+                                    })}
+                                    <Tag
+                                        icon={<MyIcon value="PlusOutlined" />}
+                                        style={{ cursor: 'pointer' }}
+                                        onClick={open标签管理}
+                                    >
+                                        标签
+                                    </Tag>
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>

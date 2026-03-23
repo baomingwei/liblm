@@ -203,7 +203,7 @@ export default defineFormConfig(
                             },
                             layout: '1/3',
                         },
-               
+
 
                         {
                             label: '专案拓展',
@@ -301,6 +301,12 @@ export default defineFormConfig(
                             name: '医生端_复诊编辑控制',
                             inputType: 'MS',
                             inputProps: { options: switchOptions, marshal: 0 },
+                            layout: '1/3',
+                        },
+                        {
+                            label: '标签管理',
+                            name: '标签管理',
+                            inputType: 'MSW',
                             layout: '1/3',
                         },
 
