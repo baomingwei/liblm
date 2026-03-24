@@ -3,6 +3,22 @@ import { MCHC_TYPE_MAP, MchcTypes } from '@lm_fe/env'
 export interface IMchc_Doctor_OutpatientHeaderInfo<T extends MchcTypes = MCHC_TYPE_MAP['mchc']> {
     age: number
     tags: string | null
+    labels: {
+        "id": number
+        "module": number
+        "type": number
+        "code": string
+        "name": string
+        "color": string
+        "sort": number,
+        "keyword": string[]
+    }[]
+    caseManages: {
+        code: string
+        color: string
+        id: number
+        name: string
+    }[]
     birthInsurance: false
     checkupNO: string
     cicatrixLable: string
