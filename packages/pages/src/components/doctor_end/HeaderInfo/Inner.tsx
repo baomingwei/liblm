@@ -168,7 +168,7 @@ export default function HeaderInfoInner(props: IHeaderInfoProps) {
             modal_data: {
                 content: <CustomTag id={pregnancyId} dataSource={headerInfo?.labels} />,
             },
-            onClose: () => {},
+            onClose: fetchHeaderInfo,
         })
     }
 
@@ -462,7 +462,11 @@ export default function HeaderInfoInner(props: IHeaderInfoProps) {
                             {标签管理 && (
                                 <>
                                     {customTags.map((tag, i) => {
-                                        return <Tag key={tag.id}>{tag.name}</Tag>
+                                        return (
+                                            <Tag key={tag.id} color={tag?.color} style={{ lineHeight: '21px' }}>
+                                                {tag.name}
+                                            </Tag>
+                                        )
                                     })}
                                     <Tag
                                         icon={<MyIcon value="PlusOutlined" />}
@@ -486,6 +490,7 @@ export default function HeaderInfoInner(props: IHeaderInfoProps) {
         const data = await SMchc_Doctor.getOutpatientHeaderInfo(pregnancyId)
         saveHeaderInfo?.(data)
         setHeaderInfo(data)
+        setCustomTags(data?.labels || [])
     }
     function render_extra() {
         if (!headerInfo) return null

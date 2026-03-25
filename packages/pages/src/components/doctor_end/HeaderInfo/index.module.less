@@ -2,253 +2,283 @@
 // @import '../../../../../../utils/utils.less';
 
 .textOverflow() {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  word-break: break-all;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: break-all;
 }
-
-
 
 .outpatientNO {
-  :global(.ant-select) {
-    overflow: hidden;
+    :global(.ant-select) {
+        overflow: hidden;
+    }
 
-
-  }
-
-  :global(.ant-select-selector) {
-    border: 2px solid rgba(255, 255, 255, .4) !important;
-    background: rgba(255, 255, 255, .3) !important;
-
-
-  }
+    :global(.ant-select-selector) {
+        border: 2px solid rgba(255, 255, 255, 0.4) !important;
+        background: rgba(255, 255, 255, 0.3) !important;
+    }
 }
 
-
-
 .header-info-wrapper {
-  display: flex;
-  // height: 84px;
-  padding: 6px;
-
-  .header-info-content {
     display: flex;
-    justify-content: left;
-  }
+    // height: 84px;
+    padding: 6px;
 
-  .header-info-extra {
-    flex: 1;
+    .header-info-content {
+        display: flex;
+        justify-content: left;
+    }
 
-    .new-flash-content {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
+    .header-info-extra {
+        flex: 1;
 
-      .icon-conetent {
+        .new-flash-content {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
 
+            .icon-conetent {
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 30px;
+                height: 30px;
+                margin-right: 10px;
+                background-color: #fff;
+                border-radius: 50%;
+                transition: all 0.4s;
+                opacity: 0.6;
+            }
 
-        cursor: pointer;
+            .icon-conetent:hover {
+                opacity: 1;
+            }
+        }
+    }
+
+    .wrapper-msg {
+        // padding: 6px 0;
+    }
+
+    .msg-top {
         display: flex;
         align-items: center;
-        justify-content: center;
-        width: 30px;
-        height: 30px;
-        margin-right: 10px;
-        background-color: #fff;
-        border-radius: 50%;
-        transition: all .4s;
-        opacity: .6;
+        margin-bottom: 6px;
 
-      }
+        .msg-item {
+            font-size: 18px;
+            margin-right: 6px;
+            .textOverflow;
 
-      .icon-conetent:hover {
-        opacity: 1;
+            .value {
+                font-weight: bold;
+            }
+        }
 
-      }
-    }
-  }
+        .small-item {
+            max-width: 280px;
+            font-size: 14px;
+            margin-right: 6px;
+            .textOverflow;
 
-  .wrapper-msg {
-    padding: 6px 0;
-  }
-
-  .msg-top {
-    display: flex;
-    align-items: center;
-    margin-bottom: 8px;
-
-    .msg-item {
-      font-size: 18px;
-      margin-right: 10px;
-      .textOverflow;
-
-      .value {
-        font-weight: bold;
-      }
-
+            .value {
+                font-weight: bold;
+            }
+        }
     }
 
-    .small-item {
-      max-width: 280px;
-      font-size: 14px;
-      margin-right: 10px;
-      .textOverflow;
+    .msg-bottom {
+        display: flex;
+        flex-wrap: wrap;
+        font-size: 14px;
+        row-gap: 4px;
 
-      .value {
-        font-weight: bold;
-      }
-    }
-  }
+        .exemplary-case {
+            button {
+                margin-right: 6px;
+                color: #0aa4a2;
+                outline: 1px solid #0aa4a2;
+                background-color: #e6fffb;
+                border: 0 none;
+            }
+        }
 
-  .msg-bottom {
-    display: flex;
-    flex-wrap: wrap;
-    font-weight: 600;
-    font-size: 14px;
-
-    .exemplary-case {
-      button {
-        margin-right: 6px;
-        color: #0aa4a2;
-        outline: 1px solid #0aa4a2;
-        background-color: #e6fffb;
-        border: 0 none;
-      }
+        .msg-highrisk {
+            max-width: 480px;
+            overflow: hidden;
+            margin-right: 6px;
+            // color: #932c3f;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
     }
 
-
-
-    .msg-highrisk {
-      max-width: 480px;
-      overflow: hidden;
-      margin-right: 6px;
-      // color: #932c3f;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-  }
-
-  .wrapper-btns {
-    display: flex;
-    height: 66px;
-    margin-right: 20px;
-    overflow: hidden;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-
-  .highrisk {
-    display: flex;
-
-    .level-btn {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      width: 44px;
-      height: 66px;
-      color: #fff;
-      font-weight: 600;
-      font-size: 18px;
-      line-height: 66px;
-      text-align: center;
-      writing-mode: vertical-rl;
+    .wrapper-btns {
+        display: flex;
+        height: 66px;
+        margin-right: 12px;
+        overflow: hidden;
+        border-radius: 4px;
+        cursor: pointer;
     }
 
-    .twinkling {
-      animation: twinkling 500ms ease-in-out 0s infinite normal;
+    .highrisk {
+        display: flex;
+
+        .level-btn {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 44px;
+            height: 66px;
+            color: #fff;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 66px;
+            text-align: center;
+            writing-mode: vertical-rl;
+        }
+
+        .twinkling {
+            animation: twinkling 500ms ease-in-out 0s infinite normal;
+        }
+
+        @keyframes twinkling {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .infection-btn {
+            display: inline-block;
+            width: 44px;
+            height: 66px;
+            padding: 0 9px;
+            color: #fff;
+            font-weight: 600;
+            font-size: 16px;
+            text-align: center;
+            writing-mode: vertical-lr;
+            /*从左向右 从右向左是 writing-mode: vertical-rl;*/
+            writing-mode: tb-lr;
+            /*IE浏览器的从左向右 从右向左是 writing-mode: tb-rl；*/
+            // text-orientation: upright;
+        }
     }
 
-    @keyframes twinkling {
-      0% {
-        opacity: 0;
-      }
+    .signs {
+        display: flex;
+        flex-direction: column;
 
-      100% {
-        opacity: 1;
-      }
+        .signs-btn {
+            display: flex;
+            flex: 1;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .trial {
+            background-color: #4e1303;
+        }
+
+        .pahr {
+            background-color: #57c5f7;
+
+            em {
+                color: #a83a08;
+                font-size: 12px;
+            }
+        }
     }
 
-    .infection-btn {
-      display: inline-block;
-      width: 44px;
-      height: 66px;
-      padding: 0 9px;
-      color: #fff;
-      font-weight: 600;
-      font-size: 16px;
-      text-align: center;
-      writing-mode: vertical-lr;
-      /*从左向右 从右向左是 writing-mode: vertical-rl;*/
-      writing-mode: tb-lr;
-      /*IE浏览器的从左向右 从右向左是 writing-mode: tb-rl；*/
-      // text-orientation: upright;
+    .preeclampsia-btn {
+        width: 44px;
+        height: 66px;
+        padding: 0 9px;
+        color: #fff;
+        font-weight: 600;
+        font-size: 16px;
+        text-align: center;
+        background-color: #cdc673;
+        writing-mode: vertical-lr;
+        writing-mode: tb-lr;
     }
-  }
-
-  .signs {
-    display: flex;
-    flex-direction: column;
-
-    .signs-btn {
-      display: flex;
-      flex: 1;
-      align-items: center;
-      justify-content: center;
-      width: 44px;
-      color: #fff;
-      font-weight: 600;
-      font-size: 14px;
-
-    }
-
-    .trial {
-      background-color: #4e1303;
-    }
-
-    .pahr {
-      background-color: #57c5f7;
-
-      em {
-        color: #A83A08;
-        font-size: 12px;
-
-
-      }
-    }
-  }
-
-  .preeclampsia-btn {
-    width: 44px;
-    height: 66px;
-    padding: 0 9px;
-    color: #fff;
-    font-weight: 600;
-    font-size: 16px;
-    text-align: center;
-    background-color: #cdc673;
-    writing-mode: vertical-lr;
-    writing-mode: tb-lr;
-  }
 }
 
 .label {
-  color: #666;
+    color: #666;
 }
 
+.custom-transfer {
+    height: 280px;
+
+    &-left,
+    &-right {
+        width: 220px;
+        border: 1px solid #e6e6e6;
+        border-radius: 6px;
+
+        &-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px;
+            height: 36px;
+            border-bottom: 1px solid #e6e6e6;
+            font-size: 14px;
+            color: #333;
+        }
+
+        &-body {
+            height: 240px;
+            overflow-y: auto;
+
+            &-item {
+                display: flex;
+                align-items: center;
+                padding: 6px 12px;
+
+                &-active {
+                    background-color: #e6f4ff;
+                }
+
+                &:hover {
+                    background-color: #e6f4ff;
+                }
+            }
+        }
+    }
+
+    &-right {
+        &-header {
+        }
+
+        &-body {
+        }
+    }
+}
 
 .custom-tag-lib {
-  height: 280px;
-  overflow-y: auto;
+    height: 280px;
+    overflow-y: auto;
 
-  &-item {
-    display: flex;
-    align-items: center;
-    // padding: 6px;
-    border-bottom: 1px solid #e6e6e6;
+    &-item {
+        display: flex;
+        align-items: center;
+        // padding: 6px;
+        border-bottom: 1px solid #e6e6e6;
 
-    &:hover {
-      background-color: #eee;
+        &:hover {
+            background-color: #eee;
+        }
     }
-  }
 }

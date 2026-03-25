@@ -1,26 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Transfer, Button, Flex, Input, Popconfirm, message } from 'antd'
+import { Transfer, Button, Flex, Input, Popconfirm, Modal, message } from 'antd'
 import type { InputRef } from 'antd'
 import { MyIcon } from '@lm_fe/components'
 import { request } from '@lm_fe/utils'
 import { mchcModal__ } from 'src/modals'
-import { map, filter, includes } from 'lodash'
+import { map, filter, includes, isEmpty, find } from 'lodash'
+import classNames from 'classnames'
 import styles from './index.module.less'
 
 // 获取门诊病历头部个人信息栏标签
 async function getTagLabels(key?: string) {
     // const ret = await request.get<boolean>('/api/doctor/getOutpatientHeaderLabels', { params: { visitId: id || null } })
     const ret = await request.get('/api/label/findLabels', { params: { 'keyword.contains': key } })
-    const data = map(ret.data, (item: any) => {
-        return {
-            key: item.id,
-            title: item.name,
-            color: item.color,
-            description: item.description,
-            disabled: false,
-        }
-    })
-    return data
+    return ret.data
 }
 
 type CustomTagProps = {
@@ -29,18 +21,28 @@ type CustomTagProps = {
 }
 
 function CustomTag({ id, dataSource, ...props }: CustomTagProps) {
-    const [tagLib, setTagLib] = useState([])
+    const [tagsLib, setTagsLib] = useState([]) // 标签库
+    const [tags, setTags] = useState([])
+    const [targetTags, setTargetTags] = useState([]) // 显示在右侧框数据
+
+    const [selectedTag, setSelectedTag] = useState()
 
     useEffect(() => {
-        getTagLib()
+        // 初始化右侧框数据
+        setTargetTags(dataSource)
+        // 初始化左侧框数据
+        getTags()
 
         return () => {}
     }, [])
 
     // 获取标签库所有标签
-    async function getTagLib(key?: string) {
+    async function getTags(key?: string) {
         const d = (await getTagLabels(key)) || []
-        setTagLib(d)
+        setTagsLib(d)
+        const targetTagKeys = !isEmpty(targetTags) ? map(targetTags, 'id') : map(dataSource, 'id')
+        const _d = filter(d, (item) => !includes(targetTagKeys, item.id))
+        setTags(_d)
     }
 
     function open标签库管理() {
@@ -48,25 +50,124 @@ function CustomTag({ id, dataSource, ...props }: CustomTagProps) {
             title: '标签库管理',
             width: 420,
             modal_data: {
-                content: <CustomTagLib reload={getTagLib} />,
+                content: <CustomTagLib reload={getTags} />,
             },
+            onClose: () => getTags(),
         })
     }
 
-    const filterOption = (inputValue: string, option: any) => includes(option.title, inputValue)
+    const handleSearch = (e) => {
+        const value = e.target.value
+        const targetTagKeys = map(targetTags, 'id')
+        const sourceOptions = filter(tagsLib, (item) => !includes(targetTagKeys, item.id))
+
+        if (!value) {
+            return setTags(sourceOptions)
+
+        }
+        const _filterOptions = filter(sourceOptions, (item) => includes(item.name, value))
+        console.log('----123', value, _filterOptions);
+        setTags(_filterOptions)
+    }
+
+    const handleLeftClick = (e: any) => {
+        console.log('-----click', e)
+        const key = e.id
+        setSelectedTag(e)
+    }
+
+    const handleTranfer = (e) => {
+        console.log('-----btn tran', e, selectedTag)
+        if (!selectedTag) {
+            return message.info('请先选择标签')
+        }
+        const _targetTags = [...targetTags, selectedTag]
+        const _tags = tags.filter((item) => item.id !== selectedTag.id)
+        setTags(_tags)
+        setTargetTags(_targetTags)
+        setSelectedTag(undefined)
+    }
+
+    const handleLeftDoubleClick = (e: any) => {
+        const _tags = tags.filter((item) => item.id !== e.id)
+        const _targetTags = [...targetTags, e]
+        setTags(_tags)
+        setTargetTags(_targetTags)
+        setSelectedTag(undefined)
+    }
+
+    const handleDeleteTag = (e: any) => {
+        // 校验改标签是否存在于标签库
+        const _is = find(tagsLib, (item) => item.id === e.id)
+        if (!_is) {
+            return Modal.confirm({
+                title: '删除标签',
+                content: `[${e.name}]标签未在标签库中，请确认是否取消标记？`,
+                onOk: () => {
+                    const _targetTags = targetTags.filter((item) => item.id !== e.id)
+                    setTargetTags(_targetTags)
+                },
+            })
+        }
+        const _targetTags = targetTags.filter((item) => item.id !== e.id)
+        const _tags = filter(tagsLib, (item) => !includes(map(_targetTags, 'id'), item.id))
+        setTags(_tags)
+        setTargetTags(_targetTags)
+        setSelectedTag(undefined)
+    }
 
     return (
         <Flex gap="middle" vertical>
             <p>点击下方标签内容标记患者标签</p>
-            <Transfer
-                showSearch
-                showSelectAll={false}
-                status="warning"
-                titles={['可设置标签', '标记标签']}
-                dataSource={tagLib}
-                render={(item) => item.title}
-                filterOption={filterOption}
-            />
+            <Flex gap="small" justify="center" align="center" className={styles['custom-transfer']}>
+                <div className={styles['custom-transfer-left']}>
+                    <div className={styles['custom-transfer-left-header']}>
+                        <span>可设置标签</span>
+                        <Input
+                            placeholder="请输入搜索内容"
+                            prefix={<MyIcon value="SearchOutlined" />}
+                            style={{ width: 128 }}
+                            onChange={handleSearch}
+                        />
+                    </div>
+                    <div className={styles['custom-transfer-left-body']}>
+                        {map(tags, (item) => {
+                            return (
+                                <div
+                                    key={item.id}
+                                    className={classNames(styles['custom-transfer-left-body-item'], {
+                                        [styles['custom-transfer-left-body-item-active']]: item.id === selectedTag?.id,
+                                    })}
+                                    onClick={() => handleLeftClick(item)}
+                                    onDoubleClick={() => handleLeftDoubleClick(item)}
+                                >
+                                    {item.name}
+                                </div>
+                            )
+                        })}
+                    </div>
+                </div>
+                <Button icon={<MyIcon value="RightOutlined" />} onClick={handleTranfer}></Button>
+                <div className={styles['custom-transfer-right']}>
+                    <div className={styles['custom-transfer-right-header']}>
+                        <span>标记标签</span>
+                    </div>
+                    <div className={styles['custom-transfer-left-body']}>
+                        {map(targetTags, (item) => {
+                            return (
+                                <div key={item.id} className={styles['custom-transfer-left-body-item']}>
+                                    {item.name}
+                                    <MyIcon
+                                        value="CloseOutlined"
+                                        style={{ marginLeft: 12 }}
+                                        onClick={() => handleDeleteTag(item)}
+                                    />
+                                </div>
+                            )
+                        })}
+                    </div>
+                </div>
+            </Flex>
             <div>
                 <Button icon={<MyIcon value="EditOutlined" />} onClick={open标签库管理}>
                     标签库维护
@@ -104,7 +205,7 @@ function CustomTagLib({ reload }) {
             })
     }
 
-    function handleSearch(value: string) {
+    function handleSearch(value?: string) {
         // getTagLib(value)
         if (!value) {
             getTagLib()
@@ -119,22 +220,24 @@ function CustomTagLib({ reload }) {
         }
     }
 
-    function handleEdit(key: string, value: string) {}
-
-    function handleChange(key: string, value: string) {}
-
     function handleDelete(id: string) {
-        request
-            .post('/api/label/deleteLabel', {
-                id: id,
-            })
-            .then((res) => {
-                message.success('删除成功')
-            })
+        request.delete(`/api/label/deleteLabel/${id}`).then((res) => {
+            message.success('删除成功!')
+            handleSearch()
+        })
     }
 
-    function handleSubmit(value) {
-        console.log('----onPress', value)
+    async function handleUpdate(e, item) {
+        const value = e.target.value
+        await request
+            .post('/api/label/saveLabel', {
+                ...item,
+                name: value,
+            })
+            .then((res) => {
+                message.success('修改成功!')
+                // reload()
+            })
     }
 
     return (
@@ -152,7 +255,7 @@ function CustomTagLib({ reload }) {
                 {map(tagLib, (item) => {
                     return (
                         <li key={item.id}>
-                            <CustomTagLibItem item={item} onPressEnter={handleSubmit} onDelete={handleDelete} />
+                            <CustomTagLibItem item={item} onPressEnter={handleUpdate} onDelete={handleDelete} />
                         </li>
                     )
                 })}
@@ -188,7 +291,7 @@ function CustomTagLibItem({ item, onDelete, onPressEnter, onChange, onEdit }: an
                 defaultValue={item.name}
                 onChange={(e) => onChange?.(item.id, e.target.value)}
                 onBlur={handleBlur}
-                onPressEnter={onPressEnter}
+                onPressEnter={(e) => onPressEnter?.(e, item)}
             ></Input>
             <Button
                 size="small"
