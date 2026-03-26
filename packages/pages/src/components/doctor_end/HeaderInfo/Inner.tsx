@@ -463,7 +463,7 @@ export default function HeaderInfoInner(props: IHeaderInfoProps) {
                                 <>
                                     {customTags.map((tag, i) => {
                                         return (
-                                            <Tag key={tag.id} color={tag?.color} style={{ lineHeight: '21px' }}>
+                                            <Tag key={tag.id} color={tag?.color}>
                                                 {tag.name}
                                             </Tag>
                                         )
