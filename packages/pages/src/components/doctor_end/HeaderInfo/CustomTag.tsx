@@ -10,7 +10,6 @@ import styles from './index.module.less'
 
 // 获取门诊病历头部个人信息栏标签
 async function getTagLabels(key?: string) {
-    // const ret = await request.get<boolean>('/api/doctor/getOutpatientHeaderLabels', { params: { visitId: id || null } })
     const ret = await request.get('/api/label/findLabels', { params: { 'keyword.contains': key } })
     return ret.data
 }
@@ -29,7 +28,8 @@ function CustomTag({ id, dataSource, ...props }: CustomTagProps) {
 
     useEffect(() => {
         // 初始化右侧框数据
-        setTargetTags(dataSource)
+        getPatientTags(id)
+        // setTargetTags(dataSource)
         // 初始化左侧框数据
         getTags()
 
@@ -43,6 +43,12 @@ function CustomTag({ id, dataSource, ...props }: CustomTagProps) {
         const targetTagKeys = !isEmpty(targetTags) ? map(targetTags, 'id') : map(dataSource, 'id')
         const _d = filter(d, (item) => !includes(targetTagKeys, item.id))
         setTags(_d)
+    }
+
+    // 获取患者标签
+    async function getPatientTags() {
+        const ret = await request.get<boolean>('/api/doctor/getOutpatientHeaderLabels', { params: { id } })
+        setTargetTags(ret.data)
     }
 
     function open标签库管理() {
@@ -63,10 +69,9 @@ function CustomTag({ id, dataSource, ...props }: CustomTagProps) {
 
         if (!value) {
             return setTags(sourceOptions)
-
         }
         const _filterOptions = filter(sourceOptions, (item) => includes(item.name, value))
-        console.log('----123', value, _filterOptions);
+        console.log('----123', value, _filterOptions)
         setTags(_filterOptions)
     }
 
@@ -76,44 +81,61 @@ function CustomTag({ id, dataSource, ...props }: CustomTagProps) {
         setSelectedTag(e)
     }
 
-    const handleTranfer = (e) => {
-        console.log('-----btn tran', e, selectedTag)
-        if (!selectedTag) {
+    // 标记标签
+    const handleMarkTag = async (e: any) => {
+        if (!e) {
             return message.info('请先选择标签')
         }
-        const _targetTags = [...targetTags, selectedTag]
-        const _tags = tags.filter((item) => item.id !== selectedTag.id)
-        setTags(_tags)
-        setTargetTags(_targetTags)
-        setSelectedTag(undefined)
+        await request
+            .post('/api/doctor/addOutpatientHeaderLabel', {
+                id, // 孕册id
+                label: e,
+            })
+            .then((res) => {
+                message.success('标记成功！')
+
+                const _tags = tags.filter((item) => item.id !== e.id)
+                const _targetTags = [...targetTags, e]
+                setTags(_tags)
+                setTargetTags(_targetTags)
+                setSelectedTag(undefined)
+            })
+            .catch((err) => {
+                message.error('标记失败，请稍后再试！')
+            })
     }
 
-    const handleLeftDoubleClick = (e: any) => {
-        const _tags = tags.filter((item) => item.id !== e.id)
-        const _targetTags = [...targetTags, e]
-        setTags(_tags)
-        setTargetTags(_targetTags)
-        setSelectedTag(undefined)
-    }
-
-    const handleDeleteTag = (e: any) => {
+    // 删除标签
+    const handleUnMarkTag = (e: any) => {
         // 校验改标签是否存在于标签库
         const _is = find(tagsLib, (item) => item.id === e.id)
         if (!_is) {
             return Modal.confirm({
                 title: '删除标签',
                 content: `[${e.name}]标签未在标签库中，请确认是否取消标记？`,
-                onOk: () => {
-                    const _targetTags = targetTags.filter((item) => item.id !== e.id)
-                    setTargetTags(_targetTags)
-                },
+                onOk: () => handleRemoveTag(e),
             })
         }
-        const _targetTags = targetTags.filter((item) => item.id !== e.id)
-        const _tags = filter(tagsLib, (item) => !includes(map(_targetTags, 'id'), item.id))
-        setTags(_tags)
-        setTargetTags(_targetTags)
-        setSelectedTag(undefined)
+        handleRemoveTag(e)
+    }
+
+    const handleRemoveTag = async (e: any) => {
+        await request
+            .post('/api/doctor/removeOutpatientHeaderLabel', {
+                id, // 孕册id
+                label: e,
+            })
+            .then((res) => {
+                message.success('取消标记成功！')
+
+                const _targetTags = targetTags.filter((item) => item.id !== e.id)
+                const _tags = filter(tagsLib, (item) => !includes(map(_targetTags, 'id'), item.id))
+                setTags(_tags)
+                setTargetTags(_targetTags)
+            })
+            .catch((err) => {
+                message.error('取消标记失败，请稍后再试！')
+            })
     }
 
     return (
@@ -139,7 +161,7 @@ function CustomTag({ id, dataSource, ...props }: CustomTagProps) {
                                         [styles['custom-transfer-left-body-item-active']]: item.id === selectedTag?.id,
                                     })}
                                     onClick={() => handleLeftClick(item)}
-                                    onDoubleClick={() => handleLeftDoubleClick(item)}
+                                    onDoubleClick={() => handleMarkTag(item)}
                                 >
                                     {item.name}
                                 </div>
@@ -147,7 +169,7 @@ function CustomTag({ id, dataSource, ...props }: CustomTagProps) {
                         })}
                     </div>
                 </div>
-                <Button icon={<MyIcon value="RightOutlined" />} onClick={handleTranfer}></Button>
+                <Button icon={<MyIcon value="RightOutlined" />} onClick={() => handleMarkTag(selectedTag)}></Button>
                 <div className={styles['custom-transfer-right']}>
                     <div className={styles['custom-transfer-right-header']}>
                         <span>标记标签</span>
@@ -160,7 +182,7 @@ function CustomTag({ id, dataSource, ...props }: CustomTagProps) {
                                     <MyIcon
                                         value="CloseOutlined"
                                         style={{ marginLeft: 12 }}
-                                        onClick={() => handleDeleteTag(item)}
+                                        onClick={() => handleUnMarkTag(item)}
                                     />
                                 </div>
                             )
