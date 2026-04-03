@@ -8,7 +8,8 @@ import React, { useEffect } from 'react';
 const s = new ModelService({
   n: 'PremaritalCheckArchives', prePath: '/premarital/check',
   //  apiPrefix: `/fb/api`,
-  fuckPage: true
+  fuckPage: true,
+  needTransferParams: false
 })
 export default function FileManagementList(props: any) {
   const conf_fn = () => import('./config/table').then(mod =>
@@ -58,7 +59,8 @@ export default function FileManagementList(props: any) {
 
   return <Wrap>
     <MyBaseList
-      tableColumns={__DEV__ ? conf_fn : config?.tableColumns}
+      bf_conf={config}
+      // tableColumns={__DEV__ ? conf_fn : config?.tableColumns}
       renderBtns={() =>
         <>
           <IdNOButton send_id='list' />
@@ -147,8 +149,8 @@ export default function FileManagementList(props: any) {
 
         return v
       }}
-      searchConfig={config?.searchConfig}
-      searchParams={{ pageSize: 10 }}
+    // searchConfig={config?.searchConfig}
+    // searchParams={{ pageSize: 10 }}
 
 
     />

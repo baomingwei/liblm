@@ -79,7 +79,7 @@ export default function List(props: { which_type: WhichType }) {
       useListSourceCount
       showRowEditBtn={false}
       beforeSubmit={v => ({ ...v, type })}
-      showPrint
+      // showPrint
       // showRowDelBtn={false}
       printDefaultConfig={{ method: 'GET' }}
       // searchConfig={config?.searchConfig}

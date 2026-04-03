@@ -103,7 +103,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
         page: 0,
         size: needPagination ? (mchcConfig.get('列表一页显示条数') || 14) : 999,
         sort: 'id,desc', // 基本列表都需要倒序
-        'deleteFlag.equals': 0
+        // 'deleteFlag.equals': 0
     };
     type TStaticQuery = typeof staticDefaultQuery
 
@@ -558,6 +558,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
         mchcStorage.set(cache_key, values)
 
 
+        mchcLogger.log('ggxx get', cloneDeep(searchParams_cache.current))
 
 
         const obj = { ...defaultQuery.current, ...v, ...searchParams_cache.current }
@@ -583,6 +584,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
             setDataSource([])
 
         setLoading(true)
+        mchcLogger.log('ggxx omg', cloneDeep(searchParams_cache.current), cloneDeep({ params, fuckPage }))
 
         const [res] = await Promise
             .all([myBaseListService.current.page({ params, }), sleep(100)])
@@ -687,7 +689,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
 
 
     async function init_or_click_search() {
-        console.log('ggxx init', searchParams_cache.current)
+        mchcLogger.log('ggxx init', cloneDeep(searchParams_cache.current))
 
         // setDataSource([])
         safe_set_check_rows([])

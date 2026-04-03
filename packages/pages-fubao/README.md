@@ -1,4 +1,4 @@
-# @lm_fe/pages-mchc @0@
+# @lm_fe/pages-mchc
 
 
 mchc 页面级模块

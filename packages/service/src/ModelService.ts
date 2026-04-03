@@ -66,7 +66,11 @@ export class ModelService<T extends { id?: TIdTypeCompatible } = any> extends Ev
       apiPrefix = '/api'
     }
     this.name = n!;
-    this.addictionalParams = { ...addictionalParams, ...(prePath ? { deleteFlag: 0 } : {}) };
+    this.addictionalParams = {
+      ...addictionalParams, ...(prePath ? {
+        // deleteFlag: 0
+      } : {})
+    };
     this.prePath = prePath;
     this.preFix = apiPrefix;
     Object.assign(this, others)
