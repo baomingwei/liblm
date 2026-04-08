@@ -65,7 +65,7 @@ class MchcEnv<T> extends AppEnv<T> {
         return env_to_key_map[this.appName as MchcTypes]
     }
     get is_primary() {
-        const all: MchcTypes[] = ['广三', '广州市八', '建瓯', '南医附属', '南医增城', '越秀妇幼', '华医']
+        const all: MchcTypes[] = ['广三', '广州市八', '建瓯', '南医附属', '南医增城', '越秀妇幼', '华医', 'mf']
         return all.includes(this.appName as MchcTypes)
     }
     event = mchcEvent
