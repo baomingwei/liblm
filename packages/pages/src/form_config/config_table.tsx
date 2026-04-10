@@ -248,6 +248,17 @@ export const config_table_fd = (props: any): IMchc_FormDescriptions_Field_Nullab
                 layout: '1/4',
             },
             {
+                title: '行内编辑',
+                inputType: 'MyCheckbox',
+                inputProps: {
+                    uniqueKey: '否是',
+                    marshal: 0,
+                },
+                dataIndex: 'needEditInTable',
+                hidden: true,
+                layout: '1/4',
+            },
+            {
                 title: '显示打印按钮',
                 inputType: 'MyCheckbox',
                 inputProps: {

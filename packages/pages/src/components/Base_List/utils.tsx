@@ -22,6 +22,7 @@ export function formatProps(props: any, config?: IMchc_TableConfig) {
   _props.showExport = _props.showExport ?? bf_conf?.showExport ?? false
   _props.showPrint = _props.showPrint ?? bf_conf?.showPrint ?? false
   _props.showRowPrintBtn = _props.showRowPrintBtn ?? bf_conf?.showRowPrintBtn ?? false
+  _props.needEditInTable = _props.needEditInTable ?? bf_conf?.needEditInTable ?? false
   _props.showRowDelBtn = _props.showRowDelBtn ?? bf_conf?.showRowDelBtn ?? true
   _props.showRowExportBtn = _props.showRowExportBtn ?? bf_conf?.showRowExportBtn ?? false
   _props.showRowEditBtn = _props.showRowEditBtn ?? bf_conf?.showRowEditBtn ?? true

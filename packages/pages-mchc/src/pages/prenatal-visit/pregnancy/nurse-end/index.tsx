@@ -1,5 +1,5 @@
 import { DoctorEnd_HeaderInfoLayout } from '@lm_fe/pages';
-import { SLocal_SystemConfig } from '@lm_fe/service';
+import { IMchc_Doctor_OutpatientHeaderInfo, SLocal_SystemConfig } from '@lm_fe/service';
 import { getSearchParamsValue, request } from '@lm_fe/utils';
 import { message, Tabs } from 'antd';
 import { get } from 'lodash';
@@ -9,8 +9,8 @@ import React from 'react';
 import ArchivalInformation from './archival-information/index1';
 import CloseArchives from './close-archives/index1';
 import FurtherVisit from './further-visit/index1';
-import InformedConsent from './InformedConsent/index1';
 import PostpartumVisit from './postpartum-visit/index1';
+import InformedConsent from './InformedConsent/index1';
 import { mchcUtils } from '@lm_fe/env';
 import { MyLazyComponent } from '@lm_fe/components';
 import { use_provoke } from '@lm_fe/provoke';
@@ -18,7 +18,7 @@ import { use_provoke } from '@lm_fe/provoke';
 function NurseMain(props: any) {
   const { sys_theme, config } = use_provoke()
   const 护士端_模块隐藏 = config.护士端_模块隐藏 || []
-  const [headerData, set_headerData] = useState({})
+  const [headerData, set_headerData] = useState<IMchc_Doctor_OutpatientHeaderInfo>()
   const [activeKey, set_activeKey] = useState<string>('')
   const pregnancy_id = get(props, `id`) ?? getSearchParamsValue('id');
 
@@ -38,9 +38,9 @@ function NurseMain(props: any) {
   // 子页面 档案信息点击保存后刷新表头信息
   async function getHeaderData() {
     const id = get(props, 'id') || getSearchParamsValue('id');
-    const headerData = (await request.get(`/api/nurse/getOutpatientHeaderInfo?id=${id}&q=1`)).data;
+    const h_data = (await request.get(`/api/nurse/getOutpatientHeaderInfo?id=${id}&q=1`)).data;
 
-    set_headerData(headerData)
+    set_headerData(h_data)
 
   };
   async function getHeaderInfo() {
@@ -63,9 +63,9 @@ function NurseMain(props: any) {
 
   const mm = [
     { title: '档案信息', comp: () => <ArchivalInformation id={pregnancy_id} reloadHeader={getHeaderData} {...props} /> },
-    { title: '复诊管理', comp: () => <FurtherVisit id={get(headerData, 'outpatientNO')} head_info={headerData} {...props} /> },
-    { title: '产后复诊管理', comp: () => <PostpartumVisit id={get(headerData, 'outpatientNO')} head_info={headerData} {...props} /> },
-    { title: '补助券管理', comp: () => <InformedConsent id={pregnancy_id} head_info={headerData} {...props} /> },
+    { title: '复诊管理', comp: () => <FurtherVisit head_info={headerData} /> },
+    { title: '产后复诊管理', comp: () => <PostpartumVisit head_info={headerData} /> },
+    { title: '补助券管理', comp: () => <InformedConsent id={pregnancy_id} head_info={headerData || {}} {...props} /> },
     { title: '结案管理', comp: () => <CloseArchives id={pregnancy_id} {...props} /> },
   ].filter(_ => !护士端_模块隐藏.includes(_.title))
 

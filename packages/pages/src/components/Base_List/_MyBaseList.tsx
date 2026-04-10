@@ -200,11 +200,11 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
     mchcLogger.log('tablelist cache_key', cache_key)
 
     useEffect(() => {
-        let obj = mchcStorage.get(cache_key)
-        mchcLogger.log('tablelist cache_key', cache_key, obj)
-        if (name && !isNil(obj)) {
-            searchForm.setFieldsValue(obj)
-        }
+        // let obj = mchcStorage.get(cache_key)
+        // mchcLogger.log('tablelist cache_key', cache_key, obj)
+        // if (name && !isNil(obj)) {
+        //     searchForm.setFieldsValue(obj)
+        // }
     }, [name])
     useEffect(() => {
 
