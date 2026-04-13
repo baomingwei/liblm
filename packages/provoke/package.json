@@ -1,6 +1,6 @@
 {
     "name": "@lm_fe/provoke",
-    "version": "0.2.10",
+    "version": "0.2.11",
     "description": "",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
@@ -25,8 +25,8 @@
         "zustand": "^5.0.3"
     },
     "dependencies": {
-        "@lm_fe/env": "^0.2.10",
-        "@lm_fe/service": "^0.2.10",
+        "@lm_fe/env": "^0.2.11",
+        "@lm_fe/service": "^0.2.11",
         "@lm_fe/utils": "^0.2.8"
     },
     "keywords": [],
