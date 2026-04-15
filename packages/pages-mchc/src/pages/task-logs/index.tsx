@@ -6,7 +6,6 @@ const ctx = rt_ctx
 export default function BreastCancerDataReport(prop: any) {
   return <MyBaseList
     // apiPrefix="/fb/api"
-    needChecked
     useListSourceCount
 
     table_preset={{
