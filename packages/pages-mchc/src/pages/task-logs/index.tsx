@@ -25,19 +25,19 @@ export default function BreastCancerDataReport(prop: any) {
         {
           title: '就诊卡号',
           dataIndex: ['outpatientNO'],
-          width: 120,
+          width: 100,
 
         },
         {
           title: '姓名',
           dataIndex: ['name'],
-          width: 120,
+          width: 100,
 
         },
         {
           title: '任务标题',
           dataIndex: ['title'],
-          width: 120,
+          width: 100,
 
         },
         {
@@ -57,7 +57,7 @@ export default function BreastCancerDataReport(prop: any) {
         {
           title: '推送时间',
           dataIndex: 'pushTime',
-          width: 160,
+          width: 100,
         },
         {
           title: '推送状态',
