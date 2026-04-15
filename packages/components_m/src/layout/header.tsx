@@ -187,14 +187,7 @@ class Header extends Component<IProps, IState> {
                   >
                     修改密码
                   </Menu.Item>
-                  <Menu.Item
-                    onClick={() => {
-                      const { history } = this.props;
-                      history.push('/system-self-config');
-                    }}
-                  >
-                    系统配置
-                  </Menu.Item>
+
                   <Menu.Item
                     onClick={() => {
                       this.setState({ buildInfoModalVisible: true })
