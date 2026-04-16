@@ -1,30 +1,6 @@
 import { AnyObject, formatDateTime, keys } from "@lm_fe/utils"
 import { IMchc_FormDescriptions_Field } from "@noah-libjs/components"
 import { get, isFunction, set } from "lodash"
-export interface IMchc_TableConfig {
-    "id": 16,
-    "initialSearchValue": any,
-    searchParams: any
-    tableColumns: any
-    searchConfig: any
-    watchScript: any
-    "name": string,
-    "dept": string,
-    "apiPrefix": string,
-    "title": string,
-    "rowKey": string,
-    handleBeforePopup: any
-    genColumns: any
-    beforeSubmit: any
-    "showAction": number,
-    "category": null,
-    "needSync": number,
-    "needPrint": null,
-    "showPrint": null,
-    "showAdd": null,
-    "showExport": number,
-    "deleteFlag": false
-}
 
 
 export function set_deps_string(config: AnyObject,) {

@@ -270,6 +270,17 @@ export const config_table_fd = (props: any): IMchc_FormDescriptions_Field_Nullab
                 layout: '1/4',
             },
             {
+                title: '禁用双击编辑',
+                inputType: 'MyCheckbox',
+                inputProps: {
+                    uniqueKey: '否是',
+                    marshal: 0,
+                },
+                dataIndex: 'disableDoubleClick',
+                hidden: true,
+                layout: '1/4',
+            },
+            {
                 title: '行标识',
                 inputType: 'MyInput',
                 layout: '1/4',

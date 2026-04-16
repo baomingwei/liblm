@@ -21,6 +21,7 @@ export function formatProps(props: any, config?: IMchc_TableConfig) {
   _props.genColumns = _props.genColumns ?? bf_conf?.genColumns ?? undefined
   _props.showExport = _props.showExport ?? bf_conf?.showExport ?? false
   _props.showPrint = _props.showPrint ?? bf_conf?.showPrint ?? false
+  _props.disableDoubleClick = _props.disableDoubleClick ?? bf_conf?.disableDoubleClick ?? false
   _props.showRowPrintBtn = _props.showRowPrintBtn ?? bf_conf?.showRowPrintBtn ?? false
   _props.needEditInTable = _props.needEditInTable ?? bf_conf?.needEditInTable ?? false
   _props.showRowDelBtn = _props.showRowDelBtn ?? bf_conf?.showRowDelBtn ?? true

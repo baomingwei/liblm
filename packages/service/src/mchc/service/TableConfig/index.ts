@@ -27,6 +27,7 @@ export interface IMchc_TableConfig {
     "needSync": any,
     "needPrint": any,
     "showPrint": any,
+    "disableDoubleClick": any,
     "showRowPrintBtn": any,
     "needEditInTable": any,
     "showRowExportBtn": any,

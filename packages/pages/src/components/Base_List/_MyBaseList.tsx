@@ -52,7 +52,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
         get_fuck_page,
         ModalForm,
         baseTitle = '',
-
+        disableDoubleClick,
         rowKey,
         showExport,
         showPrint,
@@ -901,7 +901,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
                             // }
                             return {
                                 onClick: (event) => handleClickRow?.(record, render_props, event),
-                                onDoubleClick: (event) => handleDoubleClickRow?.(record, render_props, event),
+                                onDoubleClick: disableDoubleClick ? undefined : ((event) => handleDoubleClickRow?.(record, render_props, event)),
                                 onContextMenu: (event) => {
                                     event.preventDefault();
                                 },

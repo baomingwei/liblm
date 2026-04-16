@@ -72,6 +72,7 @@ export interface MyBaseListProps<T extends { id?: any } = any> extends TableProp
   showAdd?: boolean;
   showExport?: boolean;
   showPrint?: boolean;
+  disableDoubleClick?: boolean;
   showCopy?: boolean;
   action_col?: (ctx: RenderColProps<T>) => IMyBaseList_ColumnType<T>;
   // add文本
