@@ -4,9 +4,9 @@ import React, { lazy } from 'react';
 import DataSelectWithOptionsOrInput from '../../selects/DataSelectWithOptionsOrInput';
 
 // import RowoftireRecordBaby from '../../others/baby-form';
-const BirthCertificateChildren = lazy(() => import('../../BusinessComponents/BirthCertificateChildren'))
-const Deathclassification1 = lazy(() => import('../../BusinessComponents/TemplateTexDeathclassification1'))
-const Deathclassification2 = lazy(() => import('../../BusinessComponents/TemplateTexDeathclassification2'))
+// const BirthCertificateChildren = lazy(() => import('../../BusinessComponents/BirthCertificateChildren'))
+// const Deathclassification1 = lazy(() => import('../../BusinessComponents/TemplateTexDeathclassification1'))
+// const Deathclassification2 = lazy(() => import('../../BusinessComponents/TemplateTexDeathclassification2'))
 const TemplateTextareav3 = lazy(() => import('../../BusinessComponents/TemplateTextareav3'))
 // const TemplateTextrootcauseDeath = lazy(() => import('../../BusinessComponents/TemplateTextrootcauseDeath'))
 const BorderTitle = lazy(() => import('../../GeneralComponents/border-title/border-title'))
@@ -897,38 +897,38 @@ function RenderFormSectionComponent(props: IProps) {
             //         }
             //     );
 
-            case 'template_textDeath1':
-                return renderEditItem(
-                    form_config,
-                    // Deathclassification
-                    <Deathclassification1
-                        {...formItemOthers}
-                        config={config}
-                        form={form}
-                        patientId={get(extraData, 'patient.id')}
-                        admissionId={get(data, 'id')}
-                        pregnancyId={get(data, 'pregnancy.id')} />,
-                    {
-                        ...formItemLayout,
-                        styles,
-                    }
-                );
-            case 'template_textDeath2':
-                return renderEditItem(
-                    form_config,
-                    // Deathclassification
-                    <Deathclassification2
-                        {...formItemOthers}
-                        config={config}
-                        form={form}
-                        patientId={get(extraData, 'patient.id')}
-                        admissionId={get(data, 'id')}
-                        pregnancyId={get(data, 'pregnancy.id')} />,
-                    {
-                        ...formItemLayout,
-                        styles,
-                    }
-                );
+            // case 'template_textDeath1':
+            //     return renderEditItem(
+            //         form_config,
+            //         // Deathclassification
+            //         <Deathclassification1
+            //             {...formItemOthers}
+            //             config={config}
+            //             form={form}
+            //             patientId={get(extraData, 'patient.id')}
+            //             admissionId={get(data, 'id')}
+            //             pregnancyId={get(data, 'pregnancy.id')} />,
+            //         {
+            //             ...formItemLayout,
+            //             styles,
+            //         }
+            //     );
+            // case 'template_textDeath2':
+            //     return renderEditItem(
+            //         form_config,
+            //         // Deathclassification
+            //         <Deathclassification2
+            //             {...formItemOthers}
+            //             config={config}
+            //             form={form}
+            //             patientId={get(extraData, 'patient.id')}
+            //             admissionId={get(data, 'id')}
+            //             pregnancyId={get(data, 'pregnancy.id')} />,
+            //         {
+            //             ...formItemLayout,
+            //             styles,
+            //         }
+            //     );
             case 'gynaecology_template_textarea':
                 return renderEditItem(
                     form_config,
@@ -1314,15 +1314,15 @@ function RenderFormSectionComponent(props: IProps) {
                         styles,
                     }
                 );
-            case 'birth_certificate_children':
-                return renderEditItem(
-                    form_config,
-                    <BirthCertificateChildren {...formItemOthers} {...formDescriptionSpecialConfig} {...extraData} />,
-                    {
-                        ...formItemLayout,
-                        styles,
-                    }
-                );
+            // case 'birth_certificate_children':
+            //     return renderEditItem(
+            //         form_config,
+            //         <BirthCertificateChildren {...formItemOthers} {...formDescriptionSpecialConfig} {...extraData} />,
+            //         {
+            //             ...formItemLayout,
+            //             styles,
+            //         }
+            //     );
             case 'shift_patients':
                 return renderEditItem(
                     form_config,

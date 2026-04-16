@@ -21,9 +21,9 @@ import PatientAutoComplete from '../../selects/PatientAutoComplete';
 
 
 
-const BirthCertificateChildren = lazy(() => import('../../BusinessComponents/BirthCertificateChildren'))
-const Deathclassification1 = lazy(() => import('../../BusinessComponents/TemplateTexDeathclassification1'))
-const Deathclassification2 = lazy(() => import('../../BusinessComponents/TemplateTexDeathclassification2'))
+// const BirthCertificateChildren = lazy(() => import('../../BusinessComponents/BirthCertificateChildren'))
+// const Deathclassification1 = lazy(() => import('../../BusinessComponents/TemplateTexDeathclassification1'))
+// const Deathclassification2 = lazy(() => import('../../BusinessComponents/TemplateTexDeathclassification2'))
 const TemplateTextareav3 = lazy(() => import('../../BusinessComponents/TemplateTextareav3'))
 const BorderTitle = lazy(() => import('../../GeneralComponents/border-title/border-title'))
 const DataSelect = lazy(() => import('../../DataSelect'))
@@ -153,9 +153,9 @@ export const FormSectionComponent = {
     TakeInVolumn,
     TakeOutVolumn,
     CascaderAddress,
-    BirthCertificateChildren,
-    Deathclassification1,
-    Deathclassification2,
+    // BirthCertificateChildren,
+    // Deathclassification1,
+    // Deathclassification2,
     TemplateTextareav3,
     textareaWithTemplate: TemplateTextarea,
     TemplateTextarea,
