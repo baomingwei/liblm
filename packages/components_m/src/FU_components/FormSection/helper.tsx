@@ -114,7 +114,7 @@ export function RenderSegs(props: { fds: IMchc_FormDescriptions_Field_Nullable[]
                 changeActiveKey(k)
             }}
         />
-        <div style={{ padding: 8 }}>
+        <div style={{ padding: 8, paddingTop: 16 }}>
             {
                 configArr.map(_ => {
                     const title = SMchc_FormDescriptions.get_form_item_title_or_Name(_)

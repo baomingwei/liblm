@@ -28,6 +28,7 @@ export interface IMchc_TableConfig {
     "needPrint": any,
     "showPrint": any,
     "disableDoubleClick": any,
+    "requestBeforeEdit": any,
     "showRowPrintBtn": any,
     "needEditInTable": any,
     "showRowExportBtn": any,
