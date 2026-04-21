@@ -17,17 +17,6 @@ export default defineFormConfig(
             title: '缩略图',
             hidden: true,
             dataIndex: 'thumbnail',
-            "inputType": "image_upload_preview_Intranet",
-            "inputProps": {
-                "actionApi": "/api/premarital/check/uploadImage",
-                "outputParamType": "new"
-            },
-            layout: '1/3',
-        },
-        {
-            title: '缩略图',
-            hidden: true,
-            dataIndex: 'thumbnail',
             "inputType": "image_upload_preview",
             "inputProps": {
                 "actionApi": "/api/uploadImage",
@@ -111,5 +100,24 @@ export default defineFormConfig(
             // inputProps: { format: formatDate.format },
             width: APP_CONFIG.CELL_WIDTH_LARGE,
         },
+        {
+            dataIndex: 'release',
+            title: '发布',
+            layout: '1/1',
+            width: 50,
+            isActive: 0,
+            fixed: 'right',
+
+            render: (status: any, rowData: any) => {
+                return (
+                    <ctx.ui.Switch size="small" checked={status} onChange={() => {
+                        ctx.request
+                            .put('/api/knowledges', ctx.utils.set(rowData, 'release', !status))
+                            .then(() => { ctx.props.table_helper.handleSearch() })
+                    }} />
+
+                );
+            },
+        }
     ]
 )

@@ -57,7 +57,7 @@
         "@lm_fe/scripts": "*",
         "@lm_fe/service": "^0.2.11",
         "@lm_fe/utils": "^0.2.8",
-        "@noah-libjs/components": "*"
+        "@noah-libjs/components": "latest"
     },
     "publishConfig": {
         "access": "public"

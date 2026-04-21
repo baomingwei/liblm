@@ -1,7 +1,7 @@
 import { mchcConfig, mchcEnv, mchcEvent, mchcLogger, mchcStorage } from '@lm_fe/env';
 import { ModelService, TIdTypeCompatible } from '@lm_fe/service';
-import { Browser, cloneDeep, downloadFile, formatDateTime, safe_async_call, getSearchParamsAll, shake, sleep, AnyObject } from '@lm_fe/utils';
-import { Button, Divider, Form, message, Space, TablePaginationConfig } from 'antd';
+import { AnyObject, assign, Browser, cloneDeep, downloadFile, formatDateTime, safe_async_call, shake, sleep } from '@lm_fe/utils';
+import { Divider, Form, message, Space, TablePaginationConfig } from 'antd';
 import { get, isFunction, isNil, isString, omit } from 'lodash';
 import React, { useEffect, useRef, useState } from 'react';
 import { MyBaseListRenderFormSection } from './Helper';
@@ -434,7 +434,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
     async function handleItemSave(d?: any) {
         await table_form.validateFields();
         const old_data = d ?? dataSource.find(_ => _.id === editKeyRef.current) ?? {}
-        const _data = { ...old_data, ...table_form.getFieldsValue() }
+        const _data = assign(old_data, table_form.getFieldsValue())
         const submitData = await safe_async_call(beforeSubmit, _data, old_data)
 
         await create_or_update(submitData)
@@ -760,7 +760,11 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
                 component={false}
                 onFieldsChange={handleFieldsChange}
             >
-
+                {
+                    cal_columns.filter(_ => _.form_hidden).map(_ => {
+                        return <Form.Item hidden name={get_dataIndex(_)} />
+                    })
+                }
 
 
                 <div className="global-base-table" id="global-base-table">

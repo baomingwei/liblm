@@ -6,11 +6,7 @@ const ctx = rt_ctx
 
 export default function BP(props: { pregnancyId: any }) {
 
-  const { Wrap, config } = BF_Wrap2({
-    default_conf: {
 
-    }
-  }, props)
 
   return (
     <MyBaseList

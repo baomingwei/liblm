@@ -28,6 +28,7 @@ export function formatProps(props: any, config?: IMchc_TableConfig) {
   _props.showRowDelBtn = _props.showRowDelBtn ?? bf_conf?.showRowDelBtn ?? true
   _props.showRowExportBtn = _props.showRowExportBtn ?? bf_conf?.showRowExportBtn ?? false
   _props.showRowEditBtn = _props.showRowEditBtn ?? bf_conf?.showRowEditBtn ?? true
+  _props.showCopy = _props.showCopy ?? bf_conf?.showCopy ?? false
   _props.renderBtns = _props.renderBtns ?? bf_conf?.renderBtns
   _props.needChecked = _props.needChecked ?? bf_conf?.needChecked ?? false
 

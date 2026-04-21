@@ -1,5 +1,5 @@
-import { dyn_cb, safeGetFromFuncOrData } from "@lm_fe/utils";
-import { gen_rt_ctx, IRTCtx } from "./runtime_ctx";
+import { safe_evaluate_context, safeGetFromFuncOrData } from "@lm_fe/utils";
+import { gen_rt_ctx } from "./runtime_ctx";
 
 
 
@@ -8,14 +8,11 @@ import { gen_rt_ctx, IRTCtx } from "./runtime_ctx";
 
 
 
-export function safe_get_symbol<T = any>(str: any, props?: any, default_v?: T) {
-    let ret: T | undefined
-    if (typeof str !== 'string') return ret
-    const is_err = dyn_cb((ctx) => { eval(str) }, () => gen_rt_ctx('instance_ctx', props),)
-    if (is_err) {
-        ret = default_v
-    }
-    return ret
+
+export function safe_get_symbol(str: any, props?: any, default_v?: any) {
+    const { is_err, data } = safe_evaluate_context(str, () => gen_rt_ctx('instance_ctx', props))
+    if (is_err) return default_v
+    return data
 }
 
 export function safe_get_object_symbol(value: any, props?: any, default_v?: any,) {

@@ -1,23 +1,23 @@
-import { BF_Wrap2, MyBaseList } from '@lm_fe/pages'
-import { mchcLogger, rt_ctx } from "@lm_fe/env"
-import { formatDate, getMomentRange, request } from "@lm_fe/utils"
-import { Button } from "antd"
-import React from "react"
+import { rt_ctx } from "@lm_fe/env"
+import { MyBaseList } from '@lm_fe/pages'
 import { peek_provoke } from '@lm_fe/provoke'
+import React from "react"
 const ctx = rt_ctx
 export default function BreastCancerDataReport(prop: any) {
-    const { config, Wrap } = BF_Wrap2({
-        default_conf: {
+    return <MyBaseList
+        useListSourceCount
+        editText='电话随访'
+        table_preset={{
             title: '复诊追踪-超时电话随访',
             name: '/api/prenatal-visit-logs/timeoutToPhoneData',
-            handleBeforePopup(v) {
-
+            handleBeforePopup(v: any) {
                 return Object.assign(v, { remindType: 3, remindWay: 3, sendTime: ctx.utils.formatDateTime() })
             },
-            beforeSubmit(v) {
+            beforeSubmit(v: any) {
 
                 return v
             },
+            showRowDelBtn: 0,
             showAdd: 0,
             tableColumns: () => import('./form_config'),
             searchConfig: [
@@ -34,17 +34,8 @@ export default function BreastCancerDataReport(prop: any) {
                 },
                 { label: '随访情况', name: 'phoneStatus', inputType: 'MS', inputProps: { options: '已接通,未接通' } },
             ]
-        }
-    })
-    return <Wrap>
-        <MyBaseList
-            // apiPrefix="/fb/api"
-            showRowDelBtn={false}
-            useListSourceCount
-            editText='电话随访'
-            bf_conf={config}
+        }}
 
-        />
-    </Wrap>
+    />
 }
 

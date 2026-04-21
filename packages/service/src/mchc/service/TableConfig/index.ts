@@ -34,6 +34,7 @@ export interface IMchc_TableConfig {
     "showRowExportBtn": any,
     "showRowDelBtn": any,
     "showRowEditBtn": any,
+    "showCopy": any,
     "showAdd": any,
     "showExport": any,
     "deleteFlag": false

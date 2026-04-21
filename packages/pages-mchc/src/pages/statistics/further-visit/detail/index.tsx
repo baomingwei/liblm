@@ -4,11 +4,7 @@ import React from "react";
 const ctx = rt_ctx
 
 export default function Archive(props: any) {
-    const { config, Wrap } = BF_Wrap2({
-        default_conf: {
 
-        }
-    })
     return <MyBaseList
         table_preset={{
             title: '统计管理-就诊列表',
