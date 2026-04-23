@@ -1,12 +1,16 @@
 import { mchcEnv } from "@lm_fe/env"
 
-import { IMchc_FormDescriptions_Field_Nullable, SLocal_History } from "@lm_fe/service"
+import { IMchc_FormDescriptions_Field, IMchc_FormDescriptions_Field_Nullable, SLocal_History } from "@lm_fe/service"
 import { copyText, genHappyPath } from "@lm_fe/utils"
 import { Space } from "antd"
 import React from "react"
-const options = {
-    uniqueKey: '否是',
-    marshal: 0 as const,
+
+const msw_options: IMchc_FormDescriptions_Field = {
+    inputType: 'MSW',
+    inputProps: {
+        checked_value: 1,
+        unchecked_value: 0,
+    }
 }
 export const config_table_fd = (props: any): IMchc_FormDescriptions_Field_Nullable[] => [
     {
@@ -178,92 +182,91 @@ export const config_table_fd = (props: any): IMchc_FormDescriptions_Field_Nullab
                 children: [
                     {
                         title: '默认操作列',
-                        inputType: 'MyCheckbox',
-                        inputProps: options,
+                        ...msw_options,
                         dataIndex: 'showAction',
                         layout: '1/4',
                     },
                     {
                         title: '添加按钮',
-                        inputType: 'MyCheckbox',
-                        inputProps: options,
+                        ...msw_options,
+
                         dataIndex: 'showAdd',
                         layout: '1/4',
                     },
                     {
                         title: '行打印按钮',
-                        inputType: 'MyCheckbox',
-                        inputProps: options,
+                        ...msw_options,
+
                         dataIndex: 'showRowPrintBtn',
                         layout: '1/4',
                     },
                     {
                         title: '行导出按钮',
-                        inputType: 'MyCheckbox',
-                        inputProps: options,
+                        ...msw_options,
+
                         dataIndex: 'showRowExportBtn',
                         layout: '1/4',
                     },
                     {
                         title: '行删除按钮',
-                        inputType: 'MyCheckbox',
-                        inputProps: options,
+                        ...msw_options,
+
                         dataIndex: 'showRowDelBtn',
                         layout: '1/4',
                     },
                     {
                         title: '行编辑按钮',
-                        inputType: 'MyCheckbox',
-                        inputProps: options,
+                        ...msw_options,
+
                         dataIndex: 'showRowEditBtn',
                         layout: '1/4',
                     },
                     {
                         title: '行复制按钮',
-                        inputType: 'MyCheckbox',
-                        inputProps: options,
+                        ...msw_options,
+
                         dataIndex: 'showCopy',
                         layout: '1/4',
                     },
                     {
                         title: '导出按钮',
-                        inputType: 'MyCheckbox',
-                        inputProps: options,
+                        ...msw_options,
+
                         dataIndex: 'showExport',
                         layout: '1/4',
                     },
                     {
                         title: '可勾选',
-                        inputType: 'MyCheckbox',
-                        inputProps: options,
+                        ...msw_options,
+
                         dataIndex: 'needChecked',
                         layout: '1/4',
                     },
                     {
                         title: '行内编辑',
-                        inputType: 'MyCheckbox',
-                        inputProps: options,
+                        ...msw_options,
+
                         dataIndex: 'needEditInTable',
                         layout: '1/4',
                     },
                     {
                         title: '打印按钮',
-                        inputType: 'MyCheckbox',
-                        inputProps: options,
+                        ...msw_options,
+
                         dataIndex: 'showPrint',
                         layout: '1/4',
                     },
                     {
                         title: '禁用双击编辑',
-                        inputType: 'MyCheckbox',
-                        inputProps: options,
+                        ...msw_options,
+
                         dataIndex: 'disableDoubleClick',
                         layout: '1/4',
                     },
                     {
                         title: '弹窗编辑时请求数据',
-                        inputType: 'MyCheckbox',
-                        inputProps: options,
+                        ...msw_options,
+
                         dataIndex: 'requestBeforeEdit',
                         layout: '1/4',
                     },
