@@ -1,26 +1,32 @@
 import { rt_ctx } from "@lm_fe/env"
 import { MyBaseList } from '@lm_fe/pages'
-import { formatDate, getMomentRange, request } from "@lm_fe/utils"
-import { Button } from "antd"
-import React from "react"
 const ctx = rt_ctx
+const React = ctx.React
 export default function BreastCancerDataReport(prop: any) {
     return <MyBaseList
         // apiPrefix="/fb/api"
-        needChecked
+
         useListSourceCount
 
 
-        renderBtns={(ctx) => {
-            const selectRows = ctx.getCheckRows()
-            return <Button disabled={!selectRows.length} onClick={async () => {
-                request.post('/api/dataReport/reportPregnancy', { ids: selectRows.map(_ => _.id), });
-                ctx.handleSearch()
-            }}>上报</Button>
-        }}
 
 
         table_preset={{
+            needChecked: 1,
+            renderBtns: () => {
+                return <>
+                    {ctx.ui.render_btn('上报', () => {
+                        const selectRows = ctx.props.table_helper.getCheckRows()
+
+                        ctx.request.post('/api/dataReport/reportPregnancy', { ids: selectRows.map(_ => _.id), })
+                            .then(() => {
+                                ctx.props.table_helper.handleSearch()
+                            })
+                    })}
+                </>
+            },
+
+
             title: '数据上报-建档上报',
             name: "/api/pregnancies/upload-logs",
             searchParams: {
