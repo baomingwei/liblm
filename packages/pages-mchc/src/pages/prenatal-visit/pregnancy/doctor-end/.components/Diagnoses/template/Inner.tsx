@@ -22,7 +22,7 @@ function DiagnosesTemplateOld(props: IDiagnosesTemplate) {
     saveHeaderInfo,
     setDiagnosesList,
     closeTemplate,
-    addDiag,
+    add_diag,
   } = props;
 
   const userid = SLocal_State.getUserData()?.id
@@ -136,7 +136,7 @@ function DiagnosesTemplateOld(props: IDiagnosesTemplate) {
         set(postdata, 'diagnosis', get(item, 'val'));
         set(postdata, 'diagnosisCode', get(item, 'code'));
       }
-      addDiag(postdata);
+      add_diag(postdata);
     }
   };
 
@@ -204,7 +204,7 @@ function DiagnosesTemplateOld(props: IDiagnosesTemplate) {
     const item = newList[i];
     item[`${key}`] = value;
     setDiagnosesList(newList);
-    requestMethods_further.newAddDiagnosis(item);
+    requestMethods_further.newadd_diagnosis(item);
   }
 
   //#endregion
@@ -323,7 +323,7 @@ function DiagnosesTemplateOld(props: IDiagnosesTemplate) {
                   key={`${get(item, 'id')}-true`}
                   diagnose={item}
                   changeNote={changeNote}
-                  updateNote={updateNote.bind(this)}
+                  updateNote={updateNote}
                   index={i}
                   handleDelete={handleDelete}
                   edit={true}

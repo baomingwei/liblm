@@ -8,7 +8,6 @@ import classnames from 'classnames';
 import { get, isEmpty, join, map, size, slice } from 'lodash';
 import React, { useEffect, useState } from 'react';
 import Diagnoses from '../../../.components/Diagnoses';
-import DiagTable from './diag-table';
 import './index.less';
 import ManagementPlan from './management-plan';
 import PrenatalTree from './prenatal-tree';
@@ -47,7 +46,6 @@ export default function FurtherSidebar(props: IProps) {
   if (mchcConfig.get('医生端_复诊左侧隐藏'))
     return null
 
-  const [isShowHisModal, set_isShowHisModal] = useState(false)
   const [isShowListModal, set_isShowListModal] = useState(false)
   const [isShowManageModal, set_isShowManageModal] = useState(false)
   const [sidebarTab, set_sidebarTab] = useState(1)
@@ -102,11 +100,9 @@ export default function FurtherSidebar(props: IProps) {
     set_lackReports(join(lackReports || [], '，'))
   };
 
-  function closeModal(type: 'isShowHisModal' | 'isShowManageModal') {
+  function closeModal(type:  'isShowManageModal') {
 
-    if (type === 'isShowHisModal') {
-      set_isShowHisModal(false)
-    }
+
     if (type === 'isShowManageModal') {
       set_isShowManageModal(false)
     }
@@ -115,12 +111,8 @@ export default function FurtherSidebar(props: IProps) {
   function handleBtnClick(e: any, type: string) {
     e.stopPropagation();
     switch (type) {
-      case 'hisBtn':
-        set_isShowHisModal(true)
-        break;
+  
 
-
-        break;
       case 'manageBtn':
         set_isShowManageModal(true)
 
@@ -145,10 +137,6 @@ export default function FurtherSidebar(props: IProps) {
                   header={
                     <span style={{ marginLeft: '10px' }}>
                       诊断
-                      {/* <span onClick={(e) => handleBtnClick(e, 'hisBtn')} >
-                        <ProjectOutlined className="header-icon" />
-                        历史
-                      </span> */}
                     </span>
                   }
                   key="1"
@@ -334,15 +322,7 @@ export default function FurtherSidebar(props: IProps) {
 
       <MyLazyComponent size='middle'>
         {renderSiderBar()}
-        {isShowHisModal && <DiagTable
 
-
-          isShowHisModal={isShowHisModal}
-          closeModal={closeModal}
-          visitsData={visitsData}
-          headerInfo={headerInfo}
-
-        />}
         {isShowListModal && (
           <SurveyList
             headerInfo={headerInfo}

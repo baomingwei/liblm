@@ -196,6 +196,13 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
         setEditKey(id)
         editKeyRef.current = id
     }
+    function search_node() {
+        try {
+            return searchConfig ? <MyBaseListRenderFormSection config={searchConfig} disabled={loading} /> : null
+        } catch (error) {
+            return null
+        }
+    }
     const cache_key = `${location.pathname}@${name}`
     mchcLogger.log('tablelist cache_key', cache_key)
 
@@ -775,15 +782,8 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
                         <div ref={formWrapper} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: 4 }}>
                             {
                                 showSearch ? (
-                                    <Form initialValues={initialSearchValue} form={searchForm} layout="inline" style={{ display: 'flex', gap: '4px 0'}}>
-                                        {searchConfig ? <MyBaseListRenderFormSection config={searchConfig} disabled={loading} /> : null}
-
-
-
-
-
-
-
+                                    <Form initialValues={initialSearchValue} form={searchForm} layout="inline" >
+                                        {search_node()}
                                     </Form>
                                 ) : null
                             }

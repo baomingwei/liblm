@@ -98,7 +98,7 @@ function Diagnoses(props: IDiagnosesprops) {
   };
 
 
-  const addDiag = async (diagnosisObj: any) => {
+  const add_diag = async (diagnosisObj: any) => {
     if (serialNo) {
       diagnosisObj.serialNo = serialNo
 
@@ -367,7 +367,7 @@ function Diagnoses(props: IDiagnosesprops) {
         <DoctorEnd_DiagnosesTemplate
           isShowDiagnosesTemplate={visible}
           closeTemplate={closeTemplate}
-          addDiag={addDiag}
+          add_diag={add_diag}
           headerInfo={headerInfo}
           diagnosesList={diagnosesList}
           setDiagnosesList={setDiagnosesList}

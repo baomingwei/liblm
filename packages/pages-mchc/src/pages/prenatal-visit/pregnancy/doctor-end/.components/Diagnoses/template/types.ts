@@ -1,7 +1,7 @@
 import { IMchc_Doctor_Diagnoses, IMchc_Doctor_OutpatientHeaderInfo } from '@lm_fe/service';
 export interface IDiagnosesTemplate {
     diagnosesList: IMchc_Doctor_Diagnoses[]
-    addDiag(v: any): void,
+    add_diag(v: any): void,
     headerInfo: IMchc_Doctor_OutpatientHeaderInfo
     closeTemplate(): void
 

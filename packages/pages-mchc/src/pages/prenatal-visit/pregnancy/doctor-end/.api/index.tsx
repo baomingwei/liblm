@@ -17,8 +17,7 @@ export const api = {
 
   /** 更新孕册 */
   updatePregnancy: (data: any) => request.put(`/api/pregnancies`, data).then(r => r.data),
-  /* 获取诊断历史记录 */
-  getDiagnosisHistories: (pregnancyId: any) => request.get(`/api/getDiagnosisHistories?pregnancyId=${pregnancyId}`).then(r => r.data),
+
   /** 获取产检记录信息 */
   getPrenatalVisits: async (pregnancyId: any, visitType: number) => {
     const data = (await request.get(
