@@ -11,7 +11,7 @@ import React from "react";
 export function MyBaseListRenderFormSection({ config, disabled, form }: { config: IMchc_FormDescriptions_Field_Nullable[], disabled?: boolean, form?: FormInstance }) {
 
     return (
-        <MyFormSection size='small' form={form} defaultOptions={{}} inline formDescriptions={config.map(_ => {
+        <MyFormSection form={form} defaultOptions={{}} inline formDescriptions={config.map(_ => {
             if (!_) return _
             const props = _.inputProps ?? _.props ?? {}
             props.allowClear = true

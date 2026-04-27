@@ -18,6 +18,7 @@ import DictionarySelect from '../../GeneralComponents/DictionarySelect';
 import DataSelectWithOptionsOrInput from '../../selects/DataSelectWithOptionsOrInput';
 import NativePlace from '../../selects/NativePlace/NativePlace';
 import PatientAutoComplete from '../../selects/PatientAutoComplete';
+import { Rate } from 'antd'
 
 
 
@@ -315,6 +316,7 @@ export const FormSectionComponent = {
     MyReferralOrganizationSelect,
     MyFormList_必须搭配Form使用,
     textareaWithBtn: TextareaWithBtn,
+    Rate,
     ...pack_components,
 
 

@@ -91,7 +91,7 @@ export default function Layout_Sider_Inner(props: IProps) {
 
 
         <PerfectScrollbar
-          style={{ height: 'calc(100vh - 64px)', overflowY: 'auto' }}
+          style={{ height: 'calc(100vh - 48px)', overflowY: 'auto' }}
           options={{ suppressScrollX: true }} onSync={handleSync}>
           <Menu
             theme="light"

@@ -1,35 +1,59 @@
 .birth-plan {
-  height: 100%;
-  .birth-plan-sider {
     height: 100%;
-    overflow: auto;
-    background-color: #fff;
-    .birth-plan-sider-list__item {
-      cursor: pointer;
-    }
-    .birth-plan-sider-list__item_active {
-      background: #eaf4fd;
-    }
-    .ant-card {
-      height: 100%;
-      .ant-card-body {
-        height: calc(100% - 38px - 42px);
+    .birth-plan-sider {
+        height: 100%;
         overflow: auto;
-        .ant-card-body-button {
-          position: absolute;
-          bottom: 8px;
+        background-color: #fff;
+        .birth-plan-sider-list__item {
+            cursor: pointer;
         }
-      }
+        .birth-plan-sider-list__item_active {
+            background: #eaf4fd;
+        }
+        .ant-card {
+            height: 100%;
+            .ant-card-body {
+                height: calc(100% - 38px - 42px);
+                overflow: auto;
+                .ant-card-body-button {
+                    position: absolute;
+                    bottom: 8px;
+                }
+            }
+        }
     }
-  }
-  .birth-plan-content {
+    .birth-plan-content {
+        height: 100%;
+        padding-left: 12px;
+        .birth-plan-content-block {
+            height: 100%;
+            padding: 16px 16px 48px;
+            overflow: auto;
+            background-color: #fff;
+        }
+    }
+}
+
+.questionnaire-sider {
     height: 100%;
-    padding-left: 12px;
-    .birth-plan-content-block {
-      height: 100%;
-      padding: 16px 16px 48px;
-      overflow: auto;
-      background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    .questionnaire-sider-list {
+        flex: 1;
+        overflow: auto;
     }
-  }
+    .questionnaire-sider-item {
+        cursor: pointer;
+
+        &:hover {
+            background-color: #eaf4fd;
+        }
+        &.active {
+            background-color: #eaf4fd;
+        }
+    }
+
+    .questionnaire-sider-button {
+        margin-top: 16px;
+    }
 }
