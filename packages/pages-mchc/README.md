@@ -16,7 +16,7 @@ mchc 页面级模块
 | /data-report/cervical-cancer | 数据上报-宫颈癌上报 |
 | /data-report/first-visit | 数据上报-首诊上报 |
 | /data-report/labour-record | 产科住院-新生儿分娩记录 |
-| /data-report/labour-record-common | 分娩上报 |
+| /data-report/labour-record-common | 数据上报-分娩上报 |
 | /data-report/premarital-checkup | 婚前检查上报 |
 | /data-report/progestation-checkup | 孕前检查上报 |
 | /data-report/second-visit | 数据上报-复诊上报 |

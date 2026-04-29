@@ -38,6 +38,7 @@ export function HighriskSign_高危因素管理(props: IProps) {
     // const multiple = mchcEnv.in(['广三', '建瓯', '郫都', '广州市八']) ? true : false
     const multiple = config.高危标记多选
     const 高危管理_允许手输传染病 = config.高危管理_允许手输传染病
+    const 高危管理_允许手输高危 = config.高危管理_允许手输高危
 
     function getInitData(_h = headerInfo) {
         if (!_h) return _h
@@ -382,7 +383,8 @@ export function HighriskSign_高危因素管理(props: IProps) {
                     <Col span={2}>高危因素:</Col>
                     <Col span={21}>
                         <MySelect
-                            mode="tags"
+                            // mode="tags"
+                            mode={高危管理_允许手输高危 ? 'tags' : 'multiple'}
                             style={{ width: '100%' }}
                             marshal={0}
                             className={styles['highrisk-factor']}

@@ -503,6 +503,13 @@ export default defineFormConfig(
                     layout: '1/3',
                 },
                 {
+                    label: '允许手输高危',
+                    name: '高危管理_允许手输高危',
+                    inputType: 'MSW',
+                    inputProps: { options: switchOptions, marshal: 0 },
+                    layout: '1/3',
+                },
+                {
                     label: '高危标记多选',
                     name: '高危标记多选',
                     inputType: 'Switch',

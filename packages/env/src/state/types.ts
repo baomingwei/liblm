@@ -36,6 +36,7 @@ export type ISystemConfig = Partial<{
     系统环境: any
     护士端_禁止编辑高危因素_传染病: boolean
     高危管理_允许手输传染病: boolean
+    高危管理_允许手输高危: boolean
     护士端_审核禁用保存: boolean
     医生端_模块隐藏: string[] // the old version is string[]
     护士端_模块隐藏: string[] // the old version is string[]

@@ -1,12 +1,11 @@
 import { rt_ctx } from "@lm_fe/env"
 import { BF_Wrap2, MyBaseList } from '@lm_fe/pages'
-import { request } from "@lm_fe/utils"
-import { Button } from "antd"
-import React from "react"
 const ctx = rt_ctx
+const React = ctx.React
 export default function BreastCancerDataReport(prop: any) {
-    const { config, Wrap } = BF_Wrap2({
-        default_conf: {
+
+    return <MyBaseList
+        table_preset={{
             title: '数据上报-首诊上报',
             name: '/api/prenatal-visits/upload-logs',
             tableColumns: [
@@ -37,25 +36,24 @@ export default function BreastCancerDataReport(prop: any) {
             ),
             searchParams: {
                 'visitType.equals': 0,
+            },
+            needChecked: 1,
+            showAction: 0,
+            showAdd: 0,
+            renderBtns: () => {
+                const selectRows = ctx.props.table_helper.getCheckRows()
+
+                return ctx.ui.render_btn('上报', () => {
+                    ctx.request.post('/api/dataReport/reportIvisit', { ids: selectRows.map(_ => _.id), })
+                        .then(() => {
+                            ctx.props.table_helper.handleSearch()
+                        })
+                }, { disabled: !selectRows.length })
+
             }
-        }
-    })
+        }}
 
-    return <Wrap>
-        <MyBaseList
-            bf_conf={config}
-            needChecked
-            useListSourceCount
 
-            showAction={false}
-            showAdd={false}
-            renderBtns={(ctx) => {
-                const selectRows = ctx.getCheckRows()
-                return <Button disabled={!selectRows.length} onClick={async () => {
-                    request.post('/api/dataReport/reportIvisit', { ids: selectRows.map(_ => _.id), });
-                    ctx.handleSearch()
-                }}>上报</Button>
-            }}
-        />
-    </Wrap>
+
+    />
 }

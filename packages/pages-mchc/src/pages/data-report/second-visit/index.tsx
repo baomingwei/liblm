@@ -1,7 +1,5 @@
+import { rt_ctx } from "@lm_fe/env"
 import { MyBaseList } from '@lm_fe/pages'
-import { mchcLogger, rt_ctx } from "@lm_fe/env"
-import { formatDate, getMomentRange, request } from "@lm_fe/utils"
-import { Button } from "antd"
 import React from "react"
 const ctx = rt_ctx
 
@@ -41,20 +39,21 @@ export default function BreastCancerDataReport(prop: any) {
                 { title: '上报时间', dataIndex: 'uploadDate', },
             ],
             initialSearchValue() { return { visitDate: ctx.utils.getMomentRange().近一年.map(ctx.utils.formatDate) } },
+            renderBtns: () => {
+                const selectRows = ctx.props.table_helper.getCheckRows()
 
-            // initialSearchValue: {
-            //     validateDate: getMomentRange().近一周.map(formatDate)
-            // }
+                return ctx.ui.render_btn('上报', () => {
+                    ctx.request.post('/api/dataReport/reportRvisit', { ids: selectRows.map(_ => _.id), })
+                        .then(() => {
+                            ctx.props.table_helper.handleSearch()
+                        })
+                }, { disabled: !selectRows.length })
+
+            }
         }}
 
 
-        renderBtns={(ctx) => {
-            const selectRows = ctx.getCheckRows()
-            return <Button disabled={!selectRows.length} onClick={async () => {
-                request.post('/api/dataReport/reportRvisit', { ids: selectRows.map(_ => _.id), });
-                ctx.handleSearch()
-            }}>上报</Button>
-        }}
+
 
     />
 }
