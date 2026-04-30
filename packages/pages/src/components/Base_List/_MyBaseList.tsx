@@ -640,10 +640,10 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
                 }
                 const a: IMyBaseList_ColumnType<T> = {
                     width: (width ?? 120),
+                    align: 'center' as const,
                     ...col,
                     ...format_data,
                     children: format_columns(col?.children),
-                    align: 'center' as const,
                     ellipsis: col?.ellipsis ?? { showTitle: true },
                     onCell: (rowData: T) => {
                         return {
@@ -782,7 +782,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
                         <div ref={formWrapper} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: 4 }}>
                             {
                                 showSearch ? (
-                                    <Form initialValues={initialSearchValue} form={searchForm} layout="inline" >
+                                    <Form initialValues={initialSearchValue} form={searchForm} layout="inline" style={{ display: 'flex', gap: '4px 0' }} >
                                         {search_node()}
                                     </Form>
                                 ) : null

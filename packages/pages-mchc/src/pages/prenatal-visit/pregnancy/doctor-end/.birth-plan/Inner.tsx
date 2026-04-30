@@ -1,5 +1,5 @@
 import { QuestionnaireButton, SelectTip } from '@lm_fe/pages'
-import { Button, Card, Col, Tag, Form, List, message, Row, Radio } from 'antd'
+import { Button, Card, Col, Tag, Form, List, message, Row, Radio, Space } from 'antd'
 import { filter, get, isEmpty, map, set } from 'lodash'
 import React, { useEffect, useMemo, useState } from 'react'
 
@@ -66,6 +66,7 @@ export default function BirthPlan(props: IDoctorEnd_QQProps) {
         if (activeItem?.id === item.id) {
             return
         }
+        console.log('----787787', item);
         set_activeItem(item)
         let result = await SMchc_Questionnaire.fk_getResultById(item.id)
         // handleClickListItem(result)
@@ -219,10 +220,10 @@ export default function BirthPlan(props: IDoctorEnd_QQProps) {
             const labelType = EQuestionType.getLabel(questionType)
             let optionIndex: string = get(writeDetail, 'optionIndex')
             let questionResult: string = get(writeDetail, 'questionResult')
-            let value = ''
-            if (labelType == '填空题') {
-                value = questionResult
-            }
+            let value = questionResult
+            // if (labelType == '填空题') {
+            //     value = questionResult
+            // }
             if (labelType == '多选题') {
                 let optionIndexArr = optionIndex.split(',')
                 let valueArr: any = []
@@ -385,8 +386,12 @@ export default function BirthPlan(props: IDoctorEnd_QQProps) {
             <Col flex="228px" style={{ height: '100%', marginRight: 12, backgroundColor: '#fff' }}>
                 {renderSider()}
             </Col>
-            <Col flex="auto" style={{ height: '100%' }}>
-                <Card style={{ height: '100%', overflow: 'auto' }}>
+            <Col flex="auto" style={{ height: '100%',overflow: 'auto', backgroundColor: '#fff' }}>
+                <Space style={{ height: '58px', paddingLeft: 48 }}>
+                    <h3>{activeItem?.questionnaireTitle}</h3>
+                    <span>评测积分：{activeItem?.totalScore} 分</span>
+                </Space>
+                <Card>
                     {isEmpty(activeItem) ? (
                         <SelectTip />
                     ) : (
