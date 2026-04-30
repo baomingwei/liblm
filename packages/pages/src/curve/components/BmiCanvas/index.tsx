@@ -75,7 +75,7 @@ export default function BmiCanvas(props: IProps) {
     bmiNum.current = get(res, 'preBmi')
     bmiTz.current = get(res, 'weight')
     bmiList.current = get(res, 'items')
-    console.log('bmiList', bmiList)
+    // console.log('bmiList', bmiList)
     drawBmiCanvas();
   };
 
