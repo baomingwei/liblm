@@ -22,12 +22,11 @@ import JYJC from './components/JianYanJianCha';
 import QTBS from './components/QiTaBingshi';
 import TGJC from './components/TiGeJianCha';
 import YBBS from './components/YiBanBingShi';
-import YCQ from './components/YuChanQi';
+import XBS from './components/XianBingShi';
 import YCS from './components/YunChanShi';
 import ZDCL from './components/ZhenDuanChuLi';
 import ZKJC from './components/ZhuanKeJianCha';
 import { getRequiredForm, physicalKeys } from './func';
-import './index.less';
 import { datatoApiKey, formTabKey } from './methods/config';
 const single_id = mchcUtils.single_id
 interface IndexState {
@@ -48,7 +47,7 @@ interface IndexState {
   introStep: any[];
   [key: string]: any;
 }
-const tabContents = [YCQ, YBBS, QTBS, YCS, TGJC, ZKJC, JYJC, ZDCL];
+const tabContents = [XBS, YBBS, QTBS, YCS, TGJC, ZKJC, JYJC, ZDCL];
 const allTabs = tabContents.map((tab, i) => ({
   key: `tab-${i}`,
   title: tab.Title,

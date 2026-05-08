@@ -9,18 +9,26 @@ export default defineFormConfig([
     form_hidden: true,
   },
   {
+    key: "pregnancyId",
+    form_hidden: true
+  },
+  {
+    key: "prenatalVisitId",
+    form_hidden: true
+  },
+  {
     key: 'sureEddModify',
     inputType: 'MS',
     label: '修改过预产期-B超',
     form_hidden: true,
     inputProps: { options: '否,是', marshal: 0 },
-
   },
   {
     "key": "lmp",
     "label": "末次月经",
     "inputType": "date",
     layout: '1/6',
+    form_hidden: () => ctx.props.less,
     processLocal(lmp, f) {
       if (lmp && f) {
         var values = f.getFieldsValue()
@@ -47,12 +55,14 @@ export default defineFormConfig([
   }, {
     "key": "edd",
     "label": "预产期-日期",
+    form_hidden: () => ctx.props.less,
     "inputType": "date",
     layout: '1/6',
 
   }, {
     "key": "sureEdd",
     "label": "预产期-B超",
+    form_hidden: () => ctx.props.less,
     "inputType": "date",
     processLocal(v, f) {
       if (!f) return
@@ -66,6 +76,7 @@ export default defineFormConfig([
   {
     "key": "fetalcount",
     "label": "胎数",
+    form_hidden: () => ctx.props.less,
     "inputType": "select",
     "inputProps": { 'marshal': 0, 'options': '1,2,3,4,5,6' },
 
@@ -80,14 +91,14 @@ export default defineFormConfig([
 
     "inputType": "input",
 
-    isActive: !ctx.mchcEnv.in(['广三']),
+
     "inputProps": { 'type': 'number', 'unit': '个' },
     layout: '1/6',
 
 
   },
   {
-    isActive: !ctx.mchcEnv.in(['广三']),
+
 
     "key": "yolksac",
     "label": "卵黄囊",
@@ -102,6 +113,7 @@ export default defineFormConfig([
   },
   conceiveMode({
     "key": "conceiveMode__",
+    form_hidden: () => ctx.props.less,
     processLocal(v, f) {
       ctx.utils.safeExec(ctx.props.fuck_conceive, v)
 
@@ -110,6 +122,8 @@ export default defineFormConfig([
   {
     "key": "chiefcomplaint",
     "label": "主诉",
+    form_hidden: () => ctx.props.less,
+
     "inputType": "textareaWithTemplate",
     isNewRow: 1,
     "inputProps": {
@@ -131,6 +145,8 @@ export default defineFormConfig([
   }, {
     "key": "presentmhNote",
     "label": "现病史",
+    form_hidden: () => ctx.props.less,
+
     "inputType": "textareaWithTemplate",
     "inputProps": {
       rows: 2,
@@ -170,10 +186,16 @@ export default defineFormConfig([
       targetLabelCol: 2,
       formDescriptions: [
         { label: '检查日期', name: 'checkdate', inputType: 'DatePicker', props: {}, layout: '1/6' },
-        { label: '停经', name: 'menopause', inputType: 'MA', props: { unit: '周' }, layout: '1/6' },
-        { label: 'CRL', name: 'crl', inputType: 'input_number', props: { unit: 'mm' }, layout: '1/6' },
-        { label: 'NT', name: 'nt', inputType: 'input_number', props: { unit: 'mm' }, layout: '1/6' },
-        { label: '如孕', name: 'gestationalWeek', inputType: 'MA', props: { unit: '周' }, layout: '1/6' },
+        { label: '停经', name: 'menopause', inputType: 'MA', props: { suffix: '周' }, layout: '1/6' },
+        { label: 'CRL', name: 'crl', inputType: 'input_number', props: { suffix: 'mm' }, layout: '1/6' },
+        {
+          label: 'NT', name: 'nt', inputType: 'input_number', props: { suffix: 'mm' },
+          layout: '1/6',
+          tip: 'NT的正常范围值是0~3mm',
+          checkWarn: function (v) { return v > 3; },
+
+        },
+        { label: '如孕', name: 'gestationalWeek', inputType: 'MA', props: { suffix: '周' }, layout: '1/6' },
 
       ]
 
@@ -201,10 +223,16 @@ export default defineFormConfig([
       },
       formDescriptions: [
         { label: '检查日期', name: 'checkdate', inputType: 'DatePicker', props: {}, layout: '1/6' },
-        { label: '停经', name: 'menopause', inputType: 'MA', props: { unit: '周' }, layout: '1/6' },
-        { label: 'BPD', name: 'bpd', inputType: 'input_number', props: { unit: 'mm' }, layout: '1/6' },
-        { label: 'NF', name: 'nf', inputType: 'input_number', props: { unit: 'mm' }, layout: '1/6' },
-        { label: '如孕', name: 'gestationalWeek', inputType: 'MA', props: { unit: '周' }, layout: '1/6' },
+        { label: '停经', name: 'menopause', inputType: 'MA', props: { suffix: '周' }, layout: '1/6' },
+        { label: 'BPD', name: 'bpd', inputType: 'input_number', props: { suffix: 'mm' }, layout: '1/6' },
+        {
+          label: 'NF', name: 'nf', inputType: 'input_number', props: { suffix: 'mm' }, layout: '1/6',
+          tip: 'NF的正常范围值是0~3mm',
+          checkWarn: function (v) {
+            return v > 3;
+          },
+        },
+        { label: '如孕', name: 'gestationalWeek', inputType: 'MA', props: { suffix: '周' }, layout: '1/6' },
 
       ]
     },

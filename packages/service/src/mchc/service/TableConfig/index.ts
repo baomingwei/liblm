@@ -119,6 +119,7 @@ class Mchc_TableConfig_Service extends ModelService<IMchc_TableConfig> {
             const cloned = { ...f }
 
             set_fn_string(cloned, 'render')
+            set_fn_string(cloned, 'form_hidden')
             set_fn_string(cloned, 'title')
             set_fn_string(cloned, 'processRemote')
             set_fn_string(cloned, 'processLocal')

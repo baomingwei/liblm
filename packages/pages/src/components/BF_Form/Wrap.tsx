@@ -28,7 +28,7 @@ const items: MenuProps['items'] = [
 
 export function BF_Wrap2(setting: IBF_props, props?: any) {
 
-    const { config, edit_config, init_config, loading, recover_config } = use_table_config(setting, props)
+    const { config, edit_config, init_config, loading, recover_config } = use_table_config(setting, props ?? {})
     const sys_theme = use_provoke(s => s.sys_theme)
 
     const handleMenuClick: MenuProps['onClick'] = (e) => {

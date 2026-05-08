@@ -126,7 +126,7 @@ export function RenderEditItem(config: any, ReactNode: React.ReactNode, defaultO
     const cal_rules = required ? [{ required: true, message: placeholder ?? ('请填写' + (label ?? '')) }] : []
     return (
         <Form.Item
-            hidden={_config.form_hidden}
+            hidden={safeExec(_config.form_hidden as any) || _config.form_hidden}
             {...o}
             style={{ ...s }}
             labelAlign={labelAlign}
@@ -154,7 +154,7 @@ export function RenderEditItemStandalone(config: any, ReactNode: React.ReactNode
     const wrapperCol: any = _config.formItemLayout?.wrapperCol ?? defaultOptions.wrapperCol ?? {}
     return (
         <Row
-            hidden={_config.form_hidden}
+            hidden={safeExec(_config.form_hidden as any) || _config.form_hidden}
             style={{ ...s, marginBottom: 6 }}
 
             key={key}

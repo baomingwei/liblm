@@ -37,7 +37,7 @@ export default function JWS(props: IInitial_Tab_props) {
 
   useEffect(() => {
     if (active) {
-      SMchc_Doctor.getFirstVisitPresentmh(pid).then(v => {
+      SMchc_Doctor.getFirstVisitPresentmh_out(pid).then(v => {
         set_disabled_save?.(v.isBanned)
         check_edd_by_nt(v)
         form.setFieldsValue(v)
@@ -56,7 +56,7 @@ export default function JWS(props: IInitial_Tab_props) {
       bf_config={config}
       onValuesChange={(changedValues) => { set_dont_fuck_nt(false) }}
       onFinish={(v) => {
-        SMchc_Doctor.updateFirstVisitPresentmh(v)
+        SMchc_Doctor.updateFirstVisitPresentmh_out(v)
           .then((v) => {
             form.setFieldsValue(v)
             mchcEvent.emit('outpatient', { type: '刷新头部' })

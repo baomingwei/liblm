@@ -35,10 +35,10 @@ export default function DoctorEnd_检验检查_History(props: IProps) {
     return <BF_Form
         disabled={disabled}
         form={form}
-        fallback_init={() => SMchc_Doctor.getLabExamOfOutpatient(pregnancyId)}
+        fallback_init={() => SMchc_Doctor.getLabExamOfOutpatient_out(pregnancyId)}
         on_finish={on_finish}
         fallback_finish={(v) =>
-            SMchc_Doctor.updateLabExamOfOutpatient(v)
+            SMchc_Doctor.updateLabExam_out(v)
 
         }
         default_conf={{ tableColumns: form_confg, title: "门诊-检验检查" }}

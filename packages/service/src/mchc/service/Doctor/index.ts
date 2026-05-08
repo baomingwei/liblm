@@ -165,11 +165,11 @@ export class Mchc_Doctor_Service extends ModelService {
         const res = await request.put<IMchc_OutpatientDocumentStatus>('/api/doctor/updateOutpatientDocumentStatus', data);
         return res.data
     }
-    async getFirstVisitPresentmh(id: string) {
+    async getFirstVisitPresentmh_out(id: TIdTypeCompatible) {
         const res = await request.get('/api/doctor/getFirstVisitPresentmhOfOutpatient?id=' + id,);
         return processFirstPresent_remote(res.data)
     }
-    async updateFirstVisitPresentmh(data: any) {
+    async updateFirstVisitPresentmh_out(data: any) {
         const res = await request.put('/api/doctor/updateFirstVisitPresentmhOfOutpatient', processFirstPresent_local(data), { successText: '操作成功' });
         return processFirstPresent_remote(res.data)
     }
@@ -222,11 +222,11 @@ export class Mchc_Doctor_Service extends ModelService {
 
     }
     /**检验检查 */
-    async getLabExamOfOutpatient(id: TIdTypeCompatible) {
+    async getLabExamOfOutpatient_out(id: TIdTypeCompatible) {
         const res = await request.get('/api/doctor/getFirstVisitLabExamOfOutpatient?id=' + id);
         return processLabExamOfOutpatient_remote(res.data)
     }
-    async updateLabExamOfOutpatient(data: any) {
+    async updateLabExam_out(data: any) {
         const res = await request.put('/api/doctor/updateFirstVisitLabExamOfOutpatient', processLabExamOfOutpatient_local(data), { successText: '操作成功' });
         return processLabExamOfOutpatient_remote(res.data)
     }

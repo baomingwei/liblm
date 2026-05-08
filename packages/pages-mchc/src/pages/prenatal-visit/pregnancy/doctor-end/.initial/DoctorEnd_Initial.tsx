@@ -15,14 +15,14 @@ import JYJC from './components/JianYanJianCha';
 import QTBS from './components/QiTaBingshi';
 import TGJC from './components/TiGeJianCha';
 import YBBS from './components/YiBanBingShi';
-import YCQ from './components/YuChanQi';
+import XBS from './components/XianBingShi';
 import YCS from './components/YunChanShi';
 import ZDCL from './components/ZhenDuanChuLi';
 import ZKJC from './components/ZhuanKeJianCha';
 import './index.less';
 import requestMethods, { getTabMethods } from './methods/request';
 const single_id = mchcUtils.single_id
-const tabContents = [YCQ, YBBS, QTBS, YCS, TGJC, ZKJC, JYJC, ZDCL];
+const tabContents = [XBS, YBBS, QTBS, YCS, TGJC, ZKJC, JYJC, ZDCL];
 export interface IDoctorEnd_InitialProps {
   diagnosis_addon_btns?: (data?: IMchc_Doctor_FirstVisitDiagnosisOutpatient) => React.ReactNode
   diagnosis_before_submit?: (submit: (values: any) => Promise<void>, data?: IMchc_Doctor_FirstVisitDiagnosisOutpatient, form?: FormInstance) => Promise<void>

@@ -3,14 +3,7 @@ import { request, safe_json_parse } from '@lm_fe/utils';
 import { get } from 'lodash';
 export default {
   /** 获取表单配置 */
-  getSurveyFormConfig: async () => {
-    const formSurvey =
-      get(
-        (await request.get(`/api/form-descriptions?moduleName=prenatal-examination-survey`)).data,
-        0,
-      ) || {};
-    return formSurvey;
-  },
+
 
   getFurtherFormConfig: async () => {
     const formFurther =

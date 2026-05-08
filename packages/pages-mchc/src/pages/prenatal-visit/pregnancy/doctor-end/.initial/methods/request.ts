@@ -3,14 +3,10 @@ import { SMchc_Doctor } from '@lm_fe/service';
 import { request } from '@lm_fe/utils';
 
 /**获取现病史 */
-async function getFirstVisitPresentmh(id: string) {
-  const res = await request.get('/api/doctor/getFirstVisitPresentmhOfOutpatient?id=' + id);
-  return res.data
-}
-async function updateFirstVisitPresentmh(data: any) {
-  const res = await request.put('/api/doctor/updateFirstVisitPresentmhOfOutpatient', data);
-  return res.data
-}
+const getFirstVisitPresentmh = SMchc_Doctor.getFirstVisitPresentmh_out
+const updateFirstVisitPresentmh = SMchc_Doctor.updateFirstVisitPresentmh_out
+
+
 /**既往史 */
 async function pastmhOutpatient(id: string) {
   const res = await SMchc_Doctor.getFirstVisitPastmhOutpatient(id);
@@ -59,14 +55,9 @@ async function updateGynecologicalExamOfOutpatient(data: any) {
 }
 
 /**检验检查 */
-async function labExamOfOutpatient(id: string) {
-  const res = await request.get('/api/doctor/getFirstVisitLabExamOfOutpatient?id=' + id);
-  return res.data
-}
-async function updateLabExamOfOutpatient(data: any) {
-  const res = await request.put('/api/doctor/updateFirstVisitLabExamOfOutpatient', data);
-  return res.data
-}
+const labExamOfOutpatient = SMchc_Doctor.getLabExamOfOutpatient_out
+const updateLabExamOfOutpatient = SMchc_Doctor.updateLabExam_out
+
 /**诊断处理 */
 async function diagnosisOutpatient(id: string) {
   const res = await SMchc_Doctor.getFirstVisitDiagnosisOutpatient(id)
