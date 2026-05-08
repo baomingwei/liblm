@@ -1,6 +1,6 @@
-import { ARG_URS1_KEY, ARG_URS2_KEY } from "src/constant"
+// import { ARG_URS1_KEY, ARG_URS2_KEY } from "src/constant"
 import { AppEnv } from "./AppEnv"
-import { getSearchParamsValue, identity } from "@noah-libjs/utils"
+import { ARG_URS1_KEY, ARG_URS2_KEY, getSearchParamsValue, identity } from "@noah-libjs/utils"
 const h_key = '/happy'
 export function getHappyConfig(pathname = location.pathname) {
     const url = new URL(location.origin + pathname)

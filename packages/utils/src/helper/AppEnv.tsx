@@ -1,5 +1,5 @@
-import { AnyObject, expect_array, get, getSearchParamsValue, MyLog, safe_json_parse, simple_decrypt, simple_encrypt } from "@noah-libjs/utils";
-import { TOKEN_KEY } from "../constant";
+import { AnyObject, expect_array, get, getSearchParamsValue, MyLog, safe_json_parse, simple_decrypt, simple_encrypt, TOKEN_KEY } from "@noah-libjs/utils";
+// import { TOKEN_KEY } from "../constant";
 const tokenPrefix = ['Bearer', 'captcha']
 
 function isStartWithTokenPrefix(token?: string) {
