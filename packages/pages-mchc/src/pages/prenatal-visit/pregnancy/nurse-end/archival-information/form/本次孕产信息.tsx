@@ -3,7 +3,7 @@ import { IMchc_FormDescriptions_Field_Nullable } from "@lm_fe/service";
 import { form_config_家族史 } from "../../../common";
 import { marry_deps } from "./common";
 import { 既往史_pack } from "./既往史";
-import { conceiveMode, not_yes_input } from "@lm_fe/pages";
+import { conceive_mode_conf, not_yes_input } from "@lm_fe/pages";
 import { 个人史_pack } from "./个人史";
 
 
@@ -114,7 +114,7 @@ export const 本次孕产信息_config = () => {
                 "inputProps": { "placeholder": "请输入BMI", "style": { "width": 156 }, "disabled": true },
                 layout: '1/3',
             },
-            conceiveMode(),
+            conceive_mode_conf(),
             // {
             //     "key": "pregnancyInfo.conceiveMode__",
             //     "label": "受孕方式",

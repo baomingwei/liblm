@@ -6,7 +6,7 @@ import { isObject, values } from "lodash"
 
 
 
-export const conceiveMode = (conf: IMchc_FormDescriptions_Field = {},) => {
+export function conceive_mode_conf(conf: IMchc_FormDescriptions_Field = {},) {
 
     return defineFormConfig([
         {

@@ -1,5 +1,5 @@
 import { rt_ctx } from "@lm_fe/env";
-import { conceiveMode, mlUltrasounds_fd } from "@lm_fe/pages";
+import { conceive_mode_conf, mlUltrasounds_fd } from "@lm_fe/pages";
 import { defineFormConfig } from '@lm_fe/service';
 const ctx = rt_ctx
 const React = ctx.React
@@ -111,7 +111,7 @@ export default defineFormConfig([
 
 
   },
-  conceiveMode({
+  conceive_mode_conf({
     "key": "conceiveMode__",
     form_hidden: () => ctx.props.less,
     processLocal(v, f) {

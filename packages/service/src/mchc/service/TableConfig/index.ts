@@ -1,8 +1,8 @@
 import { safe_get_object_symbol, safe_get_symbol } from "@lm_fe/env"
 import { ModelService } from "../../../ModelService"
 import { IMchc_FormDescriptions_Field_Nullable, IMchc_FormDescriptions_Field_Nullable_Arr, SMchc_FormDescriptions } from "../FormDescriptions"
-import { set_deps_string, set_fn_string, stringify_bf, stringify_bf_fn, stringify_bf_obj } from "./utils"
-export { IMchc_FormDescriptions_Field_Nullable_Arr, stringify_bf_obj }
+import { tc_process_dep_conf, tc_convert_fn_wrapped_str, tc_stringify_fn_or_obj, tc_stringify_fn, tc_stringify_obj } from "./utils"
+export { IMchc_FormDescriptions_Field_Nullable_Arr, tc_stringify_obj as stringify_bf_obj }
 export interface IMchc_TableConfig {
     "id": any,
     "initialSearchValue": any,
@@ -75,7 +75,7 @@ class Mchc_TableConfig_Service extends ModelService<IMchc_TableConfig> {
     async clippy_local(value: any, example = false) {
         const fd_arr = await SMchc_FormDescriptions.extract_form_config(value)
         const fd_with_safe_fn = this.format_fd_arr(fd_arr)
-        return stringify_bf_obj(fd_with_safe_fn, example)
+        return tc_stringify_obj(fd_with_safe_fn, example)
     }
     async process_local(config: Partial<IMchc_TableConfig>, props?: any) {
 
@@ -83,19 +83,19 @@ class Mchc_TableConfig_Service extends ModelService<IMchc_TableConfig> {
 
         _con.tableColumns = await this.clippy_local(config.tableColumns, true)
 
-        _con.handleBeforePopup = stringify_bf_fn(config.handleBeforePopup,)
+        _con.handleBeforePopup = tc_stringify_fn(config.handleBeforePopup,)
         // _con.handleBeforePopup = make_bf_script_field(config.handleBeforePopup,)
 
-        _con.watchScript = stringify_bf_fn(config.watchScript,)
+        _con.watchScript = tc_stringify_fn(config.watchScript,)
 
-        _con.beforeSubmit = stringify_bf_fn(config.beforeSubmit,)
-        _con.renderBtns = stringify_bf_fn(config.renderBtns,)
+        _con.beforeSubmit = tc_stringify_fn(config.beforeSubmit,)
+        _con.renderBtns = tc_stringify_fn(config.renderBtns,)
  
 
-        _con.genColumns = stringify_bf_fn(config.genColumns,)
-        _con.initialSearchValue = stringify_bf(config.initialSearchValue,)
-        _con.searchParams = stringify_bf(config.searchParams,)
-        _con.initialValues = stringify_bf_obj(config.initialValues,)
+        _con.genColumns = tc_stringify_fn(config.genColumns,)
+        _con.initialSearchValue = tc_stringify_fn_or_obj(config.initialSearchValue,)
+        _con.searchParams = tc_stringify_fn_or_obj(config.searchParams,)
+        _con.initialValues = tc_stringify_obj(config.initialValues,)
 
         // const searchConfig = await SMchc_FormDescriptions.extract_form_config(config.searchConfig,)
         // _con.searchConfig = stringify_bf_obj(searchConfig,)
@@ -118,34 +118,34 @@ class Mchc_TableConfig_Service extends ModelService<IMchc_TableConfig> {
         return fd.map(f => {
             const cloned = { ...f }
 
-            set_fn_string(cloned, 'render')
-            set_fn_string(cloned, 'form_hidden')
-            set_fn_string(cloned, 'title')
-            set_fn_string(cloned, 'processRemote')
-            set_fn_string(cloned, 'processLocal')
-            set_fn_string(cloned, 'checkWarn')
-            set_fn_string(cloned, 'required')
+            tc_convert_fn_wrapped_str(cloned, 'render')
+            tc_convert_fn_wrapped_str(cloned, 'form_hidden')
+            tc_convert_fn_wrapped_str(cloned, 'title')
+            tc_convert_fn_wrapped_str(cloned, 'processRemote')
+            tc_convert_fn_wrapped_str(cloned, 'processLocal')
+            tc_convert_fn_wrapped_str(cloned, 'checkWarn')
+            tc_convert_fn_wrapped_str(cloned, 'required')
             // set_fn_string(cloned, 'disabledDeps')
             // set_fn_string(cloned, 'requiredDeps')
             // set_fn_string(cloned, 'showDeps')
-            set_deps_string(cloned)
+            tc_process_dep_conf(cloned)
             const props = f?.inputProps || f?.props
             if (props) {
                 const cloned_ip = { ...props }
-                set_fn_string(cloned_ip, 'DisplayFC_render')
-                set_fn_string(cloned_ip, 'component')
-                set_fn_string(cloned_ip, 'genRowData')
-                set_fn_string(cloned_ip, 'onPatientAutoComplete')
-                set_fn_string(cloned_ip, 'onPatientSelect')
-                set_fn_string(cloned_ip, 'onClick')
-                set_fn_string(cloned_ip, 'on_btn_click')
-                set_fn_string(cloned_ip, 'onIdxChange')
-                set_fn_string(cloned_ip, 'fetch_options')
-                set_fn_string(cloned_ip, 'EditInTable_beforeAdd')
-                set_fn_string(cloned_ip, 'on_row_value_change')
-                set_fn_string(cloned_ip, 'gen_obj')
-                set_fn_string(cloned_ip, 'onFocus')
-                set_fn_string(cloned_ip, 'onBlur')
+                tc_convert_fn_wrapped_str(cloned_ip, 'DisplayFC_render')
+                tc_convert_fn_wrapped_str(cloned_ip, 'component')
+                tc_convert_fn_wrapped_str(cloned_ip, 'genRowData')
+                tc_convert_fn_wrapped_str(cloned_ip, 'onPatientAutoComplete')
+                tc_convert_fn_wrapped_str(cloned_ip, 'onPatientSelect')
+                tc_convert_fn_wrapped_str(cloned_ip, 'onClick')
+                tc_convert_fn_wrapped_str(cloned_ip, 'on_btn_click')
+                tc_convert_fn_wrapped_str(cloned_ip, 'onIdxChange')
+                tc_convert_fn_wrapped_str(cloned_ip, 'fetch_options')
+                tc_convert_fn_wrapped_str(cloned_ip, 'EditInTable_beforeAdd')
+                tc_convert_fn_wrapped_str(cloned_ip, 'on_row_value_change')
+                tc_convert_fn_wrapped_str(cloned_ip, 'gen_obj')
+                tc_convert_fn_wrapped_str(cloned_ip, 'onFocus')
+                tc_convert_fn_wrapped_str(cloned_ip, 'onBlur')
 
                 if (cloned_ip.fds) {
                     cloned_ip.fds = this.format_fd_arr(cloned_ip.fds)
