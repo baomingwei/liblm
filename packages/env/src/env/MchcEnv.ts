@@ -94,6 +94,7 @@ class MchcEnv<T> extends AppEnv<T> {
 
 
     in_group(...gs: string[]) {
+        
         const u = this.user_data
         return u?.groups?.some?.((_: any) => gs.includes(_.name?.toLowerCase()))
     }
