@@ -955,8 +955,8 @@ export default defineFormConfig([
         label: '模板',
         children: [
           {
-            label: '模板',
-            name: 'mb',
+            label: '主诉',
+            name: 'chiefcomplaint',
             inputType: 'TemplateTextarea',
             layout: '1/2',
             inputProps: {
@@ -1002,6 +1002,37 @@ export default defineFormConfig([
             },
           },
 
+          {
+            label: 'MultiTemplate',
+            "inputType": "MultiTemplate",
+            "inputProps": {
+              url: '/api/multiTemplate',
+              fds: [
+                { inputType: 'text_area', name: 'chiefcomplaint', label: '主诉', layout: '1/1' },
+                { inputType: 'text_area', name: 'inspection', label: '检验检查', layout: '1/1' },
+              ],
+              btn_text: '多模板导入',
+              MultiTemplate_type: [
+                {
+                  label: '个人',
+                  params: { 'type': '配置练习模板_个人' },
+                  canOperate: true
+                },
+                {
+                  label: '科室',
+                  params: { 'type': '配置练习模板_科室' },
+                  canOperate: false
+
+                },
+              ],
+            },
+            layout: '1/1'
+          },
+          {
+            inputType: 'title',
+            layout: '1/1',
+            inputProps: { title: `MultiTemplate 配置编辑权限： canOperate: ctx.mchcEnv.user_data.groups.some(function (g) { return g.name.toLowerCase() === 'admin' }) ` }
+          },
         ],
 
       },

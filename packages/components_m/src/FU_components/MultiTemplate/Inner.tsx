@@ -25,7 +25,7 @@ export default function MultiTemplateInner(props: IMultiTemplateProps) {
                     title: '模板',
                     getContainer: () => el.current!,
                     okText: '导入',
-                    ...{ modal_props },
+                    ...modal_props,
                     modal_data: {
                         content: <MultiTemplateTemplateGroup on_select={item => { active.current = item }} {...props} />
                     },
