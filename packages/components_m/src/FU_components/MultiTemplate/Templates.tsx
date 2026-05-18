@@ -125,7 +125,7 @@ function ActiveTemplates(props: { item: IMultiTemplateType, parent_props: IExtra
                             onClick={() => {
                                 window.mchc_modal?.open('box', {
                                     title: '模板维护',
-                                    width: 1200,
+                                    width: 1400,
                                     getContainer: () => el.current!,
                                     onClose: fetch_data,
                                     modal_data: { content: <MultiTemplateTemplateGroup maintain_mode {...parent_props} /> },

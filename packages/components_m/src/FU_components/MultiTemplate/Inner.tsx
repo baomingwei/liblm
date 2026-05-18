@@ -4,7 +4,7 @@ import { IMultiTemplateProps, IRemoteTemplates_item } from './types';
 import { MultiTemplateTemplateGroup } from './Templates';
 import { mchcLogger } from '@lm_fe/env';
 import { SMchc_FormDescriptions } from '@lm_fe/service';
-import { assign, get, set } from '@lm_fe/utils';
+import { AnyObject, assign, get, set } from '@lm_fe/utils';
 
 const SPLIT_KEY = ' / '
 export default function MultiTemplateInner(props: IMultiTemplateProps) {
@@ -21,7 +21,7 @@ export default function MultiTemplateInner(props: IMultiTemplateProps) {
             disabled={disabled}
             onClick={() => {
                 window.mchc_modal?.open('box', {
-                    width: 1200,
+                    width: 1400,
                     title: '模板',
                     getContainer: () => el.current!,
                     okText: '导入',
@@ -32,12 +32,15 @@ export default function MultiTemplateInner(props: IMultiTemplateProps) {
                     onClose(status: Boolean) {
                         if (!status) return
                         const old_data = form?.getFieldsValue() ?? {}
-                        const templates_data = active.current ?? {}
+                        const templates_data: AnyObject = active.current ?? {}
                         const new_data = fds.reduce((result, conf) => {
                             const key = SMchc_FormDescriptions.get_form_item_name_raw(conf) as string
                             const old_value = get(old_data, key)
                             const new_value = get(result, key)
-                            if (!new_value) return result
+                            if (!new_value) {
+                                delete result[key]
+                                return result
+                            }
                             const mixed = old_value ? `${old_value} ${SPLIT_KEY} ${new_value}` : new_value
 
                             return set(result, key, mixed)

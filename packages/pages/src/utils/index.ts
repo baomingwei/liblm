@@ -10,6 +10,11 @@ export * from './helper'
 export function safe_navigate(where: string | URL, props?: AnyObject, params?: AnyObject, replace = false) {
     const _url = isString(where) ? where : `${where.pathname}${where.search}`
     console.log('ctx safe_navigate', { url_conf: _url, props, params })
+
+    if (_url.includes('://')) {
+        mchcEnv.open(_url)
+        return
+    }
     if (mchcEnv.is_fullscreen)
         return
 
