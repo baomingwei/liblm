@@ -255,8 +255,11 @@ function RenderFormSectionComponent(props: IProps) {
             case 'title':
                 // 显示小标题
                 return (
-                    <div style={{ padding: '4px 0', fontWeight: (inputProps?.bold ?? true) ? 'bold' : '', fontSize: (inputProps.bold ?? true) ? 18 : 14, color: '#666', ...styles }}>
-                        {inputProps.title || label}
+                    <div style={{ padding: '4px 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <span style={{ color: '#666', fontSize: (inputProps.bold ?? true) ? 18 : 14, fontWeight: (inputProps?.bold ?? true) ? 'bold' : '', ...styles, }}>{inputProps.title || label}</span>
+                        {
+                            inputProps.extra ? inputProps.extra : null
+                        }
                     </div>
                 );
 
