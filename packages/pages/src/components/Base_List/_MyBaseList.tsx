@@ -27,6 +27,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
     const { Wrap, config } = BF_Wrap2({ default_conf: table_preset }, {
         ..._props,
         table_helper: {
+            bf_conf() { return bf_conf_cache.current },
             createOrUpdate: create_or_update,
             handleView,
             handleDelete,
@@ -96,6 +97,9 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
         action_col
     } = props
     const searchParams_cache = useRef(searchParams)
+    const bf_conf_cache = useRef(config)
+    bf_conf_cache.current = config
+
     searchParams_cache.current = searchParams
     const staticDefaultQuery = {
         // current: 1,

@@ -54,6 +54,7 @@ export interface IRTCtx {
     // 避免空判断生成冗余代码
     props: {
         table_helper: {
+            bf_conf: () => { tableColumns: any[] }
             createOrUpdate: (submitData: AnyObject) => Promise<any>
             handleView: (rowData: AnyObject) => void
             handleDelete: (rowData: AnyObject) => Promise<void>
