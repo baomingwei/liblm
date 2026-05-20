@@ -3,35 +3,43 @@
 @color-deep: #8fb9f0;
 
 .FurtherTable {
+    // background-color: #fff;
 
-  // background-color: #fff;
+    // .selected-row {
+    //   background: @color-deep !important;
+    // }
 
+    // :global(.ant-table-tbody > tr.ant-table-row:hover > td) {
+    //   background: @color!important;
+    //   cursor: pointer;
+    // }
 
+    :global(.ant-table .ant-table-thead th) {
+        font-weight: bold;
+    }
 
-  // .selected-row {
-  //   background: @color-deep !important;
-  // }
+    em {
+        font-size: 8px;
+        color: #999;
+    }
 
-  // :global(.ant-table-tbody > tr.ant-table-row:hover > td) {
-  //   background: @color!important;
-  //   cursor: pointer;
-  // }
-
-  :global(.ant-table .ant-table-thead th) {
-    font-weight: bold;
-  }
-
-  em {
-    font-size: 8px;
-    color: #999;
-  }
-
-  .btn-wrap {
-    z-index: 9;
-    height: 26px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 12px;
-  }
+    .btn-wrap {
+        z-index: 9;
+        height: 26px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 12px;
+    }
+}
+.further-table-modal {
+    padding: 8px;
+    .further-table-row {
+        border-bottom: 1px solid #d9d9d9;
+        padding: 8px;
+    }
+    .content-label {
+        font-weight: bolder;
+        margin-left: 8px;
+    }
 }
