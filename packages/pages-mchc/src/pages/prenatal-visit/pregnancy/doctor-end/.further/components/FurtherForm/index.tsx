@@ -303,7 +303,7 @@ function FurtherForm(props: IProps) {
                         )}
                     >
                         {addon_btns?.(formData)}
-                        <OkButton primary danger hidden={!form_id} onClick={() => del_visit(form_id)}>
+                        <OkButton primary danger hidden={!form_id} onClick={() => del_visit(form_id)} disabled={disabled_save}>
                             删除
                         </OkButton>
                         <OkButton hidden={!mchcEnv.is('广州市八')} onClick={initial_preview}>

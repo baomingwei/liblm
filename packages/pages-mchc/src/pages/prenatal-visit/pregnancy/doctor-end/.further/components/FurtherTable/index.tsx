@@ -54,6 +54,7 @@ export default function FurtherTable(props: IProps) {
 
 	const form_config = filter_fds(diagnosesList, config?.tableColumns)
 	const actionRender = (value: any, rowData: any, index: number) => {
+		const disabled_save = rowData.isBanned!
 		return (
 			<>
 				<Popconfirm
@@ -61,8 +62,9 @@ export default function FurtherTable(props: IProps) {
 					onConfirm={() => handleDelete(rowData)}
 					okText="确定"
 					cancelText="取消"
+					disabled={disabled_save}
 				>
-					<Button type="link" size="small" danger icon={<MyIcon value='DeleteOutlined' className="global-table-action-icon" />}>
+					<Button type="link" size="small" disabled={disabled_save} danger icon={<MyIcon value='DeleteOutlined' className="global-table-action-icon" />}>
 						删除
 					</Button>
 				</Popconfirm>
