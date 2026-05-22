@@ -7,7 +7,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { MyBaseListRenderFormSection } from './Helper';
 import './index.module.less';
 import { IMyBaseList_ActionCtx, IMyBaseList_ColumnType, MyBaseListProps } from './types';
-import { formatProps, get_dataIndex, get_title, tranformQueryData, use_my_baselist } from './utils';
+import { formatProps, get_dataIndex, get_title, tranform_query_data, use_my_baselist } from './utils';
 
 import { MyIcon, Table_L, useMyEffectSafe } from '@lm_fe/components';
 import { getDefaultRequiredRules, InterceptDisplayFC, MyBaseListComponents, OkButton } from '@lm_fe/components_m';
@@ -505,7 +505,7 @@ export function _MyBaseList<T extends { [x: string]: any, id?: TIdTypeCompatible
         const { searchConfig } = propsCache.current
 
         const values = searchForm.getFieldsValue()
-        const data = tranformQueryData(values, searchConfig, isFuck)
+        const data = tranform_query_data(values, searchConfig, isFuck)
         const v = beforeSearch?.(data as any) ?? data
 
 

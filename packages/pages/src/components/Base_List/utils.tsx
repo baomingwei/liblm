@@ -36,7 +36,7 @@ export function formatProps(props: any, config?: IMchc_TableConfig) {
   return _props
 }
 
-export function tranformQueryData(values: AnyObject, searchConfig: IMchc_FormDescriptions_Field_Nullable[] = [], isFuck = false) {
+export function tranform_query_data(values: AnyObject, searchConfig: IMchc_FormDescriptions_Field_Nullable[] = [], isFuck = false) {
   const newValues = { ...values }
   const straws = flat(searchConfig.filter(_ => _?.inputType === 'straw')?.map(_ => _?.children ?? [])).map(_ => ({ ..._, straw_children: true }))
   const kvArr = [...searchConfig, ...straws]
@@ -66,16 +66,18 @@ function calcKey(k: string, v: any, searchConfig: IMchc_FormDescriptions_Field_N
 }
 function calcKeyByType(k: string, v: any, config: IMchc_FormDescriptions_Field) {
 
-
+  const filter_type = config.filterType
+  if (filter_type === null) return { [k]: v }
 
   const input_type = config.inputType! ?? 'input'
-  const filterType = config.filterType?.split?.(',') ?? []
+  const filter_type_arr = filter_type?.split?.(',') ?? []
 
   const type = config.inputProps?.type || config.inputProps?.mode
   const is_multiple = type === 'multiple' || type === 'tags'
 
-  const f1 = filterType[0]
-  const f2 = filterType[1]
+  const f1 = filter_type_arr[0]
+  const f2 = filter_type_arr[1]
+
   if (['input', 'Input', 'MyInput', 'address', 'MyAddress', 'MA'].includes(input_type)) {
     return { [`${k}.${f1 || 'contains'}`]: v }
   }
