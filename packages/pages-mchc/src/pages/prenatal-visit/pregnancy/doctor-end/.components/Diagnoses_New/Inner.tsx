@@ -9,7 +9,7 @@ import requestMethods from '../../.further/methods/request';
 import DiagnosesItem from './diagnoses-item/diagnoses-item';
 import DiagnosesWeek from './diagnoses-week/diagnoses-week';
 import './index.less';
-import DoctorEnd_DiagnosesTemplate from './template';
+import DoctorEnd_Diagnoses_Modal from './diagnoses_modal';
 import { IDiagnosesprops } from './types';
 
 function Diagnoses(props: IDiagnosesprops) {
@@ -18,7 +18,7 @@ function Diagnoses(props: IDiagnosesprops) {
 
 
   const {
-    prenatalVisitId,
+    pv_id_for_diagnose,
     isAllPregnancies,
     diagnosesList = [],
     headerInfo,
@@ -47,7 +47,7 @@ function Diagnoses(props: IDiagnosesprops) {
 
 
 
-  const handleDelete = async (item: any, i: number) => {
+  const del_diagnose_item = async (item: any, i: number) => {
     const newList = [...diagnosesList];
     const delArr = newList.splice(i, 1);
     await SMchc_Doctor.del_diagnosis(delArr[0]);
@@ -68,8 +68,9 @@ function Diagnoses(props: IDiagnosesprops) {
 
 
   const add_diag = async (diagnosisObj: any) => {
-    if (prenatalVisitId) {
-      diagnosisObj.prenatalVisitId = prenatalVisitId
+    mchcEnv.success('添加成功！' + pv_id_for_diagnose);
+    if (pv_id_for_diagnose) {
+      diagnosisObj.prenatalVisitId = pv_id_for_diagnose
     }
     if (serialNo) {
       diagnosisObj.serialNo = serialNo
@@ -131,6 +132,7 @@ function Diagnoses(props: IDiagnosesprops) {
               : null
           }
           <OkButton
+            disabled={!pv_id_for_diagnose}
             type='dashed'
             // className="diag-btn"
             // icon={<SettingOutlined />} 
@@ -156,7 +158,7 @@ function Diagnoses(props: IDiagnosesprops) {
           ? diagnosesList
             .filter(_ => {
               if (!_.prenatalVisitId) return true
-              return _.prenatalVisitId === prenatalVisitId
+              return _.prenatalVisitId === pv_id_for_diagnose
             })
             .map((item: IMchc_Doctor_Diagnoses, index: any) => {
               return (
@@ -165,7 +167,7 @@ function Diagnoses(props: IDiagnosesprops) {
                   index={index}
                   diagnose={item}
                   key={`${get(item, 'id')}-false`}
-                  handleDelete={handleDelete}
+                  do_del_diagnose_item={del_diagnose_item}
                   headerInfo={headerInfo}
                   diagnosesList={diagnosesList}
                   saveHeaderInfo={saveHeaderInfo}
@@ -184,11 +186,11 @@ function Diagnoses(props: IDiagnosesprops) {
     <div>
       {renderDiagnoses()}
       {visible && (
-        <DoctorEnd_DiagnosesTemplate
-          handleDelete={handleDelete}
+        <DoctorEnd_Diagnoses_Modal
+          del_diagnose_item_inner={del_diagnose_item}
           isShowDiagnosesTemplate={visible}
           closeTemplate={closeTemplate}
-          add_diag={add_diag}
+          add_diag_inner={add_diag}
           headerInfo={headerInfo}
           diagnosesList={diagnosesList}
           setDiagnosesList={setDiagnosesList}

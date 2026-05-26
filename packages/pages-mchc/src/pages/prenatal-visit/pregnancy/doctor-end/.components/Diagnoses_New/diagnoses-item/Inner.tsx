@@ -1,17 +1,17 @@
 
-import { formatTimeToStandard, MyIcon, OkButton } from '@lm_fe/components_m';
-import { IMchc_Doctor_Diagnoses, IMchc_Doctor_OutpatientHeaderInfo, SMchc_Doctor } from '@lm_fe/service';
+import { formatTimeToStandard, MyIcon } from '@lm_fe/components_m';
+import { SMchc_Doctor } from '@lm_fe/service';
 import { request } from '@lm_fe/utils';
-import { Input, Popconfirm, Popover } from 'antd';
+import { Button, Divider, Input, Popover } from 'antd';
 import classnames from 'classnames';
 import { cloneDeep, get, map, set, size } from 'lodash';
 import React, { useEffect, useMemo, useState } from 'react';
 import requestMethods_further from '../../../.further/methods/request';
 import './index.less';
-import { IDiagnosesItem_Props } from './types'
+import { IDiagnosesItem_Props } from './types';
 export default function DiagnosesItem({
   updateNote,
-  handleDelete,
+  do_del_diagnose_item,
   diagnose,
   index,
   edit,
@@ -35,7 +35,11 @@ export default function DiagnosesItem({
     setPreNote(e.target.value);
   }
   function itemDelete() {
-    handleDelete?.(diagnose, index);
+    const confirm = window.confirm('确定要删除该诊断吗？');
+    if (!confirm) {
+      return;
+    }
+    do_del_diagnose_item?.(diagnose, index);
   }
   function inputBlur(key: string) {
     return () => {
@@ -127,7 +131,11 @@ export default function DiagnosesItem({
   function getPopupContainer() {
     return document.getElementById(`diag-content`);
   }
+  const del_btn = <Button style={{}} shape='circle' onClick={() => itemDelete()} >
+    <MyIcon className='item-icon' value='DeleteOutlined' />
+    <span className="item-number">{index + 2}</span>
 
+  </Button>
   return (
     // <Tooltip title={getTitle}>
     <div
@@ -136,90 +144,92 @@ export default function DiagnosesItem({
       title={getTitle}
     >
       {edit && (
-        <div className="diagnoses-item-content">
-          <span className="item-number">{index + 2}</span>
-          <div className="border"></div>
-          <div className="input-conetnt">
-            <Input
-              placeholder="请输入前备注"
-              onChange={inputChange2}
-              onBlur={inputBlur('preNote')}
-              className="my-input pre-input"
-              value={preNote}
-            ></Input>
-          </div>
-          <Popover
-            className="diag-popover2"
-            trigger="click"
-            content={popoverContent(diagnose, index)} //
-            // visible={!!diagnose.visible && edit}
-            visible={get(diagnose, `id`) == visibleId}
-            onVisibleChange={(visible) =>
-              setTimeout(() => {
-                // handleVisibleChange(visible, index);
-                if (visible) {
-                  setVisibleId(get(diagnose, `id`));
-                } else {
-                  setVisibleId(null);
-                }
-              }, 200)
-            }
-          // getPopupContainer={getPopupContainer}
-          >
-            <div className={classnames('diagnoses-val margin', { highrisk: get(diagnose, `highrisk`) })}>
-              {get(diagnose, `diagnosis`)}
-            </div>
-          </Popover>
+        <div className="diagnoses-item">
+          {del_btn}
+          <div className="diagnoses-item-content">
 
-          <div className="input-conetnt">
-            <Input
-              placeholder="请输入后备注"
-              onChange={inputChange3}
-              onBlur={inputBlur('note')}
-              className="my-input"
-              value={note}
-            ></Input>
+
+
+
+            <div className="border"></div>
+            <div className="input-conetnt">
+              <Input
+                placeholder="请输入前备注"
+                onChange={inputChange2}
+                onBlur={inputBlur('preNote')}
+                className="my-input pre-input"
+                value={preNote}
+              ></Input>
+            </div>
+            <Popover
+              className="diag-popover2"
+              trigger="click"
+              content={popoverContent(diagnose, index)} //
+              // visible={!!diagnose.visible && edit}
+              visible={get(diagnose, `id`) == visibleId}
+              onVisibleChange={(visible) =>
+                setTimeout(() => {
+                  // handleVisibleChange(visible, index);
+                  if (visible) {
+                    setVisibleId(get(diagnose, `id`));
+                  } else {
+                    setVisibleId(null);
+                  }
+                }, 200)
+              }
+            // getPopupContainer={getPopupContainer}
+            >
+              <div className={classnames('diagnoses-val margin', { highrisk: get(diagnose, `highrisk`) })}>
+                {get(diagnose, `diagnosis`)}
+              </div>
+            </Popover>
+
+            <div className="input-conetnt">
+              <Input
+                placeholder="请输入后备注"
+                onChange={inputChange3}
+                onBlur={inputBlur('note')}
+                className="my-input"
+                value={note}
+              ></Input>
+            </div>
+            <Divider size='small' />
           </div>
         </div>
       )}
       {!edit && (
-        <div className="diagnoses-item-content">
-          <span className="item-number">{index + 2}</span>
-          {/* <div className="border"></div> */}
-          <Popover
-            className="diag-popover2"
-            trigger="click"
-            content={popoverContent(diagnose, index)}
-            open={!isShowDiagnosesTemplate && !!diagnose.visible}
-            onOpenChange={(visible) =>
-              setTimeout(() => {
-                handleVisibleChange(visible, index);
-              }, 200)
-            }
-          // getPopupContainer={getPopupContainer}
-          >
-            <div className={classnames('prenote-val-content', { highrisk: get(diagnose, `highrisk`) })}>
-              {preNote && <div className="prenote">{preNote}</div>}
-              <div className={classnames('diagnoses-val', { highrisk: get(diagnose, `highrisk`) })}>
-                {get(diagnose, `diagnosis`)}
-              </div>
-            </div>
-          </Popover>
+        <div className="diagnoses-item" >
+          {del_btn}
+          <div className="diagnoses-item-content">
+            {/* <span className="item-number">{index + 2}</span> */}
+            {/* <div className="border"></div> */}
 
-          {note && <div className="note-content">{note}</div>}
+            <Popover
+              className="diag-popover2"
+              trigger="click"
+              content={popoverContent(diagnose, index)}
+              open={!isShowDiagnosesTemplate && !!diagnose.visible}
+              onOpenChange={(visible) =>
+                setTimeout(() => {
+                  handleVisibleChange(visible, index);
+                }, 200)
+              }
+            // getPopupContainer={getPopupContainer}
+            >
+              <div className={classnames('prenote-val-content', { highrisk: get(diagnose, `highrisk`) })}>
+                {preNote && <div className="prenote">{preNote}</div>}
+                <div className={classnames('diagnoses-val', { highrisk: get(diagnose, `highrisk`) })}>
+                  {get(diagnose, `diagnosis`)}
+                </div>
+              </div>
+            </Popover>
+
+            {note && <div className="note-content">{note}</div>}
+          </div>
         </div>
       )}
 
-      <Popconfirm
-        placement="topRight"
-        title={'你确定要删除这个诊断吗？'}
-        onConfirm={itemDelete}
-        okText="确定"
-        cancelText="取消"
-      >
-        <OkButton shape='circle' danger size='small' className="delBtn" icon={<MyIcon value='DeleteOutlined' />} />
 
-      </Popconfirm>
     </div>
     // </Tooltip>
   );

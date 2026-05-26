@@ -16,13 +16,13 @@ function DiagnosesTemplateOld(props: IDiagnosesTemplate) {
 
   const {
     isShowDiagnosesTemplate,
-    handleDelete,
+    del_diagnose_item_inner,
     diagnosesList,
     headerInfo,
     saveHeaderInfo,
     setDiagnosesList,
     closeTemplate,
-    add_diag,
+    add_diag_inner,
 
   } = props;
 
@@ -136,7 +136,7 @@ function DiagnosesTemplateOld(props: IDiagnosesTemplate) {
         set(postdata, 'diagnosis', get(item, 'val'));
         set(postdata, 'diagnosisCode', get(item, 'code'));
       }
-      add_diag(postdata);
+      add_diag_inner(postdata);
     }
   };
 
@@ -299,7 +299,7 @@ function DiagnosesTemplateOld(props: IDiagnosesTemplate) {
                   diagnose={item}
                   updateNote={updateNote}
                   index={i}
-                  handleDelete={handleDelete}
+                  do_del_diagnose_item={del_diagnose_item_inner}
                   edit={true}
                   headerInfo={headerInfo}
                   saveHeaderInfo={props.saveHeaderInfo}

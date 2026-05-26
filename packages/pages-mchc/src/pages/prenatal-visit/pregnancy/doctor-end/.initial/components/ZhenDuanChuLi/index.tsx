@@ -220,7 +220,7 @@ function Index(props: IProps & IInitial_Tab_props) {
           headerInfo={headerInfo}
           diagnosesList={diagnosesList}
           isAllPregnancies={false}
-          prenatalVisitId={v_id}
+          pv_id_for_diagnose={v_id}
 
           serialNo={serialNo}
 

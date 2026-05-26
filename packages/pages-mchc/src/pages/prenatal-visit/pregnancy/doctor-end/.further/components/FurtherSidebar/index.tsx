@@ -144,7 +144,7 @@ export default function FurtherSidebar(props: IProps) {
                   id="further-diagnosis"
                 >
                   <Diagnoses
-                    prenatalVisitId={formData?.id}
+                    pv_id_for_diagnose={formData?.id}
                     serialNo={serialNo}
                     saveHeaderInfo={saveHeaderInfo}
                     setDiagnosesList={setDiagnosesList}

@@ -10,7 +10,7 @@ export interface IDiagnosesprops {
   // isShowDiagnosesTemplatets: boolean
   isAllPregnancies: boolean
   page: '' | 'return'
-  prenatalVisitId?: any
+  pv_id_for_diagnose?: any
   serialNo: string
 
 
