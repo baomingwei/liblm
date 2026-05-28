@@ -12,10 +12,7 @@ export default function DiagnosesWeek({ first, headerInfo, ...props }: IProps) {
   const colorPrimary = use_provoke(s => s.sys_theme.colorPrimary)
   return (
     <div className="firstDiag-new" style={{ color: colorPrimary }}>
-      <Button style={{ marginTop: 6 }} shape='circle' >
-        1
-
-      </Button>
+      <Button style={{ marginRight: 4 }} shape='circle' >1</Button>
       G<span className="diagGP-new">{headerInfo.g}</span>P
       <span className="diagGP-new">{headerInfo.p}</span>
       妊娠
