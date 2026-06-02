@@ -4,12 +4,12 @@ import { mchcUtils } from '@lm_fe/env';
 import { BF_Wrap2, mchcModal__ } from '@lm_fe/pages';
 import { use_provoke } from '@lm_fe/provoke';
 import { IMchc_Doctor_Diagnoses, IMchc_Doctor_OutpatientHeaderInfo, IMchc_Doctor_RvisitInfoOfOutpatient, IMchc_Doctor_RvisitInfoOfOutpatient_Rvisit, IMchc_FormDescriptions_Field } from '@lm_fe/service';
-import { cloneDeep, expect_array, get, identity, map, request, set } from '@lm_fe/utils';
-import { Button, Col, message, Modal, Popconfirm, Row, Space, Tabs } from 'antd';
+import { cloneDeep, expect_array, get, request } from '@lm_fe/utils';
+import { Button, Col, message, Popconfirm, Row, Space, Tabs } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';
 import { filter_diagnoses } from '../../../.utils';
-import styles from './index.module.less';
 import { filter_fds } from '../../utils';
+import styles from './index.module.less';
 interface IProps {
 	diagnosesList: IMchc_Doctor_Diagnoses[]
 	visitsData?: IMchc_Doctor_RvisitInfoOfOutpatient,
@@ -100,9 +100,12 @@ export default function FurtherTable(props: IProps) {
 	const renderTableMore = () => {
 		return (
 			<Tabs className={styles['further-table-modal']}>
+				<Tabs.TabPane key={2} tab={<><MyIcon value='TableOutlined' />表格</>}>
+					{renderTable(true)}
+				</Tabs.TabPane>
 				<Tabs.TabPane key={1} tab={<><MyIcon value='FileTextOutlined' />文档</>}>
 					<TableWrap>
-						{reverseRvisit.map((data: IMchc_Doctor_RvisitInfoOfOutpatient_Rvisit) => {
+						{reverseRvisit.map((data) => {
 							return (
 								<Row className={styles['further-table-row']}>
 									<Col span={2}>
@@ -117,14 +120,12 @@ export default function FurtherTable(props: IProps) {
 						})}
 					</TableWrap>
 				</Tabs.TabPane>
-				<Tabs.TabPane key={2} tab={<><MyIcon value='TableOutlined' />表格</>}>
-					{renderTable(true)}
-				</Tabs.TabPane>
+
 			</Tabs>
 		)
 	}
 
-	const renderContent = (data: any) => {
+	const renderContent = (rowData: IMchc_Doctor_RvisitInfoOfOutpatient_Rvisit) => {
 		const configformArrayList: any[] = [];
 		let Columnsarr = [];
 		for (let i = 0; i < tableContentColumns.length; i++) {
@@ -143,8 +144,8 @@ export default function FurtherTable(props: IProps) {
 			contentArr.push(
 				<div key={index}>
 					{ArrayList.map((config: any) => {
-						const value = get(data, config.dataIndex)
-						let text = config.render ? config.render(value, data) : value;
+						const value = get(rowData, config.dataIndex)
+						let text = config.render ? config.render(value, rowData) : value;
 						if (!text) {
 							return <></>
 						}
