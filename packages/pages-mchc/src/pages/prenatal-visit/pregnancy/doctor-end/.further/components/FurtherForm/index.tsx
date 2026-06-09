@@ -51,7 +51,7 @@ function FurtherForm(props: IProps) {
 
     const { getLastRecord } = props
     const { formChange } = props
-    const { handleSign, 签名方式 } = use_doctor_sign({ type: 'prenatalVisit' })
+    const { handle_cs_sign, 签名方式 } = use_doctor_sign({ type: 'prenatalVisit' })
     const {
         addon_btns,
         before_submit,
@@ -242,7 +242,7 @@ function FurtherForm(props: IProps) {
     }
     async function sign() {
         const data = await get_form_data()
-        data && handleSign(data).then(after_save)
+        data && handle_cs_sign(data).then(after_save)
     }
     function copy() {
         if (mchcEnv.in(['南医附属'])) {

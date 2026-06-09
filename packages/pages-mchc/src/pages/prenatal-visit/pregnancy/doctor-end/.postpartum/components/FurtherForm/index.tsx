@@ -29,7 +29,7 @@ interface IProps {
 }
 function FurtherForm(props: IProps) {
   const [disabled_save, set_disabled_save] = useState(false)
-  const { handleSign, 签名方式 } = use_doctor_sign({ type: 'prenatalVisitCH' })
+  const { handle_cs_sign, 签名方式 } = use_doctor_sign({ type: 'prenatalVisitCH' })
 
   const { getLastRecord } = props;
   const { formChange } = props;
@@ -113,7 +113,7 @@ function FurtherForm(props: IProps) {
 
   async function sign() {
     const data = await get_form_data()
-    data && handleSign(data).then(after_save)
+    data && handle_cs_sign(data).then(after_save)
   }
 
   function get_form_data() {

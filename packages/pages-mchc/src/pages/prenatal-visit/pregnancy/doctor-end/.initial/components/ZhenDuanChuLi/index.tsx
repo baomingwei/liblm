@@ -49,7 +49,7 @@ function Index(props: IProps & IInitial_Tab_props) {
     form
   } = props;
   const preg_id = mchcUtils.single_id()
-  const { handleSign, 签名方式 } = use_doctor_sign({ type: 'prenatalFVisit' })
+  const { handle_cs_sign, 签名方式 } = use_doctor_sign({ type: 'prenatalFVisit' })
 
   const { Wrap, config } = BF_Wrap2({ default_conf: { title: '门诊-诊断处理', tableColumns: () => import('./config') } })
 
@@ -112,7 +112,7 @@ function Index(props: IProps & IInitial_Tab_props) {
   }
   async function sign() {
     const data = await get_form_data()
-    data && handleSign(data)
+    data && handle_cs_sign(data)
   }
 
   function handleSubmitBefore() {
