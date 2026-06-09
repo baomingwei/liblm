@@ -1,4 +1,4 @@
-import { mchcEnv } from '@lm_fe/env';
+import { mchcEnv, mchcLogger } from '@lm_fe/env';
 import { mchcModal__ } from '@lm_fe/pages';
 import { isString, request } from '@lm_fe/utils';
 import React, { useEffect, useState } from 'react'
@@ -58,6 +58,7 @@ export function use_doctor_sign(props: IProps) {
             const params_res = await request.post(ca_conf?.paramsUrl!, { type, data },)
             const params = params_res.data
 
+            mchcLogger.log('签名', { resUrl: ca_conf?.reqUrl, params, request })
 
             const sign_res = await request.post(ca_conf?.reqUrl!, params)
 
