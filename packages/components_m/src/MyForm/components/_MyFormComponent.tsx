@@ -38,6 +38,7 @@ const MyCascader = lazy(() => import('./MyCascader'))
 // const MyTable = lazy(() => import('./MyTable'))
 const SingleCheckbox = lazy(() => import('./SingleCheckbox'))
 const DefaultSelect = lazy(() => import('./MySelect/DefaultSelect'))
+const ArrayCustom = lazy(() => import('./MyCustom/ArrayCustom'))
 
 const MyCheckboxOld = lazy(() => import('./MyCheckbox'))
 const MyComponent = {
@@ -71,6 +72,7 @@ const MyComponent = {
   addressCascader: AddressCascader,
   bloodPressureInput: BloodPressureInput,
   doubleInput: DoubleInput,
+  'array-custom': ArrayCustom,
   // 产前的孕产史组件
   pdPrenancyHistoriesTable: MyForm_Business_PregnancyHistory,
   // 带有template的textarea
