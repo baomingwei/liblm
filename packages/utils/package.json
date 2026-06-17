@@ -27,7 +27,7 @@
         "@lm_fe/static": "^0.2.18",
         "@noah-libjs/request": "latest",
         "@noah-libjs/utils": "latest",
-        "axios": "^1.17.0",
+        "axios": "0.26.1",
         "dayjs": "^1.11.21",
         "reconnecting-websocket": "~4.4.0",
         "store": "~2.0.12"
