@@ -66,7 +66,6 @@ export default function BirthPlan(props: IDoctorEnd_QQProps) {
         if (activeItem?.id === item.id) {
             return
         }
-        console.log('----787787', item);
         set_activeItem(item)
         let result = await SMchc_Questionnaire.fk_getResultById(item.id)
         // handleClickListItem(result)
@@ -220,7 +219,7 @@ export default function BirthPlan(props: IDoctorEnd_QQProps) {
             const labelType = EQuestionType.getLabel(questionType)
             let optionIndex: string = get(writeDetail, 'optionIndex')
             let questionResult: string = get(writeDetail, 'questionResult')
-            let value = questionResult
+            let value = optionIndex // questionResult
             // if (labelType == '填空题') {
             //     value = questionResult
             // }
@@ -350,7 +349,7 @@ export default function BirthPlan(props: IDoctorEnd_QQProps) {
                                 {item.id < 0 && <MyIcon value="InfoCircleOutlined" />}
                                 <div>
                                     {item.questionnaireTitle}
-                                    <p style={{ marginTop: 0 }}>{item?.createDate}</p>
+                                    <p style={{ marginTop: 0 }}>{item?.createDate} {`孕周${item?.expandField1 || ''}`}</p>
                                 </div>
                                 <div>{item.isAnswer ? <Tag color="success">已填写</Tag> : <Tag>未填写</Tag>}</div>
                             </List.Item>
@@ -383,7 +382,7 @@ export default function BirthPlan(props: IDoctorEnd_QQProps) {
 
     return (
         <Row style={{ height: '100%', width: '100%' }}>
-            <Col flex="228px" style={{ height: '100%', marginRight: 12, backgroundColor: '#fff' }}>
+            <Col flex="256px" style={{ height: '100%', marginRight: 12, backgroundColor: '#fff' }}>
                 {renderSider()}
             </Col>
             <Col flex="auto" style={{ height: '100%',overflow: 'auto', backgroundColor: '#fff' }}>
