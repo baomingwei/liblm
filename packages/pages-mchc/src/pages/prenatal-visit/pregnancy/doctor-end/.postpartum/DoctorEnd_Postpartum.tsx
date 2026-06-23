@@ -169,7 +169,7 @@ function DoctorEnd_Postpartum(props: IDoctorEnd_PostpartumProps) {
 
 
 
-  // 同步导入上一次复诊记录的主诉等信息
+  // 同步导入上一次复诊记录的主诉等信息，不要再做维护！！！！！！！！！！！！！！！
   async function getLastRecord() {
 
 

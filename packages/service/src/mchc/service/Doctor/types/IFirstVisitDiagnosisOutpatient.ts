@@ -70,6 +70,10 @@ export interface IMchc_Doctor_FirstVisitDiagnosisOutpatient<T extends MchcTypes 
     isOpenEclampsiaTable: number
     isOpenSCTable: number
     isOpenVTETable: number
+
+    // new
+    prenatalVisitId?: number
+    caSignStatus?: boolean
 }
 
 

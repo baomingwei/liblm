@@ -47,11 +47,10 @@ interface IProps {
     after_save(values: Partial<IMchc_Doctor_RvisitInfoOfOutpatient_Rvisit>): Promise<void>
 }
 function FurtherForm(props: IProps) {
-    const [disabled_save, set_disabled_save] = useState(false)
-
+    const [save_disabled, set_save_disabled] = useState(false)
+    const { 医生端_开启_危险_复诊同步记录 } = use_provoke(_ => _.config)
     const { getLastRecord } = props
     const { formChange } = props
-    const { handle_cs_sign, 签名形式 } = use_doctor_sign({ type: 'prenatalVisit' })
     const {
         addon_btns,
         before_submit,
@@ -65,6 +64,8 @@ function FurtherForm(props: IProps) {
         onAddBtnClick,
         handleSubmit,
     } = props
+    const { handle_cs_sign, sign_btn_disabled, sign_btn_hidden, sign_btn_text, save_btn_hidden, sign_confirm } = use_doctor_sign('prenatalVisit', formData)
+
     const [isShowMenzhen, set_isShowMenzhen] = useState(false)
     const [form] = Form.useForm()
 
@@ -89,7 +90,7 @@ function FurtherForm(props: IProps) {
             formData.fetusExam = fetusExam.length ? fetusExam : [{}]
 
             form.setFieldsValue(formData)
-            set_disabled_save(formData.isBanned!)
+            set_save_disabled(formData.isBanned!)
 
             // if (mchcConfig.get('医生端_复诊编辑控制')) {
 
@@ -192,7 +193,8 @@ function FurtherForm(props: IProps) {
         //     })
     }
     async function on_submit() {
-
+        if (!sign_confirm())
+            return
         const data = await get_form_data()
         if (!data) return
         if (before_submit) {
@@ -268,7 +270,7 @@ function FurtherForm(props: IProps) {
         }
     }
 
-    const saveBtnTxt = disabled_save ? '无权限保存' : '保存'
+    const saveBtnTxt = save_disabled ? '无权限保存' : '保存'
     return (
         <Card
             title={form_id ? '编辑产检记录' : '本次产检信息'}
@@ -293,7 +295,8 @@ function FurtherForm(props: IProps) {
                             </Button>
                         </>
                     ) : null}
-                    <Button
+                    <OkButton
+                        hidden={!医生端_开启_危险_复诊同步记录}
                         icon={<MyIcon value="SyncOutlined" />}
                         type="primary"
                         size="small"
@@ -301,13 +304,13 @@ function FurtherForm(props: IProps) {
                         style={{ marginRight: 36 }}
                     >
                         同步上一次记录
-                    </Button>
+                    </OkButton>
                 </span>
             }
         >
             <MyLazyComponent size="middle">
                 <FormBlock
-                    disableAll={disabled_save}
+                    disableAll={save_disabled}
                     form={form}
                     diagnosesList={diagnosesList ?? []}
                     headerInfo={headerInfo}
@@ -322,7 +325,7 @@ function FurtherForm(props: IProps) {
                         )}
                     >
                         {addon_btns?.(formData)}
-                        <OkButton primary danger hidden={!form_id} onClick={() => del_visit(form_id)} disabled={disabled_save}>
+                        <OkButton primary danger hidden={!form_id} onClick={() => del_visit(form_id)} disabled={save_disabled}>
                             删除
                         </OkButton>
                         <OkButton hidden={!mchcEnv.is('广州市八')} onClick={initial_preview}>
@@ -334,13 +337,14 @@ function FurtherForm(props: IProps) {
                         <OkButton hidden={!mchcEnv.is('南医附属') || !form_id} onClick={copy}>
                             复制
                         </OkButton>
-                        <OkButton hidden={(!form_id && 签名形式 === 'CA签名') || !签名形式} primary disabled={disabled_save} onClick={sign}>
-                            {签名形式}
+                        <OkButton hidden={sign_btn_hidden} primary disabled={save_disabled || sign_btn_disabled} onClick={sign}>
+                            {sign_btn_text}
                         </OkButton>
+
                         <OkButton hidden={!mchcEnv.is('南医附属') || !form_id} onClick={nfyy_sign}>
                             签名
                         </OkButton>
-                        <OkButton hidden={签名形式 === 'CA签名并保存'} primary disabled={disabled_save} onClick={on_submit}>
+                        <OkButton hidden={save_btn_hidden} primary disabled={save_disabled} onClick={on_submit}>
                             {saveBtnTxt}
                         </OkButton>
                     </Space.Compact>

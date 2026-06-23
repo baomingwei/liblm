@@ -49,7 +49,6 @@ function Index(props: IProps & IInitial_Tab_props) {
     form
   } = props;
   const preg_id = mchcUtils.single_id()
-  const { handle_cs_sign, 签名形式 } = use_doctor_sign({ type: 'prenatalFVisit' })
 
   const { Wrap, config } = BF_Wrap2({ default_conf: { title: '门诊-诊断处理', tableColumns: () => import('./config') } })
 
@@ -61,6 +60,7 @@ function Index(props: IProps & IInitial_Tab_props) {
   const [visitData, setVisitData] = useState<IMchc_Doctor_FirstVisitDiagnosisOutpatient>()
   const v_id = get(visitData, `advice.id`);
 
+  const { handle_cs_sign, sign_btn_disabled, sign_btn_hidden, sign_btn_text, save_btn_hidden, sign_confirm } = use_doctor_sign('prenatalFVisit', visitData)
 
   useEffect(() => {
 
@@ -116,6 +116,8 @@ function Index(props: IProps & IInitial_Tab_props) {
   }
 
   function handleSubmitBefore() {
+    if (!sign_confirm())
+      return
     if (diagnosis_before_submit) {
       return diagnosis_before_submit(handleSubmit, visitData, form)
     }
@@ -262,9 +264,9 @@ function Index(props: IProps & IInitial_Tab_props) {
             产检计划
           </OkButton>
 
-          {/* <OkButton icon={<MyIcon value='SyncOutlined' />} size="large" onClick={initData} style={{ marginLeft: 12 }}>
+          <OkButton icon={<MyIcon value='SyncOutlined' />} onClick={initData} style={{ marginLeft: 12 }}>
             刷新
-          </OkButton> */}
+          </OkButton>
         </div>
         <Space className="prenatal-visit-main_initial-btns">
           {
@@ -280,12 +282,12 @@ function Index(props: IProps & IInitial_Tab_props) {
 
 
 
-          <OkButton size="large" hidden={签名形式 === 'CA签名并保存'} primary disabled={disabled_save} onClick={handleSubmitBefore} icon={<MyIcon value='SaveOutlined' />}>
+          <OkButton size="large" hidden={save_btn_hidden} primary disabled={disabled_save} onClick={handleSubmitBefore} icon={<MyIcon value='SaveOutlined' />}>
             保存
           </OkButton>
 
-          <OkButton size="large" hidden={(!v_id && 签名形式 === 'CA签名') || !签名形式} primary disabled={disabled_save} onClick={sign}>
-            {签名形式}
+          <OkButton size="large" hidden={sign_btn_hidden} primary disabled={disabled_save || sign_btn_disabled} onClick={sign}>
+            {sign_btn_text}
           </OkButton>
         </Space>
       </Col>

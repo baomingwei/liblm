@@ -53,6 +53,7 @@ export type ISystemConfig = Partial<{
     医生端_复诊按钮浮动?: boolean
     医生端_复诊左侧隐藏?: boolean
     医生端_复诊编辑控制?: boolean
+    医生端_开启_危险_复诊同步记录?: boolean
     标签管理?: boolean
     高危标记多选?: number
     病人标签多选?: number

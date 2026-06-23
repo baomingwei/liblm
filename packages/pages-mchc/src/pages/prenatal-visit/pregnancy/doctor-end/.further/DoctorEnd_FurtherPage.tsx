@@ -207,7 +207,7 @@ function DoctorEnd_Further(props: IDoctorEnd_FurtherProps) {
 
   }
 
-  // 同步导入上一次复诊记录的主诉等信息
+  // 同步导入上一次复诊记录的主诉等信息，不要再做维护！！！！！！！！！！！！！！！
   async function getLastRecord() {
 
     const list = expect_array(visitsData_cache.current?.rvisits);

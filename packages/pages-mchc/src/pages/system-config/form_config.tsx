@@ -437,6 +437,13 @@ export default defineFormConfig(
                             layout: '1/3',
                         },
                         {
+                            label: '开启_危险_复诊同步记录',
+                            name: '医生端_开启_危险_复诊同步记录',
+                            inputType: 'MSW',
+                            inputProps: {},
+                            layout: '1/3',
+                        },
+                        {
                             label: '签名',
                             children: [
 

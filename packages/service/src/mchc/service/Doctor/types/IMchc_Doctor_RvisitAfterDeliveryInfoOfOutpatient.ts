@@ -16,4 +16,7 @@ export interface IMchc_Doctor_RvisitAfterDeliveryInfoOfOutpatient_Record {
     physicalExam: IMchc_Nurse_OutpatientDocument_physicalExam,
     isBanned?: boolean,
     id: number
+    // new
+    prenatalVisitId?: number
+    caSignStatus?: boolean
 }

@@ -83,4 +83,7 @@ export interface IMchc_Doctor_RvisitInfoOfOutpatient_Rvisit {
 
     // added
     isBanned: boolean
+    caSignStatus?: boolean
+
+    prenatalVisitId?: number
 }

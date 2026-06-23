@@ -175,20 +175,10 @@ export function useTableConfig(props: any) {
                         </Popconfirm>
                     )}
 
-                    <Popconfirm
-                        placement="topRight"
-                        // getPopupContainer={(triggerNode) => triggerNode?.parentNode?.parentNode?.parentNode}
-                        title={`确定要删除吗?`}
-                        onConfirm={() => handleDelete(rowData)}
-                        okText="确定"
-                        cancelText="取消"
-                    >
-                        <Button type="link" size="small"
-                        // icon={<DeleteOutlined className="global-table-action-icon" />}
-                        >
-                            删除
-                        </Button>
-                    </Popconfirm>
+
+                    <Button type="link" size="small" onClick={() => handleDelete(rowData)} >
+                        删除
+                    </Button>
                 </Space>
             );
         },
