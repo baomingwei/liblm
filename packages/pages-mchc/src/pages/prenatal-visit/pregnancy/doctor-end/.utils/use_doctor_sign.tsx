@@ -67,7 +67,7 @@ export function use_doctor_sign(type: 'prenatalVisit' | 'prenatalFVisit' | 'pren
     }
     function sign_confirm() {
         if (is_signed) {
-            return confirm('该记录已签名，是否继续签名？')
+            return confirm('该记录已签名，继续操作签名将无效，需重签，是否继续？')
         }
         return true
     }
