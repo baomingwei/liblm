@@ -9,6 +9,8 @@ import { use_provoke } from '@lm_fe/provoke';
 export function use_doctor_sign(type: 'prenatalVisit' | 'prenatalFVisit' | 'prenatalVisitCH', data_with_sign_status?: { prenatalVisitId?: any, caSignStatus?: boolean }) {
 
     const { 签名形式, 本地http签名地址, 本地http签名格式, 本地http签名净化, 签名方式 } = use_provoke(c => c.config)
+    const is_signed = data_with_sign_status?.caSignStatus
+    const is_saved = !!data_with_sign_status?.prenatalVisitId
 
     function format_ca_req_data(data: AnyObject) {
         if (本地http签名格式 === 'formdata') {
@@ -23,23 +25,23 @@ export function use_doctor_sign(type: 'prenatalVisit' | 'prenatalFVisit' | 'pren
         return data
     }
     function sign_btn_disabled() {
-        if (签名形式 === 'CA签名' && data_with_sign_status?.caSignStatus) {
+        if (签名形式 === 'CA签名' && is_signed) {
             return true
         }
         return false
     }
     function sign_btn_text() {
-        if (签名形式 === 'CA签名' && data_with_sign_status?.caSignStatus) {
+        if (签名形式 === 'CA签名' && is_signed) {
             return '已签名'
         }
-        if (签名形式 === 'CA签名并保存' && data_with_sign_status?.caSignStatus) {
+        if (签名形式 === 'CA签名并保存' && is_signed) {
             return '签名并保存（已签名）'
         }
 
         return 签名形式
     }
     function sign_btn_hidden() {
-        if (签名形式 === 'CA签名' && !data_with_sign_status?.prenatalVisitId) {
+        if (签名形式 === 'CA签名' && !is_saved) {
             return true
         }
         if (!签名形式) {
@@ -64,7 +66,7 @@ export function use_doctor_sign(type: 'prenatalVisit' | 'prenatalFVisit' | 'pren
         }
     }
     function sign_confirm() {
-        if (data_with_sign_status?.caSignStatus) {
+        if (is_signed) {
             return confirm('该记录已签名，是否继续签名？')
         }
         return true
