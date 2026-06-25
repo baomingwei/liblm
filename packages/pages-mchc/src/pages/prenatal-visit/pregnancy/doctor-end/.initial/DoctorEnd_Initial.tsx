@@ -30,8 +30,8 @@ export interface IDoctorEnd_InitialProps {
   headerInfo: IMchc_Doctor_OutpatientHeaderInfo
 
 
-  setDiagnosesList(l: IMchc_Doctor_Diagnoses[]): void
-  diagnosesList: IMchc_Doctor_Diagnoses[]
+  // setDiagnosesList(l: IMchc_Doctor_Diagnoses[]): void
+  // diagnosesList: IMchc_Doctor_Diagnoses[]
 
   id?: TIdType
 
@@ -50,10 +50,8 @@ function DoctorEnd_Initial(props: IDoctorEnd_InitialProps) {
   const {
     headerInfo,
     id,
-    setDiagnosesList,
     saveHeaderInfo,
 
-    diagnosesList,
 
   } = props;
   const sys_theme = use_provoke(s => s.sys_theme)
@@ -114,13 +112,11 @@ function DoctorEnd_Initial(props: IDoctorEnd_InitialProps) {
 
 
 
-    if (tab == 'tab-7') {
-      const d = res.diagnoses as IMchc_Doctor_Diagnoses[]
-      const _diagnoses = filter_diagnoses(d)
-      // console.log('setDiagnosesList', _diagnoses)
-      setDiagnosesList(_diagnoses);
-      // const bool = get(res, `isOpenVTETable`);
-    }
+    // if (tab == 'tab-7') {
+    //   const d = res.diagnoses as IMchc_Doctor_Diagnoses[]
+    //   const _diagnoses = filter_diagnoses(d)
+    //   setDiagnosesList(_diagnoses);
+    // }
 
   }
 
@@ -256,9 +252,7 @@ function DoctorEnd_Initial(props: IDoctorEnd_InitialProps) {
               active={key === cur_step}
               form={forms.current[idx]}
               handlePrint={handlePrint}
-              diagnosesList={diagnosesList}
               headerInfo={headerInfo}
-              setDiagnosesList={setDiagnosesList}
               saveHeaderInfo={saveHeaderInfo}
 
             />

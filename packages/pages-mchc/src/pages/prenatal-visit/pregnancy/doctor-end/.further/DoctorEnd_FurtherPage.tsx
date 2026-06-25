@@ -14,13 +14,13 @@ const single_id = mchcUtils.single_id
 export interface IDoctorEnd_FurtherProps {
   addon_btns?: (data?: Partial<IMchc_Doctor_RvisitInfoOfOutpatient_Rvisit>) => React.ReactNode
   before_submit?: (submit: (values: any) => Promise<void>, data?: Partial<IMchc_Doctor_RvisitInfoOfOutpatient_Rvisit>, form?: FormInstance) => Promise<void>
-  setDiagnosesList(v: IMchc_Doctor_Diagnoses[]): void
+  // setDiagnosesList(v: IMchc_Doctor_Diagnoses[]): void
   id: TIdTypeCompatible
 
   headerInfo: IMchc_Doctor_OutpatientHeaderInfo
 
 
-  diagnosesList: IMchc_Doctor_Diagnoses[]
+  // diagnosesList: IMchc_Doctor_Diagnoses[]
   formChange(b: boolean): void,
 
 
@@ -31,13 +31,14 @@ function DoctorEnd_Further(props: IDoctorEnd_FurtherProps) {
 
   const {
     saveHeaderInfo,
-    setDiagnosesList,
+    // setDiagnosesList,
     headerInfo,
     id,
 
-    diagnosesList,
+    // diagnosesList,
     formChange,
   } = props;
+  const [diagnosesList, setDiagnosesList] = useState<IMchc_Doctor_Diagnoses[]>([])
 
   const serialNo_q = getSearchParamsValue('serialNo')
 

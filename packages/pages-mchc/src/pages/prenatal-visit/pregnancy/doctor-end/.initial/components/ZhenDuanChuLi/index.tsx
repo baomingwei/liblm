@@ -23,9 +23,9 @@ interface IProps {
   serialNo: string
 
   headerInfo: IMchc_Doctor_OutpatientHeaderInfo,
-  diagnosesList: IMchc_Doctor_Diagnoses[]
+  // diagnosesList: IMchc_Doctor_Diagnoses[]
   handlePrint?(resource: string, id?: TIdType): void
-  setDiagnosesList(l: IMchc_Doctor_Diagnoses[]): void
+  // setDiagnosesList(l: IMchc_Doctor_Diagnoses[]): void
   saveHeaderInfo(v: IMchc_Doctor_OutpatientHeaderInfo): void
 
 }
@@ -35,13 +35,13 @@ const ClassName = 'zhen-duan-chu-li';
 function Index(props: IProps & IInitial_Tab_props) {
 
   const { serialNo,
-    diagnosesList,
+    // diagnosesList,
     handlePrint: _handlePrint,
     disabled_save,
 
 
     headerInfo,
-    setDiagnosesList,
+    // setDiagnosesList,
     saveHeaderInfo,
     active,
     diagnosis_before_submit,
@@ -52,6 +52,7 @@ function Index(props: IProps & IInitial_Tab_props) {
 
   const { Wrap, config } = BF_Wrap2({ default_conf: { title: '门诊-诊断处理', tableColumns: () => import('./config') } })
 
+  const [diagnosesList, setDiagnosesList] = useState<IMchc_Doctor_Diagnoses[]>([])
 
   const [isShowModifyRecord, set_isShowModifyRecord] = useState(false)
   const [isShowManageModal, set_isShowManageModal] = useState(false)
@@ -96,6 +97,7 @@ function Index(props: IProps & IInitial_Tab_props) {
 
     SMchc_Doctor.getFirstVisitDiagnosisOutpatient(preg_id).then(v => {
       setVisitData(v)
+      setDiagnosesList(v.diagnoses)
       form.setFieldsValue(v)
     })
   }
