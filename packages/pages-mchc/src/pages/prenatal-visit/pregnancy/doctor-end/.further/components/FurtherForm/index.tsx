@@ -115,15 +115,15 @@ function FurtherForm(props: IProps) {
                 //     e.setValue?.('gestationalWeek', a.gestationalWeek)
                 // }
 
-                if (key === 'appointmentCycle') {
-                    e.setValue?.('appointmentDate', getFutureDate(value))
-                }
+                // if (key === 'appointmentCycle') {
+                //     e.setValue?.('appointmentDate', getFutureDate(value))
+                // }
 
-                if (key === 'physicalExam') {
-                    const physicalExam = values?.physicalExam
-                    let bmi = getBMI(physicalExam?.weight, physicalExam?.height)
-                    form.setFieldsValue({ physicalExam: { bmi } })
-                }
+                // if (key === 'physicalExam') {
+                //     const physicalExam = values?.physicalExam
+                //     let bmi = getBMI(physicalExam?.weight, physicalExam?.height)
+                //     form.setFieldsValue({ physicalExam: { bmi } })
+                // }
             }
 
             if (e.type === 'onFocus') {
