@@ -126,33 +126,33 @@ function FurtherForm(props: IProps) {
                 // }
             }
 
-            if (e.type === 'onFocus') {
-                if (e.name === 'gestationalWeek') {
-                    mchcModal__.open('modal_form', {
-                        width: '20vw',
-                        bodyStyle: { height: '20vh' },
+            // if (e.type === 'onFocus') {
+            //     if (e.name === 'gestationalWeek') {
+            //         mchcModal__.open('modal_form', {
+            //             width: '20vw',
+            //             bodyStyle: { height: '20vh' },
 
-                        modal_data: {
-                            async onSubmit(v) {
-                                const values = form.getFieldsValue()
-                                const visitDate = values.visitDate
-                                const old_pre = values.prescription ?? ''
+            //             modal_data: {
+            //                 async onSubmit(v) {
+            //                     const values = form.getFieldsValue()
+            //                     const visitDate = values.visitDate
+            //                     const old_pre = values.prescription ?? ''
 
-                                const params = { sureEdd: v.edd, date: visitDate, id: preg_id }
-                                const { gestationalWeek } = await SLocal_Calculator.calcGesWeek(params)
-                                mchcEvent.emit('outpatient', { type: '刷新头部', })
-                                let prescription = `${old_pre} ${old_pre ? '/' : ''} 预产期B超修订为 ${v.edd}`
-                                form.setFieldsValue({ prescription, gestationalWeek })
-                                return 1
-                            },
-                            async getInitialData() {
-                                return headerInfo
-                            },
-                            formDescriptions: [{ label: '预产期-B超', name: 'edd', inputType: 'DatePicker' }],
-                        },
-                    })
-                }
-            }
+            //                     const params = { sureEdd: v.edd, date: visitDate, id: preg_id }
+            //                     const { gestationalWeek } = await SLocal_Calculator.calcGesWeek(params)
+            //                     mchcEvent.emit('outpatient', { type: '刷新头部', })
+            //                     let prescription = `${old_pre} ${old_pre ? '/' : ''} 预产期B超修订为 ${v.edd}`
+            //                     form.setFieldsValue({ prescription, gestationalWeek })
+            //                     return 1
+            //                 },
+            //                 async getInitialData() {
+            //                     return headerInfo
+            //                 },
+            //                 formDescriptions: [{ label: '预产期-B超', name: 'edd', inputType: 'DatePicker' }],
+            //             },
+            //         })
+            //     }
+            // }
         })
         return rm
     }, [])
