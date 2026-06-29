@@ -516,7 +516,7 @@ export default function HeaderInfoInner(props: IHeaderInfoProps) {
                         <OkButton {...common_props} icon={<MyIcon value="RetweetOutlined" />} onClick={switch_page} />
                     )}
                 </div>
-                <div style={wrap_style}>
+                {/* <div style={wrap_style}>
                     <QuestionnaireButton
                         onOk={(qs) =>
                             request.post('/api/send/questionnaire', { type: 1, id: pregnancyId, questionnaire: qs })
@@ -525,7 +525,7 @@ export default function HeaderInfoInner(props: IHeaderInfoProps) {
                         btn_text="问卷"
                         shape="round"
                     />
-                </div>
+                </div> */}
             </div>
         )
     }

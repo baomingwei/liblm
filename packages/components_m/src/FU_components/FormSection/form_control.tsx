@@ -64,7 +64,7 @@ function getDepStatus(form_ins: FormInstance, depKey: string | string[] = '', de
     }
     const __showVal = form_ins.getFieldValue(depKey)
     const targetShowVal = getUglyValue(__showVal)
-    return chekc_value(__showVal, depValue) || chekc_value(targetShowVal, depValue)
+    return chekc_value(__showVal, depValue) ?? chekc_value(targetShowVal, depValue)
 
 }
 function chekc_value(target_value: any, dep_values: any[] | ((v: any) => boolean) = []) {

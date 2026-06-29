@@ -58,7 +58,7 @@ export function use_doctor_sign(type: 'prenatalVisit' | 'prenatalFVisit' | 'pren
     }, [])
 
     async function handle_cs_sign<T>(data: T) {
-
+        if (!data) return Promise.reject()
         if (签名方式 === '本地http签名') {
             return handle_cs_sign_http(data)
         } else {

@@ -8,7 +8,6 @@ import { otherOptions } from '@lm_fe/env';
 import { getFormData, getGesWeek, MyForm } from '@lm_fe/components_m';
 import React from 'react';
 
-const { Modal } = LazyAntd
 
 interface IProos {
   headerInfo?: IMchc_Doctor_OutpatientHeaderInfo

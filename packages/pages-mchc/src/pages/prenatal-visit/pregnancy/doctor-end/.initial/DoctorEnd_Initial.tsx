@@ -93,14 +93,12 @@ function DoctorEnd_Initial(props: IDoctorEnd_InitialProps) {
 
     let res = await requestMethods[getTabMethods[tab]](pregnancyId);
 
-    if (res.serialNo) {
-      setSerialNo(res.serialNo)
-    }
+    // if (res.serialNo) {
+    //   setSerialNo(res.serialNo)
+    // }
 
     if (tab == 'tab-0') {
-      reduceTab0(res);
-
-
+      // reduceTab0(res);
 
       // if (mchcEnv.is('越秀妇幼') && res.visitId) {
       //   SMchc_Doctor.getVisitEmrEditable(res.visitId)

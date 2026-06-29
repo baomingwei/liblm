@@ -72,14 +72,6 @@ class TemplateTreeService extends ModelService<IMchc_TemplateTree_Item> {
     getImageExamImportTree(pregnancyId: TIdTypeCompatible) {
         request.get(`/api/getImageExamImportTree?pregnancyId=${pregnancyId}`)
     }
-    /** 获取梅毒管理数据 */
-    getSyphilisManagers(pregnancyId: TIdTypeCompatible) { return request.get(`/api/syphilis-managers?pregnancyId.equals=${pregnancyId}`) }
-
-    /** 获取梅毒管理数据 */
-    createSyphilisManagers(data: any) { return request.post(`/api/syphilis-managers`, data) }
-
-    /** 获取梅毒管理数据 */
-    updateSyphilisManagers(data: any) { return request.put(`/api/syphilis-managers`, data) }
 
 
 }

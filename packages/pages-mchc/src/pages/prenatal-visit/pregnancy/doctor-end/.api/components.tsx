@@ -35,14 +35,6 @@ export default {
   getImageExamImportTree: (pregnancyId: TIdTypeCompatible) =>
     request.get(`/api/getImageExamImportTree?pregnancyId=${pregnancyId}`).then(r => r.data),
 
-  /** 获取梅毒管理数据 */
-  getSyphilisManagers: (pregnancyId: TIdTypeCompatible) => request.get(`/api/syphilis-managers?pregnancyId.equals=${pregnancyId}`).then(r => r.data),
-
-  /** 获取梅毒管理数据 */
-  createSyphilisManagers: (data: any) => request.post(`/api/syphilis-managers`, data).then(r => r.data),
-
-  /** 获取梅毒管理数据 */
-  updateSyphilisManagers: (data: any) => request.put(`/api/syphilis-managers`, data).then(r => r.data),
 
   /**获取风险评估表单预处理信息 以前的接口/api/doctor/getPreAssessmentInfo */
   getPreAssessmentInfo: (id: any) => request.get(`/api/doctor/getPreRiskAssessmentInfo?id=${id}`).then(r => r.data),

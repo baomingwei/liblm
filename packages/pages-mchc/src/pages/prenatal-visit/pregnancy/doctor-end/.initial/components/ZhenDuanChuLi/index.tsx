@@ -114,7 +114,8 @@ function Index(props: IProps & IInitial_Tab_props) {
   }
   async function sign() {
     const data = await get_form_data()
-    data && handle_cs_sign(data)
+    await handle_cs_sign(data)
+    initData()
   }
 
   function handleSubmitBefore() {
