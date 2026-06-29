@@ -1,7 +1,7 @@
 import { mchcEnv, mchcEvent, mchcLogger, mchcUtils, TLevelType } from '@lm_fe/env'
 import { IMchc_Doctor_OutpatientHeaderInfo, SMchc_Doctor } from '@lm_fe/service'
-import { EMPTY_PLACEHOLDER, ICommonOption, request, setSearchParamsValue } from '@lm_fe/utils'
-import { Button, ButtonProps, Tooltip, Tag, Space } from 'antd'
+import { EMPTY_PLACEHOLDER, expect_array, ICommonOption, setSearchParamsValue } from '@lm_fe/utils'
+import { Button, ButtonProps, Space, Tag, Tooltip } from 'antd'
 import classnames from 'classnames'
 import { get } from 'lodash'
 import React, { useEffect, useRef, useState } from 'react'
@@ -11,10 +11,9 @@ import { OkButton } from '@lm_fe/components_m'
 import { use_provoke } from '@lm_fe/provoke'
 import { mchcModal__ } from 'src/modals'
 import { safe_navigate } from 'src/utils'
-import { QuestionnaireButton } from '../../../pages/questionnaire'
 import { DoctorEnd_ExemplaryCase } from '../ExemplaryCase/index'
-import { FuckTags } from './FuckTag'
 import { CustomTag } from './CustomTag'
+import { FuckTags } from './FuckTag'
 import styles from './index.module.less'
 import { IHeaderInfoProps } from './types'
 import { use_headinfo_color } from './use_headinfo_color'
@@ -43,7 +42,7 @@ export default function HeaderInfoInner(props: IHeaderInfoProps) {
     const color_conf = use_headinfo_color(highriskLable)
 
     const info_addon = 头部信息拓展 ?? []
-    const caseManages = headerInfo?.caseManages ?? []
+    const caseManages = expect_array(headerInfo?.caseManages).filter(_ => _.code && _.name)
 
     const infectionNoteLabels = handleFuckinginfectionNoteLabel(headerInfo?.infectionNote)
 
