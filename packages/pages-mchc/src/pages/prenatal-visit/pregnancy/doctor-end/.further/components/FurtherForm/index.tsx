@@ -66,7 +66,6 @@ function FurtherForm(props: IProps) {
     } = props
     const { handle_cs_sign, sign_btn_disabled, sign_btn_hidden, sign_btn_text, save_btn_hidden, sign_confirm } = use_doctor_sign('prenatalVisit', formData)
 
-    const [isShowMenzhen, set_isShowMenzhen] = useState(false)
     const [form] = Form.useForm()
 
     const form_id = formData?.id
@@ -204,12 +203,6 @@ function FurtherForm(props: IProps) {
         return handleSubmit(data)
     }
 
-    function closeModal(type: 'isShowMenzhen' | '', items?: any, key?: any) {
-        if (size(items) > 0) setItemValue(items, key)
-        if (type === 'isShowMenzhen') {
-            set_isShowMenzhen(false)
-        }
-    }
 
     function showpdf() {
         mchcModal__.open('print_modal', {
@@ -349,7 +342,6 @@ function FurtherForm(props: IProps) {
                         </OkButton>
                     </Space.Compact>
                 )}
-                {isShowMenzhen && <DiabetesAppointment isShowMenzhen={isShowMenzhen} closeModal={closeModal} />}
             </MyLazyComponent>
         </Card>
     )
