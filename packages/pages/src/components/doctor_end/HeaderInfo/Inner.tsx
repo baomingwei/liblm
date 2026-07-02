@@ -145,6 +145,14 @@ export default function HeaderInfoInner(props: IHeaderInfoProps) {
             })
         }
     }
+    function open艾管理() {
+        const ext = caseManages.find((_) => _.name?.includes('艾滋'))
+        if (ext) {
+            mchcModal__.open('拓展专案', {
+                modal_data: { headerInfo, ...ext },
+            })
+        }
+    }
 
     function open高危因素管理() {
         if (护士端_禁止编辑高危因素_传染病 && isNurse) return
@@ -255,6 +263,9 @@ export default function HeaderInfoInner(props: IHeaderInfoProps) {
                                                 }
                                                 if (_.type === '乙') {
                                                     open乙肝管理()
+                                                }
+                                                if (_.type === '艾') {
+                                                    open艾管理()
                                                 }
                                             }}
                                             style={{
