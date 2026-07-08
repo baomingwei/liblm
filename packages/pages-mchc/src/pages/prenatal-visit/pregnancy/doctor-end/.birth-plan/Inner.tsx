@@ -111,6 +111,9 @@ export default function BirthPlan(props: IDoctorEnd_QQProps) {
                 let option = question.questionOptionList.map((data) => {
                     return { label: data.optionTitle, value: data.optionIndex }
                 })
+                option.sort((a, b) => {
+                    return a.value - b.value
+                })
                 arr.push({
                     name: question.id,
                     label: question.questionTitle,
@@ -127,6 +130,9 @@ export default function BirthPlan(props: IDoctorEnd_QQProps) {
             if (labelType == '多选题') {
                 let option = question.questionOptionList.map((data) => {
                     return { label: data.optionTitle, value: data.optionIndex }
+                })
+                option.sort((a, b) => {
+                    return a.value - b.value
                 })
                 arr.push({
                     name: question.id,
