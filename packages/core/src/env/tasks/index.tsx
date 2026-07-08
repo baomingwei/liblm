@@ -20,7 +20,8 @@ export function use_task(disabled = false) {
     }, [])
     function fetch_user_info() {
         const in_login_page = location.pathname.includes('/login')
-        if (!mchcEnv.is_single)
+        // 需要支持 sp=1
+        if (!mchcEnv.isSp)
             fetch_user()
                 .then(() => {
                     if (in_login_page)
