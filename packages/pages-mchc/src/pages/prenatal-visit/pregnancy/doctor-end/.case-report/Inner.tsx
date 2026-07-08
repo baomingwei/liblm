@@ -47,7 +47,7 @@ class CaseReport extends Component<ICaseReport, any> {
   };
 
   handleDelete = (item) => async () => {
-    await request.delete(`/api/ic/delete/${get(item, 'id')}`);
+    await request.delete(`/api/ic/delete/${get(item, 'id')}`, { successText: '操作成功' });
     this.newInitData();
     this.setState({
       template: null,

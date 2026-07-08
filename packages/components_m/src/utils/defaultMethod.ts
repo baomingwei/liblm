@@ -80,7 +80,7 @@ export const createResources = async (url: string, data: any) => {
  * @param data 修改数据，必须包含主键ID
  */
 export const updateResources = async (url: string, data: any) => {
-  return (await request.put(url, data)).data;
+  return (await request.put(url, data, { successText: '操作成功' })).data;
 };
 
 /**
@@ -89,7 +89,7 @@ export const updateResources = async (url: string, data: any) => {
  * @param id 主键
  */
 export const deleteResourcesByID = async (url: string, id: any) => {
-  return (await request.delete(`${url}/${id}`)).data;
+  return (await request.delete(`${url}/${id}`, { successText: '操作成功' })).data;
 };
 
 /**

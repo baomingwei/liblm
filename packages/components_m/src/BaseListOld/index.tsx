@@ -174,7 +174,7 @@ export default class BaseListOld extends React.Component<IProps, IState> {
   componentDidMount() {
     const { showQuery } = this.props;
     this._request = this.props.request ?? request
-    mchcEnv.warning('BaseListOld 已废弃，请使用联系管理员升级');
+    // mchcEnv.warning('BaseListOld 已废弃，请使用联系管理员升级');
     if (!showQuery) {
       console.log({ query: this.state.defaultQuery, staticDefaultQuery: this.staticDefaultQuery });
       this.handleSearch();
