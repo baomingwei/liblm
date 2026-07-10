@@ -12,7 +12,7 @@ import './index.less';
 import ManagementPlan from './management-plan';
 import PrenatalTree from './prenatal-tree';
 import SurveyList from './survey-list';
-
+import WeightGainWarningTips from "./WeightGainWarningTips"
 interface IProps {
   visitsData?: IMchc_Doctor_RvisitInfoOfOutpatient
   headerInfo: IMchc_Doctor_OutpatientHeaderInfo
@@ -62,7 +62,7 @@ export default function FurtherSidebar(props: IProps) {
     gestationalWeek: any
     remind: any
   }[]>([])
-  const [collapseActiveKey, set_collapseActiveKey] = useState(['1', '2', '4'])
+  const [collapseActiveKey, set_collapseActiveKey] = useState(['1', '2', '4', '5'])
 
   useEffect(() => {
 
@@ -155,6 +155,17 @@ export default function FurtherSidebar(props: IProps) {
 
                     page="return"
                   />
+                </Collapse.Panel>
+
+                <Collapse.Panel
+                  header={
+                    <span >
+                      预警提醒
+                    </span>
+                  }
+                  key="5"
+                >
+                  <WeightGainWarningTips visitsData={visitsData} />
                 </Collapse.Panel>
 
                 <Collapse.Panel
